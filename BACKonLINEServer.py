@@ -2,16 +2,36 @@ import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
 import sqlite3
 
-DATABASE = 'BACKonLINE.sql'
+DATABASE = 'database.db'
+
 
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+counter = 1
+
 
 @app.route("/Questions", methods = ['POST','GET'])
-def studentAddDetails():
+def questions():
+
 	if request.method =='GET':
-		return render_template('Questions.html')
+		global counter
+		try:
+			conn = sqlite3.connect(DATABASE)
+			cur = conn.cursor()
+			cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;",[counter])
+			data = cur.fetchall()
+			conn.close()
+		except:
+			print('there was an error', data)
+			conn.close()
+		finally:
+			data = str(data)[3:-4]
+			conn.close()
+
+			counter+=1
+			return render_template('Questions.html', data = data)
+
 	if request.method =='POST':
 		OptionID = request.form.get('OptionID', default="Error")#rem: args for get form for post
 		QuestionID = request.form.get('QuestionID', default="Error")
@@ -70,8 +90,7 @@ def login():
 def checkCredentials(uName, pw):
     return pw == 'ian'
 
+
+#This is important it allows the server to run don't delete
 if __name__ == "__main__":
     app.run(debug=True)
-
-# =======================================================================
-#      the db creation methods
