@@ -8,10 +8,22 @@ app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
+@app.route("/Questions")
+def questions():
+    return render_template('questions.html')
+
+@app.route("/Login")
+def login():
+    return render_template('index.html')
+
+#---------------------------------------------------------------#
+#Ian's code below to be deleted but usefull as reference for now#
+#---------------------------------------------------------------#
 @app.route("/Admin")
 def admin():
     username = request.cookies.get('username')
     return render_template('Admin.html', msg = '', username = username)
+
 
 @app.route("/Customer")
 def customer():
@@ -47,33 +59,33 @@ def customerAddDetails():
 # Sessions
 
 # Cookies login
-@app.route("/Login", methods = ['GET','POST'])
-def login():
-    if request.method=='POST':
-        uName = request.form.get('username', default="Error")
-        pw = request.form.get('password', default="Error")
-        if checkCredentials(uName, pw):
-            resp = make_response(render_template('Customer.html', msg='hello '+uName, username = uName))
-            resp.set_cookie('username', uName)
-            if uName=="Ian":
-                user_type = "admin"
-                resp.set_cookie('username', uName, 'user-type', user_type)
-            else:
-                user_type = "customer"
-                resp.set_cookie('username', uName, 'user-type', user_type)
-        else:
-            resp = make_response(render_template('Customer.html', msg='Incorrect  login',username='Guest'))
-        return resp
-    else:  # if it is a GET
-        username = request.cookies.get('username')
-        return render_template('Login.html', msg='', username = username)
-
-    if uName=="Ian":
-        user_type = "admin"
-        resp.set_cookie('username', uName, 'user-type', user_type)
-    else:
-        user_type = "customer"
-        resp.set_cookie('username', uName, 'user-type', user_type)
+# @app.route("/Login", methods = ['GET','POST'])
+# def login():
+#     if request.method=='POST':
+#         uName = request.form.get('username', default="Error")
+#         pw = request.form.get('password', default="Error")
+#         if checkCredentials(uName, pw):
+#             resp = make_response(render_template('Customer.html', msg='hello '+uName, username = uName))
+#             resp.set_cookie('username', uName)
+#             if uName=="Ian":
+#                 user_type = "admin"
+#                 resp.set_cookie('username', uName, 'user-type', user_type)
+#             else:
+#                 user_type = "customer"
+#                 resp.set_cookie('username', uName, 'user-type', user_type)
+#         else:
+#             resp = make_response(render_template('Customer.html', msg='Incorrect  login',username='Guest'))
+#         return resp
+#     else:  # if it is a GET
+#         username = request.cookies.get('username')
+#         return render_template('Login.html', msg='', username = username)
+#
+#     if uName=="Ian":
+#         user_type = "admin"
+#         resp.set_cookie('username', uName, 'user-type', user_type)
+#     else:
+#         user_type = "customer"
+#         resp.set_cookie('username', uName, 'user-type', user_type)
 
 
 # Cookie sessions
