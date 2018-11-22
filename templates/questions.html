@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>BACKonLINE&trade;</title>
   <link rel="stylesheet" type="text/css" href="static/css/questions.css">
 </head>
 
 <body>
 
-<h1>Question goes here</h1>
-<form>
+<h1>{{data}}</h1>
+<form action="/Questions" method="get">
   <input class= "a" type="checkbox" name="R1" value="Response1">Response 1<br>
   <input class= "a" type="checkbox" name="R2" value="Response2">Response 2<br>
   <input class= "a" type="checkbox" name="R3" value="Response3">Response 3<br><br>
   <input class= "a" type="submit" value="Next">
 </form>
-
+<script type="text/javascript" src="static/js/questions.js"></script>
 </body>
 </html>

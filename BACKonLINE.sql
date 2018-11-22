@@ -9,6 +9,22 @@ CREATE TABLE IF NOT EXISTS `Questions` (
 	`QuestionID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`QuestionText`	TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `Patient` (
+	`PatientID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`surname`	TEXT NOT NULL,
+	`first name`	TEXT NOT NULL,
+	`dob`	INTEGER NOT NULL,
+	`email`	TEXT NOT NULL,
+	`gender`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `Options` (
+	`QuestionID`	INTEGER NOT NULL,
+	`OptionID`	INTEGER NOT NULL,
+	`OptionText`	TEXT NOT NULL,
+	`Score`	INTEGER,
+	PRIMARY KEY(`OptionID`)
+);
 INSERT INTO `Questions` (QuestionID,QuestionText) VALUES (1,'Do you know what caused your current back pain?'),
  (2,'If yes, choose an option from the list below:'),
  (3,'What do you think is wrong with your back?'),
@@ -57,21 +73,7 @@ eases it ‘
 '),
  (38,' ‘I don’t think my family and friends understand what I’m going through with my back pain.’'),
  (39,'‘I don’t think my back pain will ever go away.’');
-CREATE TABLE IF NOT EXISTS `Patient` (
-	`PatientID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`surname`	TEXT NOT NULL,
-	`first name`	TEXT NOT NULL,
-	`dob`	INTEGER NOT NULL,
-	`email`	TEXT NOT NULL,
-	`gender`	TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS `Options` (
-	`QuestionID`	INTEGER NOT NULL,
-	`OptionID`	INTEGER NOT NULL,
-	`OptionText`	TEXT NOT NULL,
-	`Score`	INTEGER,
-	PRIMARY KEY(`OptionID`)
-);
+
 INSERT INTO `Options` (QuestionID,OptionID,OptionText,Score) VALUES (1,1,'Yes',0),
  (1,2,'No',2),
  (1,3,'Not Sure',1),

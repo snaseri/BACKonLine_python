@@ -8,6 +8,7 @@ function togglePass() {
   (pwd.type == 'password') ? pwd.type='text' : pwd.type='password';
 }
 
+
 $('#age').keyup(function() {
   $('#age').val(this.value.match(/^[0-9]{1,3}$/));
 });
