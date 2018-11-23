@@ -7,64 +7,55 @@ DATABASE = 'BackonLine.db'
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
+counter = 1
 @app.route("/Questions", methods = ['POST','GET'])
 def questions():
-
     if request.method == 'GET':
+        try:
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;",[1])
+            qdata = cur.fetchall()
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=?;", [1])
+            odata = cur.fetchall()
+            conn.close()
+        except:
+            print('There was an error', odata)
+            conn.close()
+        finally:
+            qdata = str(qdata)[3:-4]
+            formatted = []
+            for i in odata:
+                 x = str(i)[2:-3]
+                 formatted.append(x)
+            conn.close()
+            return render_template('questions.html', qdata=qdata, odata = formatted)
+    if request.method == 'POST':
         global counter
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;",[counter])
-            data = cur.fetchall()
+            qdata = cur.fetchall()
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=?;", [counter])
+            odata = cur.fetchall()
             conn.close()
         except:
-            print('There was an error', data)
+            print('There was an error', odata)
             conn.close()
         finally:
-            data = str(data)[3:-4]
+            qdata = str(qdata)[3:-4]
+            formatted = []
+            for i in odata:
+                 x = str(i)[2:-3]
+                 formatted.append(x)
+            counter +=1
             conn.close()
-            counter+=1
-            return render_template('Questions.html', data=data)
+            return render_template('questions.html', qdata=qdata, odata = formatted)
 
-    if request.method =='POST':
-        OptionID = request.form.get('OptionID', default="Error")#rem: args for get form for post
-        QuestionID = request.form.get('QuestionID', default="Error")
-#       PatientID = request.form.get('PatientID', default="Error" to be added after login made
-        print("inserting student"+OptionID)
-        try:
-            conn = sqlite3.connect(DATABASE)
-            cur = conn.cursor()
-            cur.execute("INSERT INTO Response ('OptionID',)\
-                        VALUES (?,?)",(OptionID, QuestionID) ) #Patient ID to be added
-            conn.commit()
-            msg = "Response successfully stored"
-        except:
-            conn.rollback()
-            msg = "Error in insert operation"
-        finally:
-            conn.close()
-            return msg
 
-def studentAddDetails():
-	if request.method =='GET':
-		try:
-			questionid = '1'#request.form.get('name', default="Error") #rem: args for get form for post
-			conn = sqlite3.connect(DATABASE)
-			cur = conn.cursor()
-			# cur.execute("SELECT * FROM Students WHERE surname=? AND public = 'True';", [surname])
-			#AND  public = 'True'
-			cur.execute("SELECT * FROM Options WHERE QuestionID=? ;", [questionid])
-			data = cur.fetchall()
-			print(data)
-		except:
-			print('there was an error', data)
-			conn.close()
-		finally:
-			conn.close()
-			#return str(data)
-			return render_template('Questions.html', data = data)
+
+
 
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
