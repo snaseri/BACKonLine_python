@@ -7,8 +7,40 @@ body {
   font-weight: bold;
 }
 
-form {
+.options {
   color: #0070c0;
+}
+
+.back-button {
+  display: inline-block;
+  position: relative;
+  float: left;
+}
+
+.back-button:focus {
+  outline: none;
+  border: none;
+}
+
+.next-button {
+  display: inline-block;
+  opacity: 0.5;
+  position: relative;
+  float: right;
+}
+
+h1 {
+  min-height: 100px;
+  font-size: 22px;
+  font-weight: 200;
+  margin-bottom: 20px;
+  line-height: 40px;
+  padding: 40px;
+}
+
+.next-button:focus {
+  outline: none;
+  border: none;
 }
 
 /* Slider for Q20 */
