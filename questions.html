@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="static/css/questions.css">
+</head>
+
+<body>
+
+<h1>Question goes here</h1>
+
+{%block mainBlock%}
+
+<table border = 1>
+   {% for row in data %}
+   <!-- A List of tuples so row is each item in the list
+        and then the index is the column number.-->
+      <form>
+  <input class= "a" type="checkbox" name="R1" value="Response1">{{row[2]}}<br>
+</form>
+   {% endfor %}
+</table>
+{%endblock%}
+
+
+</body>
+</html>

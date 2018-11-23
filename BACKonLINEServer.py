@@ -2,12 +2,11 @@ import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
 import sqlite3
 
-DATABASE = 'database.db'
+DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-counter = 1
 
 @app.route("/Questions", methods = ['POST','GET'])
 def questions():
@@ -48,10 +47,24 @@ def questions():
             conn.close()
             return msg
 
-@app.route("/index")
-def customerDetailsForm():
-    username = request.cookies.get('username')
-    return render_template('CustomerData.html', username = username)
+def studentAddDetails():
+	if request.method =='GET':
+		try:
+			questionid = '1'#request.form.get('name', default="Error") #rem: args for get form for post
+			conn = sqlite3.connect(DATABASE)
+			cur = conn.cursor()
+			# cur.execute("SELECT * FROM Students WHERE surname=? AND public = 'True';", [surname])
+			#AND  public = 'True'
+			cur.execute("SELECT * FROM Options WHERE QuestionID=? ;", [questionid])
+			data = cur.fetchall()
+			print(data)
+		except:
+			print('there was an error', data)
+			conn.close()
+		finally:
+			conn.close()
+			#return str(data)
+			return render_template('Questions.html', data = data)
 
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
@@ -82,10 +95,8 @@ def login():
         username = request.cookies.get('username')
         return render_template('index.html', msg='', username=username)
 
-#       methods
 def checkCredentials(uName, pw):
     return pw == 'ian'
 
-#This is important it allows the server to run -- don't delete
 if __name__ == "__main__":
-    app.run(debug=True)
+	app.run(debug=True)

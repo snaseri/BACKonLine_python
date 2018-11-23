@@ -84,7 +84,7 @@ modules.xml
 
 ### Database ###
 *.accdb
-*.db
+#*.db - Commented this out for ability to push database to test servers and get questions and answers to display.
 *.dbf
 *.mdb
 *.pdb
