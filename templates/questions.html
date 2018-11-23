@@ -6,7 +6,7 @@
     <html lang="en-GB">
     <title>BACKonLINE&trade;</title>
     <!-- Include a stylesheet called questions.css -->
-    <link rel="stylesheet" type="text/css" href="/static/css/questions.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/questions.css">
     <!-- Uses Google's Font API to add fonts to the web page -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
     <!-- Uses Font Awesome's CDN to link cached version of Font Awesome with this website   -->
@@ -25,8 +25,15 @@
       {%endfor%}
       <input class="a" type="submit" value="Next">
     </form>
-    {%endfor%}
     {%endblock%}
-    <script type="text/javascript" src="static/js/questions.js"></script>
+
+
+    <!-- Slider for Q20 -->
+    <div class="range-slider">
+      <input class="range-slider-range" type="range" value="—" min="0" max="10" step="1">
+      <span class="range-slider-value">0</span>
+    </div>
+
+    <script type="text/javascript" src="../static/js/questions.js"></script>
   </body>
 </html>

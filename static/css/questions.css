@@ -1,15 +1,70 @@
 body {
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   text-align: center;
-   font-family: Arial;
-   font-weight: bold;
-   
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-weight: bold;
 }
 
 form {
   color: #0070c0;
-
 }
+
+/* Slider for Q20 */
+.range-slider {
+  margin: 60px 0 0 0;
+  width: 100%;
+}
+
+.range-slider-range {
+  -webkit-appearance: none;
+  width: 75%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d7dcdf;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.range-slider-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+}
+
+.range-slider-range:hover {
+  background: #1abc9c;
+}
+
+.range-slider-value {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  background: #2c3e50;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+
+.range-slider-value::after {
+  position: absolute;
+  top: 8px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #2c3e50;
+  border-bottom: 7px solid transparent;
+  content: '';
+}
+
+/* References:
+https://codepen.io/seanstopnik/pen/CeLqA */
