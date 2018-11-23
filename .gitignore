@@ -88,7 +88,7 @@ modules.xml
 *.dbf
 *.mdb
 *.pdb
-#*.sql -Removed this so that we can upload sql files
+#*.sql - Commented this out for ability to push sql file(s).
 *.sqlite3
 
 ### JetBrains+all ###
