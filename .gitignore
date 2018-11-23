@@ -84,7 +84,7 @@ modules.xml
 
 ### Database ###
 *.accdb
-*.db
+#*.db Removed this as database needed to test servers and getting answers and questions to display
 *.dbf
 *.mdb
 *.pdb
