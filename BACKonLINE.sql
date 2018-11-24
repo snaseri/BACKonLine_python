@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Response` (
     FOREIGN KEY(`OptionID`) REFERENCES `Options`(`OptionID`),
     `QuestionID`    INTEGER NOT NULL,
     FOREIGN KEY(`QuestionID`) REFERENCES `Questions`(`QuestionID`),
-    `Score` INTEGER NOT NULL,
+    `Score` INTEGER,
     FOREIGN KEY(`Score`) REFERENCES `Options`(`Score`),
     `Question3Input` TEXT
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `Options` (
     FOREIGN KEY(`QuestionID`) REFERENCES `Questions`(`QuestionID`),
     `OptionID`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     `OptionText`    TEXT NOT NULL,
-    `Score` INTEGER NOT NULL
+    `Score` INTEGER
 );
 
 INSERT INTO `Questions` (QuestionID, QuestionText)
