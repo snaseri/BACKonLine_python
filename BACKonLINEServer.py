@@ -10,6 +10,11 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 counter = 1
 
+@app.route("/", methods = ["GET"])
+def goHome():
+    if request.method == "GET":
+        return render_template("index.html")
+
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
