@@ -2,19 +2,21 @@ import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
 import sqlite3
 
-DATABASE = 'BackonLine.db'
+DATABASE = 'BACKonLINE.db'
 
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 counter = 1
-@app.route("/Questions", methods = ['POST','GET'])
+
+@app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;",[1])
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             qdata = cur.fetchall()
             cur.execute("SELECT OptionText FROM Options WHERE QuestionID=?;", [1])
             odata = cur.fetchall()
@@ -29,13 +31,13 @@ def questions():
                  x = str(i)[2:-3]
                  formatted.append(x)
             conn.close()
-            return render_template('questions.html', qdata=qdata, odata = formatted)
-    if request.method == 'POST':
+            return render_template('questions.html', qdata=qdata, odata=formatted)
+    elif request.method == 'POST':
         global counter
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;",[counter])
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
             qdata = cur.fetchall()
             cur.execute("SELECT OptionText FROM Options WHERE QuestionID=?;", [counter])
             odata = cur.fetchall()
@@ -49,13 +51,9 @@ def questions():
             for i in odata:
                  x = str(i)[2:-3]
                  formatted.append(x)
-            counter +=1
+            counter += 1
             conn.close()
-            return render_template('questions.html', qdata=qdata, odata = formatted)
-
-
-
-
+            return render_template('questions.html', qdata=qdata, odata=formatted)
 
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
@@ -85,9 +83,6 @@ def login():
     else:  # if it is a GET
         username = request.cookies.get('username')
         return render_template('index.html', msg='', username=username)
-
-def checkCredentials(uName, pw):
-    return pw == 'ian'
 
 if __name__ == "__main__":
 	app.run(debug=True)
