@@ -2,7 +2,7 @@ import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
 import sqlite3
 
-DATABASE = 'BACKonLINE.db'
+DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
 
