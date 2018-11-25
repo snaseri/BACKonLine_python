@@ -24,7 +24,6 @@ body {
 
 .next-button {
   display: inline-block;
-  opacity: 0.5;
   position: relative;
   float: right;
 }
