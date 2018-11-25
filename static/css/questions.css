@@ -11,6 +11,17 @@ body {
   color: #0070c0;
 }
 
+.next-button {
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+
+.next-button:focus {
+  outline: none;
+  border: none;
+}
+
 .back-button {
   display: inline-block;
   position: relative;
@@ -22,12 +33,6 @@ body {
   border: none;
 }
 
-.next-button {
-  display: inline-block;
-  position: relative;
-  float: right;
-}
-
 h1 {
   min-height: 100px;
   font-size: 22px;
@@ -35,11 +40,6 @@ h1 {
   margin-bottom: 20px;
   line-height: 40px;
   padding: 40px;
-}
-
-.next-button:focus {
-  outline: none;
-  border: none;
 }
 
 /* Slider for Q20 */

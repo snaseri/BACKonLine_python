@@ -23,21 +23,21 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             qdata = cur.fetchall()
-            #Getting all the different option types with different variable names
-            #Getting radiobox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Radiobox' ;", [1])
+            # Getting all different option types with different variable names.
+            # Getting radiobox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Radiobox';", [1])
             rodata = cur.fetchall()
             conn.close()
-            #Getting tickbox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Tickbox' ;", [1])
+            # Getting tickbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Tickbox';", [1])
             todata = cur.fetchall()
             conn.close()
-            #Getting textbox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Textbox' ;", [1])
+            # Getting textbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Textbox';", [1])
             textodata = cur.fetchall()
             conn.close()
-            #Getting sliders options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Slider' ;", [1])
+            # Getting sliders options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Slider';", [1])
             sodata = cur.fetchall()
             conn.close()
         except:
@@ -70,21 +70,21 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
             qdata = cur.fetchall()
-            #Getting all the different option types with different variable names
-            #Getting radiobox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Radiobox' ;", [counter])
+            # Getting all different option types with different variable names.
+            # Getting radiobox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Radiobox';", [counter])
             rodata = cur.fetchall()
             conn.close()
-            #Getting tickbox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Tickbox' ;", [counter])
+            # Getting tickbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Tickbox';", [counter])
             todata = cur.fetchall()
             conn.close()
-            #Getting textbox options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Textbox' ;", [counter])
+            # Getting textbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Textbox';", [counter])
             textodata = cur.fetchall()
             conn.close()
-            #Getting sliders options
-            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType = 'Slider' ;", [counter])
+            # Getting sliders options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Slider';", [counter])
             sodata = cur.fetchall()
             conn.close()
         except:
@@ -97,25 +97,20 @@ def questions():
             Textformatted = []
             Sformatted = []
             for i in rodata:
-                 x = str(i)[2:-3]
-                 Rformatted.append(x)
+                x = str(i)[2:-3]
+                Rformatted.append(x)
             for i in todata:
-                 x = str(i)[2:-3]
-                 Tformatted.append(x)
+                x = str(i)[2:-3]
+                Tformatted.append(x)
             for i in todata:
-                 x = str(i)[2:-3]
-                 Textformatted.append(x)
+                x = str(i)[2:-3]
+                Textformatted.append(x)
             for i in sodata:
-                 x = str(i)[2:-3]
-                 Sformatted.append(x)
+                x = str(i)[2:-3]
+                Sformatted.append(x)
             conn.close()
             return render_template('questions.html', qdata=qdata, rodata=Rformatted, todata=Tformatted, textodata=Textformatted, sodata=Sformatted)
             counter += 1
-
-@app.route("/index", methods = ['POST'])
-def customerAddDetails():
-    if request.method =='GET':
-        return render_template('index.html')
 
 # =======================================================================
 # Sessions
