@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <html lang="en-GB">
-    <title>BACKonLINE&trade;</title>
-    <!-- Include a stylesheet called index.css -->
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
-    <!-- Uses Google's Font API to add fonts to the web page -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-    <!-- Uses Font Awesome's CDN to link cached version of Font Awesome with this website   -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <!-- Link jQuery library to the web page -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.23/css/uikit.min.css">
-  </head>
+{%extends 'generalPageStyled.html'%}
+
+{%block mainBlock%}
+<title>BACKonLINE&trade;</title>
+<!-- Include a stylesheet called index.css -->
+<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+
   <body>
     <header>
       <a href="https://www.cardiff.ac.uk" target="_blank">
@@ -31,15 +20,15 @@
       <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign in</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign up</label>
-        <form id="login-form" name="login-form" class="login-form" action="/" method="post">
+        <form id="login-form" name="login-form" class="login-form" action="/Login" method="post">
           <div class="sign-in-htm">
             <div class="group">
               <label for="email-address" class="label">Email address</label>
-              <input type="email" id="email-address">
+              <input type="email" id="email-address" name="username">
             </div>
             <div class="group">
               <label for="password" class="label">Password</label>
-              <input type="password" id="password">
+              <input type="password" id="password" name="password">
               <i class="fas fa-eye eye-icon" id="eye"></i>
             </div>
             <div class="group">
@@ -84,6 +73,8 @@
         </form>
       </div>
     </div>
+
+    {%endblock%}
     <script type="text/javascript" src="../static/js/index.js"></script>
   </body>
 </html>
