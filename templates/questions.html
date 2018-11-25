@@ -31,8 +31,9 @@
 
 
 
-    <h1>{{qdata}}</h1>
+
     <form action="/Questions" method="post">
+      <h1>{{qdata}}</h1>
       {%for row in rodata%}
         {%if row[1] == "Radiobox"%}
           <div class="options">
