@@ -3,7 +3,7 @@ var rangeSlider = function() {
   var slider = $('.range-slider');
   var range = $('.range-slider-range');
   var value = $('.range-slider-value');
-    
+
   slider.each(function() {
     value.each(function() {
       var value = $(this).prev().attr('value');
@@ -15,5 +15,7 @@ var rangeSlider = function() {
     });
   });
 };
+
+
 
 rangeSlider();

@@ -50,7 +50,6 @@ def questions():
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
             rodata = cur.fetchall()
             conn.close()
-
         except:
             print('There was an error', odata)
             conn.close()

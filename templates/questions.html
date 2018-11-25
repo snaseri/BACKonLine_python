@@ -24,8 +24,8 @@
       {%for row in rodata%}
           {%if row[1] == "Radiobox" %}
             <div class="options">
-              <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-              <input type="radio" id="option-text-{{loop.index}}" name="option-text">
+              <label for="option-text-{{loop.index}}" class = "test">{{row[0]}}</label>
+              <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class = "test2">
             </div>
           {%endif%}
           {%if row[1] == "Tickbox" %}
@@ -36,26 +36,24 @@
           {%endif%}
           {%if row[1] == "Textbox" %}
             <div class="options">
-              <p>textbox</p>
+              <textarea rows="5" cols="55">Enter your text here</textarea>
             </div>
           {%endif%}
-          {%if row[1] == "Sliders" %}
+          {%if row[1] == "Slider" %}
             <div class="options">
-              <p>slider</p>
+              <!-- Slider for Q20 -->
+              <div class="range-slider">
+                <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+                <span class="range-slider-value">0</span>
+              </div>
             </div>
           {%endif%}
       {%endfor%}
-
-      <button class="back-button">Back</button>
+      <button onclick="lastPage()" class="back-button">Back</button>
       <button class="next-button">Next</button>
     </form>
     {%endblock%}
 
-    <!-- Slider for Q20 -->
-    <div class="range-slider">
-      <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
-      <span class="range-slider-value">0</span>
-    </div>
 
     <script type="text/javascript" src="../static/js/questions.js"></script>
   </body>
