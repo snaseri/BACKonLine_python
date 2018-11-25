@@ -22,7 +22,6 @@ def homepage():
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
-
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -46,7 +45,6 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
             qdata = cur.fetchall()
-
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
             rodata = cur.fetchall()
             conn.close()
@@ -59,22 +57,18 @@ def questions():
             counter += 1
             return render_template('questions.html', qdata=qdata, rodata=rodata)
 
-
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
     if request.method =='GET':
         return render_template('index.html')
 
-# =======================================================================
-# Sessions
-
 # Cookies login
 @app.route("/Login", methods = ['GET','POST'])
 def login():
-    if request.method=='POST':
+    if request.method == 'POST':
         uName = request.form.get('username', default="Error")
         if checkCredentials(uName, pw):
-            resp = make_response(render_template('Customer.html', msg='hello '+uName, username=uName))
+            resp = make_response(render_template('Customer.html', msg='Hello '+uName, username=uName))
             resp.set_cookie('username', uName)
             if uName=="Ian":
                 user_type = "admin"
@@ -83,9 +77,9 @@ def login():
                 user_type = "customer"
                 resp.set_cookie('username', uName, 'user-type', user_type)
         else:
-            resp = make_response(render_template('Customer.html', msg='Incorrect  login',username='Guest'))
+            resp = make_response(render_template('Customer.html', msg='Incorrect login', username='Guest'))
         return resp
-    else:  # if it is a GET
+    else:
         username = request.cookies.get('username')
         return render_template('index.html', msg='', username=username)
 
