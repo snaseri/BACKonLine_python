@@ -9,10 +9,6 @@ app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 counter = 1
-Rrun = True
-Trun = False
-Textrun = False
-Srun = False
 
 @app.route("/", methods = ['GET'])
 def homepage():
@@ -22,23 +18,51 @@ def homepage():
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
-
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             qdata = cur.fetchall()
-
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [1])
+            # Getting all different option types with different variable names.
+            # Getting radiobox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Radiobox';", [1])
             rodata = cur.fetchall()
+            conn.close()
+            # Getting tickbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Tickbox';", [1])
+            todata = cur.fetchall()
+            conn.close()
+            # Getting textbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Textbox';", [1])
+            textodata = cur.fetchall()
+            conn.close()
+            # Getting sliders options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND QuestionType='Slider';", [1])
+            sodata = cur.fetchall()
             conn.close()
         except:
             print('There was an error', odata)
             conn.close()
         finally:
             qdata = str(qdata)[3:-4]
+            Rformatted = []
+            Tformatted = []
+            Textformatted = []
+            Sformatted = []
+            for i in rodata:
+                 x = str(i)[2:-3]
+                 Rformatted.append(x)
+            for i in todata:
+                 x = str(i)[2:-3]
+                 Tformatted.append(x)
+            for i in todata:
+                 x = str(i)[2:-3]
+                 Textformatted.append(x)
+            for i in sodata:
+                 x = str(i)[2:-3]
+                 Sformatted.append(x)
             conn.close()
-            return render_template('questions.html', qdata=qdata, rodata=rodata)
+            return render_template('questions.html', qdata=qdata, rodata=Rformatted, todata=Tformatted, textodata=Textformatted, sodata=Sformatted)
     elif request.method == 'POST':
         global counter
         try:
@@ -46,25 +70,47 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
             qdata = cur.fetchall()
-
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
+            # Getting all different option types with different variable names.
+            # Getting radiobox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Radiobox';", [counter])
             rodata = cur.fetchall()
             conn.close()
-
+            # Getting tickbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Tickbox';", [counter])
+            todata = cur.fetchall()
+            conn.close()
+            # Getting textbox options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Textbox';", [counter])
+            textodata = cur.fetchall()
+            conn.close()
+            # Getting sliders options.
+            cur.execute("SELECT OptionText FROM Options WHERE QuestionID=? AND  QuestionType='Slider';", [counter])
+            sodata = cur.fetchall()
+            conn.close()
         except:
             print('There was an error', odata)
             conn.close()
         finally:
             qdata = str(qdata)[3:-4]
+            Rformatted = []
+            Tformatted = []
+            Textformatted = []
+            Sformatted = []
+            for i in rodata:
+                x = str(i)[2:-3]
+                Rformatted.append(x)
+            for i in todata:
+                x = str(i)[2:-3]
+                Tformatted.append(x)
+            for i in todata:
+                x = str(i)[2:-3]
+                Textformatted.append(x)
+            for i in sodata:
+                x = str(i)[2:-3]
+                Sformatted.append(x)
             conn.close()
+            return render_template('questions.html', qdata=qdata, rodata=Rformatted, todata=Tformatted, textodata=Textformatted, sodata=Sformatted)
             counter += 1
-            return render_template('questions.html', qdata=qdata, rodata=rodata)
-
-
-@app.route("/index", methods = ['POST'])
-def customerAddDetails():
-    if request.method =='GET':
-        return render_template('index.html')
 
 # =======================================================================
 # Sessions
