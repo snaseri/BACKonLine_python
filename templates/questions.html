@@ -35,7 +35,7 @@
         {%endif%}
         {%if row[1] == "Textbox"%}
           <div class="options">
-            <textarea rows="5" cols="55">Enter your text here</textarea>
+            <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
           </div>
         {%endif%}
         {%if row[1] == "Slider"%}
@@ -51,7 +51,6 @@
       <button class="next-button">Next</button>
     </form>
     {%endblock%}
-
     <script type="text/javascript" src="../static/js/questions.js"></script>
   </body>
 </html>
