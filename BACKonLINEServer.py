@@ -22,7 +22,6 @@ Srun = False
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
-
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -46,7 +45,6 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
             qdata = cur.fetchall()
-
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
             rodata = cur.fetchall()
             conn.close()
@@ -59,14 +57,10 @@ def questions():
             counter += 1
             return render_template('questions.html', qdata=qdata, rodata=rodata)
 
-
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
     if request.method =='GET':
         return render_template('index.html')
-
-# =======================================================================
-# Sessions
 
 # Cookies login
 app.secret_key = 'fj590Rt?h40gg'
@@ -96,7 +90,6 @@ def login():
 #       methods
 def checkCredentials(uName, pw):
     return pw == 'admin'
-
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -33,39 +33,36 @@
 
     <h1>{{qdata}}</h1>
     <form action="/Questions" method="post">
-
       {%for row in rodata%}
-          {%if row[1] == "Radiobox" %}
-            <div class="options">
-              <label for="option-text-{{loop.index}}" class = "test">{{row[0]}}</label>
-              <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class = "test2">
+        {%if row[1] == "Radiobox"%}
+          <div class="options">
+            <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
+            <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+          </div>
+        {%endif%}
+        {%if row[1] == "Tickbox"%}
+          <div class="options">
+            <label for="option-text-{{loop.index}}">{{row[0]}}</label>
+            <input type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+          </div>
+        {%endif%}
+        {%if row[1] == "Textbox"%}
+          <div class="options">
+            <textarea rows="5" cols="55">Enter your text here</textarea>
+          </div>
+        {%endif%}
+        {%if row[1] == "Slider"%}
+          <div class="options">
+            <div class="range-slider">
+              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+              <span class="range-slider-value">0</span>
             </div>
-          {%endif%}
-          {%if row[1] == "Tickbox" %}
-            <div class="options">
-              <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-              <input type="checkbox" id="option-text-{{loop.index}}" name="option-text">
-            </div>
-          {%endif%}
-          {%if row[1] == "Textbox" %}
-            <div class="options">
-              <textarea rows="5" cols="55">Enter your text here</textarea>
-            </div>
-          {%endif%}
-          {%if row[1] == "Slider" %}
-            <div class="options">
-              <!-- Slider for Q20 -->
-              <div class="range-slider">
-                <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
-                <span class="range-slider-value">0</span>
-              </div>
-            </div>
-          {%endif%}
+          </div>
+        {%endif%}
       {%endfor%}
       <button onclick="lastPage()" class="back-button">Back</button>
       <button class="next-button">Next</button>
     </form>
-
 
 
     <script type="text/javascript" src="../static/js/questions.js"></script>

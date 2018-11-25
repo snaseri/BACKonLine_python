@@ -1,4 +1,3 @@
-// Slider for Q20
 var rangeSlider = function() {
   var slider = $('.range-slider');
   var range = $('.range-slider-range');
@@ -15,7 +14,5 @@ var rangeSlider = function() {
     });
   });
 };
-
-
 
 rangeSlider();
