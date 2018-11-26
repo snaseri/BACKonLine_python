@@ -8,13 +8,9 @@ CREATE TABLE IF NOT EXISTS `Questions` (
 CREATE TABLE IF NOT EXISTS `Response` (
     `ResponseID`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     `PatientID` INTEGER NOT NULL,
-    FOREIGN KEY(`PatientID`) REFERENCES `Patient`(`PatientID`),
     `OptionID`  INTEGER NOT NULL,
-    FOREIGN KEY(`OptionID`) REFERENCES `Options`(`OptionID`),
     `QuestionID`    INTEGER NOT NULL,
-    FOREIGN KEY(`QuestionID`) REFERENCES `Questions`(`QuestionID`),
     `Score` INTEGER,
-    FOREIGN KEY(`Score`) REFERENCES `Options`(`Score`),
     `Question3Input` TEXT
 );
 
@@ -29,7 +25,6 @@ CREATE TABLE IF NOT EXISTS `Patient` (
 
 CREATE TABLE IF NOT EXISTS `Options` (
     `QuestionID`    INTEGER NOT NULL,
-    FOREIGN KEY(`QuestionID`) REFERENCES `Questions`(`QuestionID`),
     `OptionID`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     `OptionText`    TEXT NOT NULL,
     `Score` INTEGER,
