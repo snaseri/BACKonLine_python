@@ -38,12 +38,22 @@ h1 {
   margin-bottom: 20px;
   line-height: 40px;
   padding: 40px;
+  font-weight: bold;
+}
+h2{
+  min-height: 100px;
+  font-size: 22px;
+  font-weight: 200;
+  margin-bottom: 20px;
+  line-height: 40px;
+  padding: 40px;
+
 }
 
 .options textarea {
   outline: none;
   color: #0070c0;
-  max-width: 80%; 
+  max-width: 80%;
   max-height: 120px;
 }
 
