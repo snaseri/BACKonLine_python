@@ -25,12 +25,19 @@ body {
   border: none;
 }
 
+.back-button,
+.next-button {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
 h1 {
   text-align: center;
   position: relative;
   font-size: 22px;
   font-weight: 200;
   font-weight: bold;
+  margin-top: -15%;
 }
 
 h2 {
@@ -48,7 +55,6 @@ h2 {
   margin-bottom: 15px;
   border-bottom: 1px solid rgba(33,33,33,0.15);
   border-radius: 0px 0px 15px 15px;
-  padding-left: 10px;
   text-align: center;
 }
 
@@ -66,9 +72,6 @@ h2 {
 
 .uk-radio,
 .uk-checkbox {
-  left: 100%;
-  vertical-align: middle;
-  margin: 2px 4px 0 0;
   cursor: pointer;
 }
 
