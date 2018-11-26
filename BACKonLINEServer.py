@@ -8,23 +8,18 @@ DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
 
-app.config['DEBUGGING'] = True
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'team6clientproject@gmail.com'
-app.config['MAIL_PASSWORD'] = 'password123'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'team6backonline@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'team6backonline@gmail.com'
+app.config['MAIL_PASSWORD'] = 'password123?!'
 
 mail = Mail(app)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 counter = 1
-
-@app.route("/test", methods = ['GET'])
-def test():
-    return render_template('test2.html',username="foo")
 
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
@@ -72,6 +67,9 @@ def questions():
 
 @app.route("/index", methods = ['GET'])
 def homepage():
+    msg = Message("Form submission", recipients=["patient-email@here.com"])
+    msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
+    mail.send(msg)
     if request.method =='GET':
         return render_template('index.html')
 
@@ -80,24 +78,21 @@ def welcomepage():
     if request.method =='GET':
         return render_template('welcome.html')
 
-# @app.route("/Personaldata", methods = ['GET'])
-# def persdatapage():
+# IN PROGRESS DON'T DELETE
+# @app.route("/PersonalData", methods = ['GET'])
+# def personal_data_page():
 #     if checkCredentials(email):
 #         if request.method == 'GET':
 #             try:
 #                 conn = sqlite3.connect(DATABASE)
 #                 cur = conn.cursor()
-#                 # email =
-#                 cur.execute("SELECT name,gender,age,email FROM Patient WHERE email=?;", [email])
-#                 resp = make_response(render_template('Personal_Data.html', msg='name: '+name+ ' age: '+age+ 'gender: '+gender+ 'email: '+email, username=email))
+#                 email = cur.execute("SELECT name,gender,age,email FROM Patient WHERE email=?;", [email])
+#                 resp = make_response(render_template('Personal_Data.html', msg='name: ' + name + ' age: ' + age + 'gender: ' + gender + 'email: ' + email, username=email))
 #             except:
 #                 conn.rollback()
-#                 print("error in insert operation")
-#             resp = make_response(render_template('Personal_Data.html', msg='Personal data could not been load', username=email))
+#                 print("Error in insert operation")
+#             resp = make_response(render_template('Personal_Data.html', msg='Personal data could not load', username=email))
 #          return resp
- #IN PROGRESS DON'T DELETE
-# Cookies login
-app.secret_key = 'fj590Rt?h40gg'
 
 # Cookie sessions
 @app.route("/Login", methods = ['GET', 'POST'])
@@ -115,9 +110,9 @@ def login():
         if sign_name == "":
             print("Logging in")
             if checkCredentials(login_email, login_password):
-                resp = make_response(render_template('welcome.html', msg='Hello '+login_email+reminder, username=login_email))
+                resp = make_response(render_template('welcome.html', msg='Hello ' + login_email + reminder, username=login_email))
             else:
-                resp = make_response(render_template('index.html', msg='', login_email = login_email, error="Incorect login"))
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
         if sign_name != "":
             print("Signing in")
             try:

@@ -1,43 +1,43 @@
-{%extends 'navbar.html'%}
-{%block mainBlock%}
-{{super()}}
-<link href="../static/css/questions.css" rel="stylesheet">
-<form action="/Questions" method="post">
-  <h2>{{section_text}}</h2>
-  <h1>{{question_text}}</h1>
-  {%for row in option_data%}
-    {%if row[1] == "Radiobox"%}
-      <div class="options">
-        <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
-        <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
-        <div class="check"></div>
-      </div>
-    {%endif%}
-    {%if row[1] == "Tickbox"%}
-      <div class="options">
-        <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-        <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
-      </div>
-    {%endif%}
-    {%if row[1] == "Textbox"%}
-      <div class="options">
-        <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
-      </div>
-    {%endif%}
-    {%if row[1] == "Slider"%}
-      <div class="options">
-        <div class="range-slider">
-          <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
-          <span class="range-slider-value">0</span>
+{% extends "navbar.html" %}
+{% block mainBlock %}
+  {{super()}}
+  <link href="../static/css/questions.css" rel="stylesheet">
+  <form action="/Questions" method="post">
+    <h2>{{ section_text }}</h2>
+    <h1>{{ question_text }}</h1>
+    {% for row in option_data %}
+      {% if row[1] == "Radiobox" %}
+        <div class="options">
+          <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
+          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+          <div class="check"></div>
         </div>
-      </div>
-    {%endif%}
-  {%endfor%}
-  <button class="back-button uk-button">Back</button>
-  <button class="next-button uk-button">Next</button>
-</form>
-<script type="text/javascript" src="../static/js/questions.js"></script>
-{%endblock%}
+      {% endif %}
+      {% if row[1] == "Tickbox" %}
+        <div class="options">
+          <label for="option-text-{{loop.index}}">{{row[0]}}</label>
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+        </div>
+      {% endif %}
+      {% if row[1] == "Textbox" %}
+        <div class="options">
+          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
+        </div>
+      {% endif %}
+      {% if row[1] == "Slider" %}
+        <div class="options">
+          <div class="range-slider">
+            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+            <span class="range-slider-value">0</span>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <button class="back-button uk-button">Back</button>
+    <button class="next-button uk-button">Next</button>
+  </form>
+  <script type="text/javascript" src="../static/js/questions.js"></script>
+{% endblock %}
 
 <!-- References:
 https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input -->
