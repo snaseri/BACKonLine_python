@@ -3,6 +3,10 @@ body {
   bottom: 10px;
 }
 
+.uk-active {
+  text-transform: none;
+}
+
 .next-button {
   display: inline-block;
   position: relative;
@@ -37,7 +41,7 @@ h1 {
   font-size: 22px;
   font-weight: 200;
   font-weight: bold;
-  margin-top: -15%;
+  margin-top: -10%;
 }
 
 h2 {
