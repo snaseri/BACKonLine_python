@@ -15,5 +15,4 @@ var rangeSlider = function() {
   });
 };
 
-
 rangeSlider();

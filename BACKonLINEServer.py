@@ -1,14 +1,26 @@
 import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
+from flask_mail import Mail, Message
 import sqlite3
 
 DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
 
+app.config['DEBUGGING']= True
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'team6clientproject@gmail.com'
+app.config['MAIL_PASSWORD'] = 'password123'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 counter = 1
+
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
@@ -17,15 +29,15 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             question_text = cur.fetchall()
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [1])
+            cur.execute("SELECT OptionText, QuestionType FROM Options WHERE QuestionID=?;", [1])
             option_data = cur.fetchall()
         except:
             print('There was an error', option_data)
         finally:
             question_text = str(question_text)[3:-4]
-            section_text = "A: Pain Behaviour"
+            section_text = "Section A: Pain Behaviour"
             conn.close()
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text = section_text)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text)
     elif request.method == 'POST':
         global counter
         try:
@@ -39,7 +51,6 @@ def questions():
             print('There was an error', option_data)
         finally:
             question_text = str(question_text)[3:-4]
-            conn.close()
             if (counter < 23) and (counter > 0):
                 section_text = "Section A: Pain Behaviour";
             elif (counter >= 23) and (counter < 29):
@@ -51,10 +62,11 @@ def questions():
             elif (counter >= 40):
                 section_text = "Questionaire done";
             counter += 1
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text = section_text)
+            conn.close()
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text)
 
-@app.route("/index", methods = ['POST'])
-def customerAddDetails():
+@app.route("/index", methods = ['GET'])
+def homepage():
     if request.method =='GET':
         return render_template('index.html')
 
