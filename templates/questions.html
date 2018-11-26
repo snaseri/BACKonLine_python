@@ -1,5 +1,6 @@
-{%extends 'generalPageStyled.html'%}
+{%extends 'navbar.html'%}
 {%block mainBlock%}
+{{super()}}
 <link href="../static/css/questions.css" rel="stylesheet">
 <form action="/Questions" method="post">
   <h2>{{section_text}}</h2>
@@ -35,7 +36,6 @@
   <button class="back-button uk-button">Back</button>
   <button class="next-button uk-button">Next</button>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../static/js/questions.js"></script>
 {%endblock%}
 
