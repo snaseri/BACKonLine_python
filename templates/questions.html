@@ -8,13 +8,14 @@
     {%if row[1] == "Radiobox"%}
       <div class="options">
         <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
-        <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+        <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+        <div class="check"></div>
       </div>
     {%endif%}
     {%if row[1] == "Tickbox"%}
       <div class="options">
         <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-        <input type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+        <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
       </div>
     {%endif%}
     {%if row[1] == "Textbox"%}
@@ -31,8 +32,8 @@
       </div>
     {%endif%}
   {%endfor%}
-  <button class="back-button">Back</button>
-  <button class="next-button">Next</button>
+  <button class="back-button uk-button">Back</button>
+  <button class="next-button uk-button">Next</button>
 </form>
 <script type="text/javascript" src="../static/js/questions.js"></script>
 {%endblock%}

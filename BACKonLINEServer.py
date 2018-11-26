@@ -7,8 +7,8 @@ DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
 
-app.config['DEBUGGING']= True
-app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['DEBUGGING'] = True
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'team6clientproject@gmail.com'
 app.config['MAIL_PASSWORD'] = 'password123'
@@ -82,8 +82,8 @@ def login():
         pw = request.form.get('password', default="Error")
         if checkCredentials(uName, pw):
             resp = make_response(render_template('welcome.html', msg='Hello '+uName+reminder, username=uName))
-            session['username'] = request.form['username']
-            session['Password'] = 'pa55wrd'
+            # session['username'] = request.form['username']
+            # session['Password'] = 'pa55wrd'
         else:
             resp = make_response(render_template('welcome.html', msg='Incorrect login',username='Guest'))
         return resp
