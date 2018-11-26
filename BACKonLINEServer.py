@@ -70,6 +70,12 @@ def homepage():
     if request.method =='GET':
         return render_template('index.html')
 
+@app.route("/Welcome", methods = ['GET'])
+def welcomepage():
+    if request.method =='GET':
+        return render_template('welcome.html')
+
+
 # Cookies login
 app.secret_key = 'fj590Rt?h40gg'
 
