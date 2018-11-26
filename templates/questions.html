@@ -2,8 +2,8 @@
 {%block mainBlock%}
 <link href="../static/css/questions.css" rel="stylesheet">
 <form action="/Questions" method="post">
-  <h1>{{qdata}}</h1>
-  {%for row in rodata%}
+  <h1>{{question_text}}</h1>
+  {%for row in option_data%}
     {%if row[1] == "Radiobox"%}
       <div class="options">
         <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>

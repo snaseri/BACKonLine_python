@@ -9,15 +9,6 @@ app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 counter = 1
-Rrun = True
-Trun = False
-Textrun = False
-Srun = False
-
-# @app.route("/", methods = ['GET'])
-# def homepage():
-#     if request.method == 'GET':
-#         return render_template('index.html')
 
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
@@ -26,36 +17,31 @@ def questions():
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
-            qdata = cur.fetchall()
-
+            question_text = cur.fetchall()
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [1])
-            rodata = cur.fetchall()
-            conn.close()
+            option_data = cur.fetchall()
         except:
-            print('There was an error', odata)
-            conn.close()
+            print('There was an error', option_data)
         finally:
-            qdata = str(qdata)[3:-4]
+            question_text = str(question_text)[3:-4]
             conn.close()
-            return render_template('questions.html', qdata=qdata, rodata=rodata)
+            return render_template('questions.html', question_text=question_text, option_data=option_data)
     elif request.method == 'POST':
         global counter
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
-            qdata = cur.fetchall()
+            question_text = cur.fetchall()
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
-            rodata = cur.fetchall()
-            conn.close()
+            option_data = cur.fetchall()
         except:
-            print('There was an error', odata)
-            conn.close()
+            print('There was an error', option_data)
         finally:
-            qdata = str(qdata)[3:-4]
+            question_text = str(question_text)[3:-4]
             conn.close()
             counter += 1
-            return render_template('questions.html', qdata=qdata, rodata=rodata)
+            return render_template('questions.html', question_text=question_text, option_data=option_data)
 
 @app.route("/index", methods = ['POST'])
 def customerAddDetails():
