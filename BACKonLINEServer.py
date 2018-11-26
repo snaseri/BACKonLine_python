@@ -75,6 +75,22 @@ def welcomepage():
     if request.method =='GET':
         return render_template('welcome.html')
 
+# @app.route("/Personaldata", methods = ['GET'])
+# def persdatapage():
+#     if checkCredentials(email):
+#         if request.method == 'GET':
+#             try:
+#                 conn = sqlite3.connect(DATABASE)
+#                 cur = conn.cursor()
+#                 # email =
+#                 cur.execute("SELECT name,gender,age,email FROM Patient WHERE email=?;", [email])
+#                 resp = make_response(render_template('Personal_Data.html', msg='name: '+name+ ' age: '+age+ 'gender: '+gender+ 'email: '+email, username=email))
+#             except:
+#                 conn.rollback()
+#                 print("error in insert operation")
+#             resp = make_response(render_template('Personal_Data.html', msg='Personal data could not been load', username=email))
+#          return resp
+ #IN PROGRESS DON'T DELETE
 # Cookies login
 app.secret_key = 'fj590Rt?h40gg'
 
@@ -125,6 +141,7 @@ def checkCredentials(email, password):
         cur = conn.cursor()
         cur.execute("SELECT email,password FROM Patient WHERE email=?;", [email])
         login_details = cur.fetchall()
+
     except:
         print('There was an error', login_details)
 
