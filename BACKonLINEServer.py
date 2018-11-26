@@ -75,14 +75,13 @@ def welcomepage():
     if request.method =='GET':
         return render_template('welcome.html')
 
-
 # Cookies login
 app.secret_key = 'fj590Rt?h40gg'
 
 # Cookie sessions
-@app.route("/Login", methods = ['GET','POST'])
+@app.route("/Login", methods = ['GET', 'POST'])
 def login():
-    if request.method=='POST':
+    if request.method == 'POST':
         reminder ="***** REM other pages WILL NOT be able to access the username as they are not set up to use Cookie Sessions *****"
         uName = request.form.get('username', default="Error")
         pw = request.form.get('password', default="Error")
@@ -97,7 +96,7 @@ def login():
         username = 'none'
         if 'username' in session:
             username = escape(session['username'])
-        return render_template('index.html', msg='', username = username)
+        return render_template('index.html', msg='', username=username)
 
 # =================Methods================================
 def checkCredentials(uName, pw):
