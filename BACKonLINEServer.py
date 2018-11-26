@@ -79,28 +79,59 @@ def welcomepage():
 app.secret_key = 'fj590Rt?h40gg'
 
 # Cookie sessions
-@app.route("/Login", methods = ['GET', 'POST'])
+@app.route("/Login", methods = ['GET','POST'])
 def login():
-    if request.method == 'POST':
+    if request.method=='POST':
         reminder ="***** REM other pages WILL NOT be able to access the username as they are not set up to use Cookie Sessions *****"
-        uName = request.form.get('username', default="Error")
-        pw = request.form.get('password', default="Error")
-        if checkCredentials(uName, pw):
-            resp = make_response(render_template('welcome.html', msg='Hello '+uName+reminder, username=uName))
-            # session['username'] = request.form['username']
-            # session['Password'] = 'pa55wrd'
-        else:
-            resp = make_response(render_template('welcome.html', msg='Incorrect login',username='Guest'))
+        sign_name = request.form.get('name', default="Error")
+        sign_gender = request.form.get('gender', default="Error")
+        sign_age = request.form.get('age', default="Error")
+        sign_email = request.form.get('email-signup', default="Error")
+        sign_password = request.form.get('email-password', default="Error")
+
+        login_email = request.form.get('email-login', default="Error")
+        login_password = request.form.get('password', default="Error")
+        if sign_name =="":
+            print("logging in")
+            if checkCredentials(login_email, login_password):
+                resp = make_response(render_template('welcome.html', msg='Hello '+login_email+reminder, username=login_email))
+            else:
+                resp = make_response(render_template('index.html', msg='', login_email = login_email, error = "Incorect Login"))
+        if sign_name !="":
+            print("signing in")
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("INSERT INTO PATIENT ('name', 'gender', 'age', 'email', 'password')\
+                VALUES (?,?,?,?,?)",(sign_name, sign_gender, sign_age, sign_email, sign_password))
+                conn.commit()
+                print("Record successfully added")
+            except:
+                conn.rollback()
+                print("error in insert operation")
+            resp = make_response(render_template('welcome.html', msg='Hello '+sign_email+reminder, username=sign_email))
+        print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
         username = 'none'
         if 'username' in session:
             username = escape(session['username'])
-        return render_template('index.html', msg='', username=username)
+        return render_template('index.html', msg='', username = username, error = "")
 
 # =================Methods================================
-def checkCredentials(uName, pw):
-    return pw == 'admin'
+def checkCredentials(email, password):
+    try:
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        cur.execute("SELECT email,password FROM Patient WHERE email=?;", [email])
+        login_details = cur.fetchall()
+    except:
+        print('There was an error', login_details)
+
+    if email == login_details[0][0] and password == login_details[0][1]:
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
 	app.run(debug=True)
