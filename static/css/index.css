@@ -75,8 +75,8 @@ a {
 
 .login-wrap {
   margin: auto;
-  max-width: 500px;
-  min-height: 500px;
+  max-width: 515px;
+  min-height: 515px;
   position: relative;
   top: 27%;
   right: 2%;
@@ -89,6 +89,7 @@ a {
   padding: 20px;
   background: rgba(40,57,101,.9);
 }
+
 .login-html .sign-in-htm,
 .login-html .sign-up-htm {
   left: 0;
@@ -128,9 +129,11 @@ a {
   min-height: 345px;
   position: relative;
 }
+
 .login-form .group {
   margin-bottom: 15px;
 }
+
 .login-form .group .label,
 .login-form .group input,
 .login-form .group .button {
@@ -138,6 +141,7 @@ a {
   color: #fff;
   display: block;
 }
+
 .login-form .group input,
 .login-form .group .button {
   border: none;
