@@ -1,10 +1,21 @@
 import os
 from flask import Flask, redirect, request, render_template, make_response, escape, session
+from flask_mail import Mail, Message
 import sqlite3
 
 DATABASE = 'BackonLine.db'
 
 app = Flask(__name__)
+
+app.config['DEBUGGING']= True
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'team6clientproject@gmail.com'
+app.config['MAIL_PASSWORD'] = 'password123'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -18,7 +29,7 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             question_text = cur.fetchall()
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [1])
+            cur.execute("SELECT OptionText, QuestionType FROM Options WHERE QuestionID=?;", [1])
             option_data = cur.fetchall()
         except:
             print('There was an error', option_data)
