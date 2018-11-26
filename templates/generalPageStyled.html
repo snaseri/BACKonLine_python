@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>BACKonLINE&trade;</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.23/css/uikit.min.css">
+    <!-- Uses Google's Font API to add fonts to the web page -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <!-- Uses Font Awesome's CDN to link cached version of Font Awesome with this website   -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <h1>BACKonLINE&trade;</h1>
+        <a class="uk-navbar-toggle"><i uk-icon="menu"></i></a>
+        <div class="navbar-collapse">
+          <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="\index">Home</a></li>
+            <li class="uk-parent"><a href="\Login">Login</a></li>
+            <li class="uk-parent"><a href="\Questions">Survey</a></li>
+            <li class="uk-parent"><a href="\Login">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block mainBlock%}
+    <h3>Logged in as: {{username}}</h3>
+  </body>
+  {%endblock%}
+</html>

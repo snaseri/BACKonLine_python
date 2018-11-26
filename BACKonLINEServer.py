@@ -14,10 +14,10 @@ Trun = False
 Textrun = False
 Srun = False
 
-@app.route("/", methods = ['GET'])
-def homepage():
-    if request.method == 'GET':
-        return render_template('index.html')
+# @app.route("/", methods = ['GET'])
+# def homepage():
+#     if request.method == 'GET':
+#         return render_template('index.html')
 
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
@@ -63,25 +63,31 @@ def customerAddDetails():
         return render_template('index.html')
 
 # Cookies login
+app.secret_key = 'fj590Rt?h40gg'
+
+# Cookie sessions
 @app.route("/Login", methods = ['GET','POST'])
 def login():
-    if request.method == 'POST':
+    if request.method=='POST':
+        reminder ="***** REM other pages WILL NOT be able to access the username as they are not set up to use Cookie Sessions *****"
         uName = request.form.get('username', default="Error")
+        pw = request.form.get('password', default="Error")
         if checkCredentials(uName, pw):
-            resp = make_response(render_template('Customer.html', msg='Hello '+uName, username=uName))
-            resp.set_cookie('username', uName)
-            if uName=="Ian":
-                user_type = "admin"
-                resp.set_cookie('username', uName, 'user-type', user_type)
-            else:
-                user_type = "customer"
-                resp.set_cookie('username', uName, 'user-type', user_type)
+            resp = make_response(render_template('welcome.html', msg='Hello '+uName+reminder, username=uName))
+            session['username'] = request.form['username']
+            session['Password'] = 'pa55wrd'
         else:
-            resp = make_response(render_template('Customer.html', msg='Incorrect login', username='Guest'))
+            resp = make_response(render_template('welcome.html', msg='Incorrect login',username='Guest'))
         return resp
     else:
-        username = request.cookies.get('username')
-        return render_template('index.html', msg='', username=username)
+        username = 'none'
+        if 'username' in session:
+            username = escape(session['username'])
+        return render_template('index.html', msg='', username = username)
+
+# =================Methods================================
+def checkCredentials(uName, pw):
+    return pw == 'admin'
 
 if __name__ == "__main__":
 	app.run(debug=True)

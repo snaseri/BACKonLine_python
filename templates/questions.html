@@ -1,59 +1,40 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <html lang="en-GB">
-    <title>BACKonLINE&trade;</title>
-    <!-- Include a stylesheet called questions.css -->
-    <link rel="stylesheet" type="text/css" href="../static/css/questions.css">
-    <!-- Uses Google's Font API to add fonts to the web page -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-    <!-- Uses Font Awesome's CDN to link cached version of Font Awesome with this website   -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <!-- Link jQuery library to the web page -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.23/css/uikit.min.css">
-  </head>
-  <body>
-    {%block mainBlock%}
-    <h1>{{qdata}}</h1>
-    <form action="/Questions" method="post">
-      {%for row in rodata%}
-        {%if row[1] == "Radiobox"%}
-          <div class="options">
-            <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
-            <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
-          </div>
-        {%endif%}
-        {%if row[1] == "Tickbox"%}
-          <div class="options">
-            <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-            <input type="checkbox" id="option-text-{{loop.index}}" name="option-text">
-          </div>
-        {%endif%}
-        {%if row[1] == "Textbox"%}
-          <div class="options">
-            <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
-          </div>
-        {%endif%}
-        {%if row[1] == "Slider"%}
-          <div class="options">
-            <div class="range-slider">
-              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
-              <span class="range-slider-value">0</span>
-            </div>
-          </div>
-        {%endif%}
-      {%endfor%}
-      <button onclick="lastPage()" class="back-button">Back</button>
-      <button class="next-button">Next</button>
-    </form>
-    {%endblock%}
-    <script type="text/javascript" src="../static/js/questions.js"></script>
-  </body>
-</html>
+{%extends 'generalPageStyled.html'%}
+{%block mainBlock%}
+<link href="../static/css/questions.css" rel="stylesheet">
+<form action="/Questions" method="post">
+  <h1>{{qdata}}</h1>
+  {%for row in rodata%}
+    {%if row[1] == "Radiobox"%}
+      <div class="options">
+        <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
+        <input type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+      </div>
+    {%endif%}
+    {%if row[1] == "Tickbox"%}
+      <div class="options">
+        <label for="option-text-{{loop.index}}">{{row[0]}}</label>
+        <input type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+      </div>
+    {%endif%}
+    {%if row[1] == "Textbox"%}
+      <div class="options">
+        <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
+      </div>
+    {%endif%}
+    {%if row[1] == "Slider"%}
+      <div class="options">
+        <div class="range-slider">
+          <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+          <span class="range-slider-value">0</span>
+        </div>
+      </div>
+    {%endif%}
+  {%endfor%}
+  <button onclick="lastPage()" class="back-button">Back</button>
+  <button class="next-button">Next</button>
+</form>
+<script type="text/javascript" src="../static/js/questions.js"></script>
+{%endblock%}
 
 <!-- References:
 https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input -->
