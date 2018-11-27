@@ -98,7 +98,6 @@ def welcomepage():
 @app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        reminder ="***** REM other pages WILL NOT be able to access the username as they are not set up to use Cookie Sessions *****"
         sign_name = request.form.get('name', default="Error")
         sign_gender = request.form.get('gender', default="Error")
         sign_age = request.form.get('age', default="Error")
@@ -110,7 +109,7 @@ def login():
         if sign_name == "":
             print("Logging in")
             if checkCredentials(login_email, login_password):
-                resp = make_response(render_template('welcome.html', msg='Hello ' + login_email + reminder, username=login_email))
+                resp = make_response(render_template('welcome.html', msg='Hello ' + login_email, username=login_email))
             else:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
         if sign_name != "":
