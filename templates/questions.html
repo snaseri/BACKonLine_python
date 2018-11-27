@@ -3,20 +3,20 @@
   {{ super() }}
   <link href="../static/css/questions.css" rel="stylesheet">
   <form id="survey" action="/Questions" method="post">
-    <h2>{{section_text}}</h2>
-    <h1>{{question_text}}</h1>
+    <h2>{{ section_text }}</h2>
+    <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
     {% for row in option_data %}
       {% if row[1] == "Radiobox" %}
         <div class="options">
-          <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
+          <label for="option-text-{{loop.index}}" class="test">{{ row[0] }}</label>
           <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]" class="checkbox style-2" class="test2">
           <div class="check"></div>
         </div>
       {% endif %}
       {% if row[1] == "Tickbox" %}
         <div class="options">
-          <label for="option-text-{{loop.index}}">{{row[0]}}</label>
+          <label for="option-text-{{loop.index}}">{{ row[0] }}</label>
           <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]">
         </div>
       {% endif %}
@@ -35,7 +35,7 @@
       {% endif %}
     {% endfor %}
     <input id="direction" type="text" name="direction" value="true"></input>
-    <input id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
+    <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back()">Back</button>
     <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
   </form>

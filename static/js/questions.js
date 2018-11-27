@@ -1,3 +1,4 @@
+// Slider for Q20.
 var rangeSlider = function() {
   var slider = $('.range-slider');
   var range = $('.range-slider-range');
@@ -17,6 +18,7 @@ var rangeSlider = function() {
 
 rangeSlider();
 
+// Green text for 'tick all' type questions.
 $('h1').each(function() {
   var ques = $(this).text();
   if (ques.indexOf('Please tick all options that apply') >= 0) {
@@ -28,6 +30,7 @@ $('h1').each(function() {
   };
 });
 
+// Code for back and next button.
 function back() {
   console.log("Back button");
   var direction = document.getElementById("direction").value;
@@ -63,6 +66,7 @@ function forward() {
   console.log(direction);
 };
 
+// Make sure user has selected at least one option.
 function validate() {
   var valid = document.getElementsByName("option-text[]");
   var hasChecked = false;

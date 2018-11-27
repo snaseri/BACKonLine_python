@@ -144,5 +144,11 @@ form {
   content: '';
 }
 
+#counter,
+#direction,
+#questnum {
+  display: none;
+}
+
 /* References:
 https://codepen.io/seanstopnik/pen/CeLqA 
