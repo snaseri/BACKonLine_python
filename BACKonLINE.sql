@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `Response` (
     `OptionID`  INTEGER NOT NULL,
     `QuestionID`    INTEGER NOT NULL,
     `Score` INTEGER,
-    `Question3Input` TEXT
+    `Question3Input` TEXT,
+    `Date`  TEXT
 );
 
 CREATE TABLE IF NOT EXISTS `Patient` (
