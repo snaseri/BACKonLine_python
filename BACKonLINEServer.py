@@ -117,7 +117,7 @@ def login():
                 except:
                     print('There was an error', login_details)
                 name = str(name)[3:-4]
-                resp = make_response(render_template('welcome.html', msg='Hello ' + name, username=login_email))
+                resp = make_response(render_template('welcome.html', msg=name, username=login_email))
             elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
             else:
