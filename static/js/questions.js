@@ -25,8 +25,8 @@ $('h1').each(function() {
   } else if (ques.indexOf('Please tick all body areas that apply') >= 0) {
     ques = ques.replace("Please tick all body areas that apply","<span style='color: #00b050;'>Please tick <strong>all</strong> body areas that apply</span>");
     $(this).html(ques);
-  };
-});
+  }
+})
 
 function back() {
   console.log("Back button");
@@ -37,11 +37,16 @@ function back() {
   console.log(direction);
   if (counter == calculation && counter !=1 ) {
     document.getElementById("questnum").value -= 1
+<<<<<<< HEAD
+  }
+  if (calculation-counter == 1){
+=======
   };
   if (calculation-counter == 1) {
+>>>>>>> 7c345de0d775670742080c7ed30d7ccb2bd922fc
     document.getElementById("questnum").value = calculation - 2;
-  };
-};
+  }
+}
 
 function forward() {
   console.log("Next button");
