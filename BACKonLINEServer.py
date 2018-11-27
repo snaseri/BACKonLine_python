@@ -37,33 +37,33 @@ def questions():
             question_text = str(question_text)[3:-4]
             section_text = "Section A: Pain Behaviour"
             conn.close()
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text,  question_number=1)
     elif request.method == 'POST':
-        global counter
+        questnum = int(request.form['questnum'])
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [counter])
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [questnum])
             question_text = cur.fetchall()
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [counter])
+            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
-        except:
-            print('There was an error', option_data)
-        finally:
             question_text = str(question_text)[3:-4]
-            if (counter < 23) and (counter > 0):
+            print(question_text)
+            if (questnum < 23) and (questnum > 0):
                 section_text = "Section A: Pain Behaviour";
-            elif (counter >= 23) and (counter < 29):
+            elif (questnum >= 23) and (questnum < 29):
                 section_text = "Section B: Back Pain and Work";
-            elif (counter >= 29) and (counter < 33):
+            elif (questnum >= 29) and (questnum < 33):
                 section_text = "Section C: Back Pain and Lifestyle";
-            elif (counter >= 33) and (counter < 40):
+            elif (questnum >= 33) and (questnum < 40):
                 section_text = "Section D: Perception of Back Pain";
-            elif (counter >= 40):
+            elif (questnum >= 40):
                 section_text = "Questionaire done";
-            counter += 1
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
+        except:
+            print('There was an error')
+        finally:
             conn.close()
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text)
 
 @app.route("/index", methods = ['GET'])
 def homepage():

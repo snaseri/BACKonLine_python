@@ -2,42 +2,134 @@
 {% block mainBlock %}
   {{super()}}
   <link href="../static/css/questions.css" rel="stylesheet">
-  <form action="/Questions" method="post">
-    <h2>{{ section_text }}</h2>
-    <h1>{{ question_text }}</h1>
-    {% for row in option_data %}
-      {% if row[1] == "Radiobox" %}
+  <form id="survey" action="/Questions" method="post">
+    <h2>{{section_text}}</h2>
+    <h1>{{question_text}}</h1>
+    <p id="counter">{{question_number}}</p>
+    {%for row in option_data%}
+      {%if row[1] == "Radiobox"%}
         <div class="options">
           <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
           <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
           <div class="check"></div>
         </div>
-      {% endif %}
-      {% if row[1] == "Tickbox" %}
+      {%endif%}
+      {%if row[1] == "Tickbox"%}
         <div class="options">
           <label for="option-text-{{loop.index}}">{{row[0]}}</label>
           <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
         </div>
-      {% endif %}
-      {% if row[1] == "Textbox" %}
+      {%endif%}
+      {%if row[1] == "Textbox"%}
         <div class="options">
           <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
         </div>
-      {% endif %}
-      {% if row[1] == "Slider" %}
+      {%endif%}
+      {%if row[1] == "Slider"%}
         <div class="options">
           <div class="range-slider">
             <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
             <span class="range-slider-value">0</span>
           </div>
         </div>
-      {% endif %}
-    {% endfor %}
-    <button class="back-button uk-button uk-button-primary">Back</button>
-    <button class="next-button uk-button uk-button-primary">Next</button>
+      {%endif%}
+    {%endfor%}
+    <input id="direction" type="text" name="direction" value="true"></input>
+    <input id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
+    <button type="submit" class="back-button uk-button" onclick="back()">Back</button>
+    <button type="submit" class="next-button uk-button" onclick="forward()">Next</button>
   </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
-{% endblock %}
 
-<!-- References:
-https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input -->
+  <script>
+    function back(){
+      console.log("Back button--");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "back"
+      var calculation = document.getElementById("questnum").value;
+      var counter = document.getElementById("counter").innerHTML;
+      console.log(direction);
+
+      if (counter == calculation && counter !=1 ){
+        document.getElementById("questnum").value -= 1
+      };
+      if (calculation-counter == 1){
+        document.getElementById("questnum").value = calculation - 2;
+      };
+    }
+    function forward(){
+      console.log("Back button--");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "forward";
+      var calculation = parseInt(document.getElementById("questnum").value);
+      var counter = document.getElementById("counter").innerHTML;
+      console.log("Back button--");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "forward";
+      var calculation = parseInt(document.getElementById("questnum").value);
+      var counter = document.getElementById("counter").innerHTML;
+      if (counter == calculation){
+        document.getElementById("questnum").value = calculation + 1;
+      };
+      if (counter-calculation == 1){
+        document.getElementById("questnum").value = calculation + 2;
+      };
+
+
+      console.log(direction);
+
+    }
+  </script>
+
+
+  <!-- <script>
+    function nextFunction() {
+      console.log("check next")
+      // var name = document.forms["survey"]["name"].value;
+      // var num = document.forms["survey"]["num"].value;
+      var questnum = {{questionnumber}}
+      params = 'questnum='+questnum;
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("POST", '/Questions', true); // true is asynchronous
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+          console.log(xhttp.responseText);
+          body.innerHTML = xhttp.responseText;
+          // document.getElementById("txt").innerHTML = xhttp.responseText;
+        } else {
+          console.error(xhttp.statusText);
+        }
+      };
+      xhttp.send(params);
+      return false;
+    }
+
+    function backFunction() {
+      console.log("check back")
+      console.log("check next")
+      // var name = document.forms["survey"]["name"].value;
+      // var num = document.forms["survey"]["num"].value;
+      var questnum = 1
+      params = 'questnum='+questnum;
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("POST", '/Questions/1/', true); // true is asynchronous
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+          console.log(xhttp.responseText);
+          document.getElementById("txt").innerHTML = xhttp.responseText;
+        } else {
+          console.error(xhttp.statusText);
+        }
+      };
+      xhttp.send(params);
+      return false;
+    }
+
+  </script> -->
+  {%endblock%}
+
+  <!-- References:
+  https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input -->
