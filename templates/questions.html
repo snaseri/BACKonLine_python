@@ -10,14 +10,14 @@
       {%if row[1] == "Radiobox"%}
         <div class="options">
           <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
-          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]" class="checkbox style-2" class="test2">
           <div class="check"></div>
         </div>
       {%endif%}
       {%if row[1] == "Tickbox"%}
         <div class="options">
           <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]">
         </div>
       {%endif%}
       {%if row[1] == "Textbox"%}
@@ -37,7 +37,7 @@
     <input id="direction" type="text" name="direction" value="true"></input>
     <input id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
     <button type="submit" class="back-button uk-button" onclick="back()">Back</button>
-    <button type="submit" class="next-button uk-button" onclick="forward()">Next</button>
+    <button type="submit" class="next-button uk-button" onclick="forward(); return validate();">Next</button>
   </form>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
@@ -80,6 +80,25 @@
       console.log(direction);
 
     }
+
+    function validate(){
+      var valid = document.getElementsByName("option-text[]");
+      var hasChecked = false;
+      for (var i = 0; i < valid.length; i++)
+      {
+      if (valid[i].checked)
+      {
+      hasChecked = true;
+      break
+      }
+      }
+      if (hasChecked == false)
+      {
+        alert("please select at least one!");
+        return false;
+      }
+      return true;
+      }
   </script>
 
 
