@@ -67,7 +67,7 @@ def questions():
 
 @app.route("/index", methods = ['GET'])
 def homepage():
-    msg = Message("Form submission", recipients=["patient-email@here.com"])
+    msg = Message("Form submission", recipients=["team6backonline@gmail.com"])
     msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
     mail.send(msg)
     if request.method =='GET':
@@ -140,13 +140,15 @@ def checkCredentials(email, password):
         cur = conn.cursor()
         cur.execute("SELECT email, password FROM Patient WHERE email=?;", [email])
         login_details = cur.fetchall()
-
     except:
         print('There was an error', login_details)
-    if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
-        return True
-    else:
-        return False
+    try:
+        if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+            return 1
+        else:
+            return 3
+    except:
+        return 2
 
 if __name__ == "__main__":
 	app.run(debug=True)
