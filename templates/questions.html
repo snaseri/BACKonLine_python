@@ -5,7 +5,7 @@
   <form id="survey" action="/Questions" method="post">
     <h2>{{section_text}}</h2>
     <h1>{{question_text}}</h1>
-    <p id="counter">Question {{ question_number }}</p>
+    <p id="counter">{{ question_number }}</p>
     {% for row in option_data %}
       {% if row[1] == "Radiobox" %}
         <div class="options">
@@ -37,10 +37,10 @@
     <input id="direction" type="text" name="direction" value="true"></input>
     <input id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back()">Back</button>
-    <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
+    <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
   </form>
   <script type="text/javascript" src="../static/js/questions.js"></script>
-{%endblock%}
+{% endblock %}
 
 <!-- References:
 https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input -->
