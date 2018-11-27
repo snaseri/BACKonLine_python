@@ -3,15 +3,13 @@
   padding: 0;
   font-family: 'Lora', serif;
   box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 html, body {
   height: 100%;
   width: 100%;
-  background: radial-gradient(circle farthest-corner at 50% 50%,  rgba(4,150,255,0.63) 30%, rgba(4,150,255,1) 80%);
-  background-size: cover;
 }
 
 header {
@@ -29,7 +27,7 @@ header {
 
 .headings h1 {
   font-family: 'Montserrat', sans-serif;
-  color: #f9f3f4;
+  color: #000;
   text-shadow: 0px 0px 300px #000;
   font-size: 500%;
   text-align: center;
@@ -42,7 +40,7 @@ header {
   top: 25%;
   right: 50%;
   font-family: 'Montserrat', sans-serif;
-  color: #f9f3f4;
+  color: #000;
   text-shadow: 0px 0px 300px #000;
   font-size: 200%;
   max-width: 600px;
