@@ -10,14 +10,14 @@
       {% if row[1] == "Radiobox" %}
         <div class="options">
           <label for="option-text-{{loop.index}}" class="test">{{row[0]}}</label>
-          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text" class="checkbox style-2" class="test2">
+          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]" class="checkbox style-2" class="test2">
           <div class="check"></div>
         </div>
       {% endif %}
       {% if row[1] == "Tickbox" %}
         <div class="options">
           <label for="option-text-{{loop.index}}">{{row[0]}}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text">
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]">
         </div>
       {% endif %}
       {% if row[1] == "Textbox" %}
@@ -40,51 +40,6 @@
     <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
   </form>
   <script type="text/javascript" src="../static/js/questions.js"></script>
-  <!-- <script>
-    function nextFunction() {
-      console.log("check next")
-      // var name = document.forms["survey"]["name"].value;
-      // var num = document.forms["survey"]["num"].value;
-      var questnum = {{questionnumber}}
-      params = 'questnum='+questnum;
-      var xhttp = new XMLHttpRequest();
-      xhttp.open("POST", '/Questions', true); // true is asynchronous
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-          console.log(xhttp.responseText);
-          body.innerHTML = xhttp.responseText;
-          // document.getElementById("txt").innerHTML = xhttp.responseText;
-        } else {
-          console.error(xhttp.statusText);
-        };
-      };
-      xhttp.send(params);
-      return false;
-    };
-
-    function backFunction() {
-      console.log("check back")
-      console.log("check next")
-      // var name = document.forms["survey"]["name"].value;
-      // var num = document.forms["survey"]["num"].value;
-      var questnum = 1
-      params = 'questnum='+questnum;
-      var xhttp = new XMLHttpRequest();
-      xhttp.open("POST", '/Questions/1/', true); // true is asynchronous
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-          console.log(xhttp.responseText);
-          document.getElementById("txt").innerHTML = xhttp.responseText;
-        } else {
-          console.error(xhttp.statusText);
-        }
-      };
-      xhttp.send(params);
-      return false;
-    };
-  </script> -->
 {%endblock%}
 
 <!-- References:
