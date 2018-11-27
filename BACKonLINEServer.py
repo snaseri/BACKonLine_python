@@ -67,7 +67,7 @@ def questions():
 
 @app.route("/index", methods = ['GET'])
 def homepage():
-    msg = Message("Form submission", recipients=["patient-email@here.com"])
+    msg = Message("Form submission", recipients=["team6backonline@gmail.com"])
     msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
     mail.send(msg)
     if request.method =='GET':
