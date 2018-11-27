@@ -34,11 +34,12 @@
         </div>
       {% endif %}
     {% endfor %}
-    <input id="direction" type="text" name="direction" value="true"></input>
-    <input id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
+    <input  class="hidden" id="direction" type="text" name="direction" value="true"></input>
+    <input  class="hidden" id="questnum" type="text" name="questnum" value="{{question_number}}"></input>
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back()">Back</button>
     <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
   </form>
+
   <script type="text/javascript" src="../static/js/questions.js"></script>
 {% endblock %}
 
