@@ -98,7 +98,6 @@ def welcomepage():
 @app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        reminder ="***** REM other pages WILL NOT be able to access the username as they are not set up to use Cookie Sessions *****"
         sign_name = request.form.get('name', default="Error")
         sign_gender = request.form.get('gender', default="Error")
         sign_age = request.form.get('age', default="Error")
@@ -109,10 +108,12 @@ def login():
         login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
-            if checkCredentials(login_email, login_password):
-                resp = make_response(render_template('welcome.html', msg='Hello ' + login_email + reminder, username=login_email))
-            else:
+            if checkCredentials(login_email, login_password) == 1:
+                resp = make_response(render_template('welcome.html', msg='Hello ' + login_email, username=login_email))
+            elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
+            else:
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
         if sign_name != "":
             print("Signing in")
             try:
@@ -125,7 +126,7 @@ def login():
             except:
                 conn.rollback()
                 print("Error in insert operation")
-            resp = make_response(render_template('welcome.html', msg='Hello '+sign_email+reminder, username=sign_email))
+            resp = make_response(render_template('welcome.html', msg='Hello '+sign_email, username=sign_email))
         print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
@@ -141,13 +142,15 @@ def checkCredentials(email, password):
         cur = conn.cursor()
         cur.execute("SELECT email, password FROM Patient WHERE email=?;", [email])
         login_details = cur.fetchall()
-
     except:
         print('There was an error', login_details)
-    if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
-        return True
-    else:
-        return False
+    try:
+        if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+            return 1
+        else:
+            return 3
+    except:
+        return 2
 
 if __name__ == "__main__":
 	app.run(debug=True)

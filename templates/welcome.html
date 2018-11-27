@@ -1,11 +1,12 @@
 {% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
+  <p  style="text-align:center" >Result of operation: <strong>{{ msg }}</strong></p>
   <h2>Customers actions</h2>
   <ul>
     <!-- <li><a href="\PersonalData">Personal Data</a></li> -->
     <li><a href="\Questions">Survey</a></li>
     <li><a href="\Login">Login</a></li>
   </ul>
-  <p>Result of operation: {{ msg }}</p>
+
 {% endblock %}
