@@ -126,7 +126,7 @@ def login():
             except:
                 conn.rollback()
                 print("Error in insert operation")
-            resp = make_response(render_template('welcome.html', msg='Hello '+sign_email, username=sign_email))
+            resp = make_response(render_template('welcome.html', msg='Hello '+ sign_email, username=sign_email))
         print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
