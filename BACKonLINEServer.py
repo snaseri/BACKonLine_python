@@ -108,10 +108,12 @@ def login():
         login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
-            if checkCredentials(login_email, login_password):
+            if checkCredentials(login_email, login_password) == 1:
                 resp = make_response(render_template('welcome.html', msg='Hello ' + login_email, username=login_email))
-            else:
+            elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
+            else:
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
         if sign_name != "":
             print("Signing in")
             try:
