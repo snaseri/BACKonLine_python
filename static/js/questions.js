@@ -35,11 +35,15 @@ function back() {
   var calculation = document.getElementById("questnum").value;
   var counter = document.getElementById("counter").innerHTML;
   console.log(direction);
-
-  if (counter == calculation && counter !=1 ){
+  if (counter == calculation && counter !=1 ) {
     document.getElementById("questnum").value -= 1
+<<<<<<< HEAD
   }
   if (calculation-counter == 1){
+=======
+  };
+  if (calculation-counter == 1) {
+>>>>>>> 7c345de0d775670742080c7ed30d7ccb2bd922fc
     document.getElementById("questnum").value = calculation - 2;
   }
 }
@@ -50,16 +54,32 @@ function forward() {
   document.getElementById("direction").value = "forward";
   var calculation = parseInt(document.getElementById("questnum").value);
   var counter = document.getElementById("counter").innerHTML;
-  console.log("Back button--");
+  console.log("Next button");
   var direction = document.getElementById("direction").value;
   document.getElementById("direction").value = "forward";
   var calculation = parseInt(document.getElementById("questnum").value);
   var counter = document.getElementById("counter").innerHTML;
-  if (counter == calculation){
+  if (counter == calculation) {
     document.getElementById("questnum").value = calculation + 1;
   };
-  if (counter-calculation == 1){
+  if (counter-calculation == 1) {
     document.getElementById("questnum").value = calculation + 2;
   };
   console.log(direction);
+};
+
+function validate() {
+  var valid = document.getElementsByName("option-text[]");
+  var hasChecked = false;
+  for (var i = 0; i < valid.length; i++) {
+    if (valid[i].checked) {
+      hasChecked = true;
+      break
+    }
+  };
+  if (hasChecked == false) {
+    alert("Please select at least one option");
+    return false;
+  };
+  return true;
 };
