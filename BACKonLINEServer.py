@@ -109,8 +109,10 @@ def login():
         login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
-            if checkCredentials(login_email, login_password):
+            if checkCredentials(login_email, login_password) == 1:
                 resp = make_response(render_template('welcome.html', msg='Hello ' + login_email + reminder, username=login_email))
+            elif checkCredentials(login_email, login_password) == 2:
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
             else:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
         if sign_name != "":
@@ -141,13 +143,15 @@ def checkCredentials(email, password):
         cur = conn.cursor()
         cur.execute("SELECT email, password FROM Patient WHERE email=?;", [email])
         login_details = cur.fetchall()
-
     except:
         print('There was an error', login_details)
-    if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
-        return True
-    else:
-        return False
+    try:
+        if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+            return 1
+        else:
+            return 3
+    except:
+        return 2
 
 if __name__ == "__main__":
 	app.run(debug=True)
