@@ -114,5 +114,9 @@ $(".options").click(function() {
     };
   };
 });
-
+function onLoad() {
+  console.log("called")
+  name = localStorage.getItem("name")
+  document.getElementById("name").innerHTML = name;
+};
 $('#human-body').maphilight();

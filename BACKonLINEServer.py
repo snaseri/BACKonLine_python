@@ -19,11 +19,11 @@ mail = Mail(app)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-counter = 1
 
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
+
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -134,7 +134,15 @@ def login():
             except:
                 conn.rollback()
                 print("Error in insert operation")
-            resp = make_response(render_template('welcome.html', msg='Hello '+ sign_email, username=sign_email))
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT name FROM Patient WHERE email=?;", [sign_email])
+                name = cur.fetchall()
+            except:
+                print('There was an error', login_details)
+            name = str(name)[3:-4]
+            resp = make_response(render_template('welcome.html', msg=name, username=sign_email))
         print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:

@@ -2,6 +2,22 @@
 {% block mainBlock %}
   {{ super() }}
   <link href="../static/css/welcome.css" rel="stylesheet">
-  <p>Hello <strong>{{ msg }}</strong></p>
-  <a href="/Questions" class="uk-button uk-button-default uk-border-rounded" uk-icon="icon: chevron-right">Start survey</a>
+  <p>Hello <strong id = "name">{{ msg }}</strong></p>
+  <a onclick="sendUser()" href="/Questions" class="uk-button uk-button-default uk-border-rounded" uk-icon="icon: chevron-right">Start survey</a>
+  <script>
+  function sendUser() {
+    user = document.getElementById("name").innerHTML;
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+        // Store
+        localStorage.setItem("name", user);
+        // Retrieve
+        console.log(localStorage.getItem("name"));
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+    }
+
+  }
+
+  </script>
 {% endblock %}
