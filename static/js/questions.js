@@ -44,7 +44,7 @@ function back() {
   if (calculation-counter == 1) {
     document.getElementById("questnum").value = calculation - 2;
   }
-}
+};
 
 function forward() {
   console.log("Next button");
@@ -67,18 +67,52 @@ function forward() {
 };
 
 // Make sure user has selected at least one option.
-function validate() {
-  var valid = document.getElementsByName("option-text[]");
-  var hasChecked = false;
-  for (var i = 0; i < valid.length; i++) {
-    if (valid[i].checked) {
-      hasChecked = true;
-      break
-    }
+// function validate() {
+//   var valid = document.getElementsByName("option-text[]");
+//   var hasChecked = false;
+//   for (var i = 0; i < valid.length; i++) {
+//     if (valid[i].checked) {
+//       hasChecked = true;
+//       break;
+//     };
+//   };
+//   if (hasChecked == false) {
+//     alert("Please select at least one option");
+//     return false;
+//   };
+//   return true;
+// };
+
+// Disable other checkboxes if certain option is selected.
+// Array of hard coded values.
+disableOptions = ["I don't take any medication for my back pain", "I am unable to ease my back pain", "Any activity that I do for a long period of time increases my back pain", "Everything I do causes me pain", "Nothing I do stops my pain", "Nothing helped"];
+// Add click event to each option.
+$(".options").click(function() {
+  // Store option text.
+  option = $(this).find("label").text();
+  // Create boolean.
+  found = false;
+  // Cycle through the array.
+  disableOptions.forEach(function(value, index) {
+    // Check if chosen option equals current element in array.
+    if (option == value) {
+      // Mark the found boolean as true.
+      found = true;
+    };
+  });
+  // Check if entry matched a value in the array.
+  if (found == true) {
+    // Check if the box has been checked.
+    if ($(this).find("input").prop("checked") == true) {
+      // Disable the options for this question and uncheck.
+      $(this).parent().find(".options input").prop({'disabled': true, 'checked': false});
+      // Re-enable the checkbox and mark it checked.
+      $(this).find("input").prop({'disabled': false, 'checked': true});
+    } else {
+      // Re-enable all checkboxes.
+      $(this).parent().find(".options input").prop('disabled', false);
+    };
   };
-  if (hasChecked == false) {
-    alert("Please select at least one option");
-    return false;
-  };
-  return true;
-};
+});
+
+$('#human-body').maphilight();

@@ -10,7 +10,7 @@
       {% if row[1] == "Radiobox" %}
         <div class="options">
           <label for="option-text-{{loop.index}}" class="test">{{ row[0] }}</label>
-          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]" class="checkbox style-2" class="test2">
+          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]">
           <div class="check"></div>
         </div>
       {% endif %}
@@ -34,11 +34,87 @@
         </div>
       {% endif %}
     {% endfor %}
+    {% if question_number == 7 %}
+      <img id="human-body" src="../static/img/body-map.png" usemap="#body-map">
+      <map name="body-map" id="body-map">
+        <!-- Head -->
+        <area id="head" title="head" shape="poly" coords="230,93,232,69,244,58,257,52,272,48,284,49,305,59,317,73,319,88,318,94,310,97,287,98,271,99,249,98,240,97">
+        <!-- Chest -->
+        <area id="chest" title="chest" shape="poly" coords="253,197,248,222,244,225,232,236,216,252,212,252,213,290,223,327,219,353,219,370,243,361,260,340,268,328,278,314,289,316,297,323,301,334,309,344,315,354,324,362,332,365,340,368,344,366,348,296,356,251,315,220,304,206,299,196">
+        <!-- Face -->
+        <area id="face" title="face" shape="poly" coords="231,95,230,105,223,109,226,130,237,140,246,152,250,163,270,172,280,173,295,168,307,160,313,150,314,139,326,131,329,110,320,103,318,95,276,100,247,100,302,99,310,98,243,98">
+        <!-- Neck -->
+        <area id="neck" title="neck" shape="poly" coords="249,165,246,177,237,189,259,198,282,198,311,187,306,164,279,174">
+        <!-- Right shoulder -->
+        <area id="right-shoulder" title="right-shoulder" shape="poly" coords="237,190,207,200,184,212,174,225,168,246,167,261,184,265,205,260,218,248,236,228,253,195">
+        <!-- Left shoulder -->
+        <area id="left-shoulder" title="left-shoulder" shape="poly" coords="300,196,311,188,330,192,348,196,369,203,379,217,390,250,375,256,364,256,329,232,310,216">
+        <!-- Upper right arm -->
+        <area id="upper-right-arm" title="upper-right-arm" shape="poly" coords="168,262,189,267,211,252,212,288,199,339,180,328,168,328,152,333">
+        <!-- Upper left arm -->
+        <area id="upper-left-arm" title="upper-left-arm" shape="poly" coords="355,252,350,296,364,332,379,321,400,319,390,252,372,257">
+        <!-- Right elbow -->
+        <area id="right-elbow" title="right-elbow" shape="poly" coords="140,357,156,372,184,374,198,344,173,329,158,332">
+        <!-- Left elbow -->
+        <area id="left-elbow" title="left-elbow" shape="poly" coords="373,368,404,357,412,346,407,334,402,321,380,320,364,336">
+        <!-- Right forearm -->
+        <area id="right-forearm" title="right-forearm" shape="poly" coords="124,408,150,428,185,374,158,374,142,364">
+        <!-- Left forearm -->
+        <area id="left-forearm" title="left-forearm" shape="poly" coords="413,424,444,404,414,344,402,356,378,368,380,381">
+        <!-- Right wrist -->
+        <area id="right-wrist" title="right-wrist" shape="poly" coords="109,431,116,444,140,448,152,430,124,414">
+        <!-- Left wrist -->
+        <area id="left-wrist" title="left-wrist" shape="poly" coords="415,426,444,405,456,424,457,435,429,443">
+        <!-- Right hand -->
+        <area id="right-hand" title="right-hand" shape="poly" coords="109,430,68,447,76,460,91,460,87,470,80,476,71,491,89,483,95,478,88,494,84,508,100,489,105,484,101,509,115,490,117,506,128,492,132,479,143,449,116,443,126,447,114,439">
+        <!-- Left hand -->
+        <area id="left-hand" title="left-hand" shape="poly" coords="430,444,457,438,460,427,478,432,494,443,488,453,476,457,487,472,495,485,472,475,479,488,479,499,463,476,460,480,462,499,458,506,450,481,446,489,443,503">
+        <!-- Abdomen -->
+        <area id="abdomen" title="abdomen" shape="poly" coords="216,373,208,402,233,416,241,430,244,448,270,447,284,440,305,451,321,453,327,423,339,412,349,404,346,371,314,360,306,347,296,326,283,318,258,349,240,366">
+        <!-- Right hip -->
+        <area id="right-hip" title="right-hip" shape="poly" coords="204,508,236,470,245,432,208,403">
+        <!-- Left hip -->
+        <area id="left-hip" title="left-hip" shape="poly" coords="352,402,364,502,337,484,321,446,326,421">
+        <!-- Groin -->
+        <area id="groin" title="groin" shape="poly" coords="279,482,291,482,319,455,298,451,287,443,272,444,267,450,246,455">
+        <!-- Right thigh -->
+        <area id="right-thigh" title="right-thigh" shape="poly" coords="212,603,261,607,277,482,247,456,236,473,219,500,205,508">
+        <!-- Left thigh -->
+        <area id="left-thigh" title="left-thigh" shape="poly" coords="310,605,324,596,363,596,364,505,336,487,320,456,295,480">
+        <!-- Right knee -->
+        <area id="right-knee" title="right-knee" shape="poly" coords="215,602,205,645,224,655,257,658,256,639,263,611,247,602">
+        <!-- Left knee -->
+        <area id="left-knee" title="left-knee" shape="poly" coords="311,605,328,598,360,599,364,637,339,648,320,648,315,647">
+        <!-- Lower right leg -->
+        <area id="lower-right-leg" title="lower-right-leg" shape="poly" coords="206,645,200,682,210,730,229,730,245,729,255,708,257,657,240,660">
+        <!-- Lower left leg -->
+        <area id="lower-left-leg" title="lower-left-leg" shape="poly" coords="326,732,345,732,364,732,372,671,364,638,340,646,330,651,316,648,313,668">
+        <!-- Right ankle -->
+        <area id="right-ankle" title="right-ankle" shape="poly" coords="211,762,250,764,248,752,249,732,211,732">
+        <!-- Left ankle -->
+        <area id="left-ankle" title="left-ankle" shape="poly" coords="324,760,362,762,363,733,328,730">
+        <!-- Right foot -->
+        <area id="right-foot" title="right-foot" shape="poly" coords="213,764,248,763,242,797,239,843,224,858,215,855,198,828">
+        <!-- Left foot -->
+        <area id="left-foot" title="left-foot" shape="poly" coords="325,764,360,760,368,806,372,836,362,851,347,859,336,849,327,836">
+        <!-- Upper back -->
+        <area id="upper-back" title="upper-back" shape="poly" coords="669,255,709,231,729,212,733,193,756,187,770,210,787,231,823,258,793,269,756,269,723,269,694,266,681,263">
+        <!-- Mid back -->
+        <area id="mid-back" title="mid-back" shape="poly" coords="668,259,676,292,682,324,684,352,713,355,762,359,804,353,811,287,821,258,800,268,763,270,721,271,695,268">
+        <!-- Lower back -->
+        <area id="lower-back" title="lower-back" shape="poly" coords="686,353,681,378,688,384,697,393,700,402,732,406,746,406,785,404,796,388,812,376,801,354">
+        <!-- Right buttock -->
+        <area id="right-buttock" title="right-buttock" shape="poly" coords="745,405,787,401,789,424,781,444,764,454,748,464,744,458">
+        <!-- Left buttock -->
+        <area id="left-buttock" title="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425">
+      </map>
+    {% endif %}
     <input id="direction" type="text" name="direction" value="true"></input>
     <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
-    <button type="submit" class="back-button uk-button uk-button-primary" onclick="back()">Back</button>
+    <button type="submit" class="back-button uk-button uk-button-primary" onclick="back();">Back</button>
     <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
   </form>
+  <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
 {% endblock %}
 

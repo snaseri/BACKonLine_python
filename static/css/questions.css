@@ -83,6 +83,12 @@ h2 {
   margin-right: 1%;
 }
 
+.options #checkbox-label {
+  border: 1px transparent solid; 
+  display: inline-block;
+  width: 10em;
+}
+
 form {
   margin-top: 15%;
   margin-left: 25%;
@@ -148,6 +154,10 @@ form {
 #direction,
 #questnum {
   display: none;
+}
+
+#human-body {
+  position: absolute;
 }
 
 /* References:
