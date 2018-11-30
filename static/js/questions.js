@@ -16,6 +16,12 @@ var rangeSlider = function() {
   });
 };
 
+var n = 10;
+var percent = 100 / n;    
+for (var x = 1; x < n; x++) {
+  $(".range-slider" ).append("<span class='dots' style='left:"+ x * percent * .87 + "%'></span>");
+};
+
 rangeSlider();
 
 // Green text for 'tick all' type questions.
