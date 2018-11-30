@@ -67,21 +67,21 @@ function forward() {
 };
 
 // Make sure user has selected at least one option.
-// function validate() {
-//   var valid = document.getElementsByName("option-text[]");
-//   var hasChecked = false;
-//   for (var i = 0; i < valid.length; i++) {
-//     if (valid[i].checked) {
-//       hasChecked = true;
-//       break;
-//     };
-//   };
-//   if (hasChecked == false) {
-//     alert("Please select at least one option");
-//     return false;
-//   };
-//   return true;
-// };
+function validate() {
+  var valid = document.getElementsByName("option-text[]");
+  var hasChecked = false;
+  for (var i = 0; i < valid.length; i++) {
+    if (valid[i].checked) {
+      hasChecked = true;
+      break;
+    };
+  };
+  if (hasChecked == false) {
+    alert("Please select at least one option");
+    return false;
+  };
+  return true;
+};
 
 // Disable other checkboxes if certain option is selected.
 // Array of hard coded values.
