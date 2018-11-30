@@ -3,6 +3,7 @@ from flask import Flask, redirect, request, render_template, make_response, esca
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import sqlite3
+import datetime
 
 DATABASE = 'BackonLine.db'
 
@@ -43,7 +44,7 @@ def questions():
         radio = request.form.get('radio')
         checkbox = request.form.get('checkbox')
         textarea = request.form.get('textarea')
-        print(f"PatientID:{patient_id} direction:{direction} radio:{radio} checkbox:{checkbox} textarea:{textarea}")
+
         # Insert values.
         if direction == "forward":
             if radio != "":
@@ -53,17 +54,38 @@ def questions():
                     cur = conn.cursor()
                     cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
                     OpID_Score = cur.fetchall()
+
                 except:
                     print('There was an error', login_details)
                 conn.close()
                 option_id = OpID_Score[0][0]
                 score = OpID_Score[0][1]
-                
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                    duplicate_response = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+
+                if duplicate_response != []:
+                    print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                        conn.commit()
+                    except:
+                        print('There was an error', duplicate_response [0][0])
+                    conn.close()
+
+                #print(f"PatientID:{patient_id} direction:{direction} radio:{radio} checkbox:{checkbox} textarea:{textarea} optionID: {option_id} score:{score} questionID:{questnum-1}")
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
                     cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'question3Input','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,option_id,questnum-1,score,"",""))
+                    VALUES (?,?,?,?,?,?)",(patient_id,option_id,questnum-1,score,"",str(datetime.date.today())))
                     conn.commit()
                     print("Record successfully added")
                 except:
@@ -171,12 +193,12 @@ def login():
             try:
                 conn = sqlite3.connect(DATABASE)
                 cur = conn.cursor()
-                cur.execute("SELECT name FROM Patient WHERE email=?;", [sign_email])
-                name = cur.fetchall()
+                cur.execute("SELECT PatientID,name FROM Patient WHERE email=?;", [sign_email])
+                data = cur.fetchall()
             except:
                 print('There was an error', login_details)
-            name = str(name)[3:-4]
-            resp = make_response(render_template('welcome.html', msg=name, username=sign_email))
+
+            resp = make_response(render_template('welcome.html', data=data, username=sign_email))
         print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
