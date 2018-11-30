@@ -88,7 +88,6 @@ function forward() {
 disableOptions = ["I don't take any medication for my back pain", "I am unable to ease my back pain", "Any activity that I do for a long period of time increases my back pain", "Everything I do causes me pain", "Nothing I do stops my pain", "Nothing helped"];
 // Add click event to each option.
 $(".options").click(function() {
-
   // Store option text.
   option = $(this).find("label").text();
   // Create boolean.
@@ -109,36 +108,37 @@ $(".options").click(function() {
       $(this).parent().find(".options input").prop({'disabled': true, 'checked': false});
       // Re-enable the checkbox and mark it checked.
       $(this).find("input").prop({'disabled': false, 'checked': true});
-
     } else {
       // Re-enable all checkboxes.
       $(this).parent().find(".options input").prop('disabled', false);
     };
   };
 });
+
 function onLoad() {
-  patient_id = localStorage.getItem("PatientID")
+  patient_id = localStorage.getItem("PatientID");
   document.getElementById("patient_id").value = patient_id;
 };
-function sendRadio(value){
-  console.log(value)
-  option = value.innerHTML.split('<')[0]
+
+function sendRadio(value) {
+  console.log(value);
+  option = value.innerHTML.split('<')[0];
   document.getElementById("radio").value = option;
 };
-function sendCheckbox(value){
-  if (value.checked == true){
-    console.log("checked")
+
+function sendCheckbox(value) {
+  if (value.checked == true) {
+    console.log("checked");
     console.log(document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1));
     document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
-  }else{
-    console.log("unchecked")
-    console.log(value.id.substring(12))
-    document.getElementById("checkbox").value = document.getElementById("checkbox").value.replace(value.id.substring(12) + ",","")
-
-    }
-
+  } else {
+    console.log("unchecked");
+    console.log(value.id.substring(12));
+    document.getElementById("checkbox").value = document.getElementById("checkbox").value.replace(value.id.substring(12) + ",", "");
+    };
 };
-function sendTextArea(value){
+
+function sendTextArea(value) {
   document.getElementById("textarea").value = value.value;
 };
 

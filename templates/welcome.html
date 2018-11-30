@@ -4,7 +4,7 @@
   <link href="../static/css/welcome.css" rel="stylesheet">
   {% for row in data %}
     <p>Hello <strong>{{row[1]}}</strong></p>
-    <p id = "PatientID">{{row[0]}}</p>
+    <p id="PatientID">{{row[0]}}</p>
   {% endfor %}
   <a onclick="sendUser()" href="/Questions" class="uk-button uk-button-default uk-border-rounded" uk-icon="icon: chevron-right">Start survey</a>
   <script>
@@ -12,15 +12,13 @@
     patient_id = document.getElementById("PatientID").innerHTML;
     // Check browser support
     if (typeof(Storage) !== "undefined") {
-        // Store
-        localStorage.setItem("PatientID", patient_id);
-        // Retrieve
-        console.log(localStorage.getItem("PatientID"));
+      // Store
+      localStorage.setItem("PatientID", patient_id);
+      // Retrieve
+      console.log(localStorage.getItem("PatientID"));
     } else {
-        document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-    }
-
-  }
-
+      document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage.";
+    };
+  };
   </script>
 {% endblock %}

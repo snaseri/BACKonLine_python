@@ -19,11 +19,9 @@ mail = Mail(app)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
-
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -46,14 +44,14 @@ def questions():
         checkbox = request.form.get('checkbox')
         textarea = request.form.get('textarea')
         print(f"PatientID:{patient_id} direction:{direction} radio:{radio} checkbox:{checkbox} textarea:{textarea}")
-        # Insert Values
+        # Insert values.
         if direction == "forward":
             if radio != "":
-                #Get score and option ID
+                # Get score and option ID.
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1,radio])
+                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
                     OpID_Score = cur.fetchall()
                 except:
                     print('There was an error', login_details)
@@ -76,7 +74,7 @@ def questions():
                 pass
             if textarea != "":
                 pass
-       # Load Options
+       # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -101,8 +99,6 @@ def questions():
             print('There was an error')
         finally:
             conn.close()
-
-
 
 @app.route("/index", methods = ['GET'])
 def homepage():
@@ -151,11 +147,10 @@ def login():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute("SELECT PatientID,name FROM Patient WHERE email=?;", [login_email])
+                    cur.execute("SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
                     data = cur.fetchall()
                 except:
                     print('There was an error', login_details)
-
                 resp = make_response(render_template('welcome.html', data=data, username=login_email))
             elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
