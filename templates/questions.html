@@ -119,9 +119,9 @@
     <input id="textarea" name="textarea" type="text"></input>
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back();">Back</button>
     {% if (question_number != 3) and (question_number != 20) %}
-    <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
+      <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
     {% else %}
-    <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
+      <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
     {%endif%}
   </form>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>

@@ -7,12 +7,12 @@ CREATE TABLE IF NOT EXISTS `Questions` (
 
 CREATE TABLE IF NOT EXISTS `Response` (
     `ResponseID`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    `PatientID` INTEGER NOT NULL,
-    `OptionID`  INTEGER NOT NULL,
-    `QuestionID`    INTEGER NOT NULL,
-    `Score` INTEGER,
-    `Question3Input` TEXT,
-    `Date`  TEXT
+    `patientID` INTEGER NOT NULL,
+    `optionID`  INTEGER NOT NULL,
+    `questionID`    INTEGER NOT NULL,
+    `score` INTEGER,
+    `question3Input` TEXT,
+    `date`  TEXT
 );
 
 CREATE TABLE IF NOT EXISTS `Patient` (
