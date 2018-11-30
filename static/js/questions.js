@@ -115,4 +115,5 @@ $(".options").click(function() {
   };
 });
 
+// Display body map.
 $('#human-body').maphilight();
