@@ -19,11 +19,11 @@ mail = Mail(app)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-counter = 1
 
 @app.route("/Questions", methods = ['POST', 'GET'])
 def questions():
     if request.method == 'GET':
+
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -40,6 +40,43 @@ def questions():
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text,  question_number=1)
     elif request.method == 'POST':
         questnum = int(request.form['questnum'])
+        direction = str(request.form['direction'])
+        patient_id = request.form.get('patient_id')
+        radio = request.form.get('radio')
+        checkbox = request.form.get('checkbox')
+        textarea = request.form.get('textarea')
+        print(f"PatientID:{patient_id} direction:{direction} radio:{radio} checkbox:{checkbox} textarea:{textarea}")
+        # Insert Values
+        if direction == "forward":
+            if radio != "":
+                #Get score and option ID
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1,radio])
+                    OpID_Score = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+                option_id = OpID_Score[0][0]
+                score = OpID_Score[0][1]
+                
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'question3Input','date')\
+                    VALUES (?,?,?,?,?,?)",(patient_id,option_id,questnum-1,score,"",""))
+                    conn.commit()
+                    print("Record successfully added")
+                except:
+                    conn.rollback()
+                    print("Error in insert operation")
+                conn.close()
+            if checkbox != "[]":
+                pass
+            if textarea != "":
+                pass
+       # Load Options
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -48,7 +85,6 @@ def questions():
             cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
             question_text = str(question_text)[3:-4]
-            print(question_text)
             if (questnum < 23) and (questnum > 0):
                 section_text = "Section A: Pain Behaviour";
             elif (questnum >= 23) and (questnum < 29):
@@ -59,11 +95,14 @@ def questions():
                 section_text = "Section D: Perception of Back Pain";
             elif (questnum >= 40):
                 section_text = "Questionaire done";
+
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
         except:
             print('There was an error')
         finally:
             conn.close()
+
+
 
 @app.route("/index", methods = ['GET'])
 def homepage():
@@ -112,12 +151,12 @@ def login():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute("SELECT name FROM Patient WHERE email=?;", [login_email])
-                    name = cur.fetchall()
+                    cur.execute("SELECT PatientID,name FROM Patient WHERE email=?;", [login_email])
+                    data = cur.fetchall()
                 except:
                     print('There was an error', login_details)
-                name = str(name)[3:-4]
-                resp = make_response(render_template('welcome.html', msg=name, username=login_email))
+
+                resp = make_response(render_template('welcome.html', data=data, username=login_email))
             elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorect login"))
             else:
@@ -134,7 +173,15 @@ def login():
             except:
                 conn.rollback()
                 print("Error in insert operation")
-            resp = make_response(render_template('welcome.html', msg='Hello '+ sign_email, username=sign_email))
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT name FROM Patient WHERE email=?;", [sign_email])
+                name = cur.fetchall()
+            except:
+                print('There was an error', login_details)
+            name = str(name)[3:-4]
+            resp = make_response(render_template('welcome.html', msg=name, username=sign_email))
         print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:

@@ -9,20 +9,22 @@
     {% for row in option_data %}
       {% if row[1] == "Radiobox" %}
         <div class="options">
-          <label for="option-text-{{loop.index}}" class="test">{{ row[0] }}</label>
-          <input class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]">
+          <!--DO NOT FORMAT THIS DIFFERENTLY -->
+          <label for="option-text-{{loop.index}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
+          class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]" >
+          </label>
           <div class="check"></div>
         </div>
       {% endif %}
       {% if row[1] == "Tickbox" %}
         <div class="options">
           <label for="option-text-{{loop.index}}">{{ row[0] }}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]">
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]" onclick="sendCheckbox(this);">
         </div>
       {% endif %}
       {% if row[1] == "Textbox" %}
         <div class="options">
-          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" required></textarea>
+          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);"></textarea>
         </div>
       {% endif %}
       {% if row[1] == "Slider" %}
@@ -111,9 +113,16 @@
     {% endif %}
     <input id="direction" type="text" name="direction" value="true"></input>
     <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
+
+    <input id = "patient_id" name = "patient_id" type="text"></input>
+    <input id = "radio" name = "radio" type="text"></input>
+    <input id = "checkbox" name =  "checkbox" type="text" value="[]"></input>
+    <input id = "textarea" name ="textarea" type="text"></input>
+
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back();">Back</button>
     <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>
   </form>
+
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
 {% endblock %}
