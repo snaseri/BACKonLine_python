@@ -17,7 +17,7 @@ var rangeSlider = function() {
 };
 
 var n = 10;
-var percent = 100 / n;    
+var percent = 100 / n;
 for (var x = 1; x < n; x++) {
   $(".range-slider" ).append("<span class='dots' style='left:"+ x * percent * .87 + "%'></span>");
 };
@@ -134,9 +134,13 @@ function sendRadio(value) {
 
 function sendCheckbox(value) {
   if (value.checked == true) {
-    console.log("checked");
-    console.log(document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1));
-    document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
+    if (document.getElementById("counter").innerHTML == 5 && value.id.substring(12) == 16 ){
+      document.getElementById("checkbox").value = "[]"
+      document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
+    }else{
+      document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
+    }
+
   } else {
     console.log("unchecked");
     console.log(value.id.substring(12));
