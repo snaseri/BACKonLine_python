@@ -36,6 +36,9 @@ $('h1').each(function() {
   }
 })
 
+// For skipping questions if certain questions are answered.
+
+
 // Code for back and next button.
 function back() {
   console.log("Back button");
