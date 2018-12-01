@@ -28,7 +28,7 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             question_text = cur.fetchall()
-            cur.execute("SELECT OptionText, QuestionType FROM Options WHERE QuestionID=?;", [1])
+            cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [1])
             option_data = cur.fetchall()
         except:
             print('There was an error', option_data)
@@ -204,7 +204,7 @@ def questions():
             cur = conn.cursor()
             cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [questnum])
             question_text = cur.fetchall()
-            cur.execute("SELECT OptionText,QuestionType FROM Options WHERE QuestionID=?;", [questnum])
+            cur.execute("SELECT OptionText,QuestionType,OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
             question_text = str(question_text)[3:-4]
             if (questnum < 23) and (questnum > 0):
