@@ -127,7 +127,6 @@ function onLoad() {
 };
 
 function sendRadio(value) {
-  console.log(value);
   option = value.innerHTML.split('<')[0];
   document.getElementById("radio").value = option;
 };
