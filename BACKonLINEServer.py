@@ -106,7 +106,6 @@ def questions():
                 conn.close()
                 option_id = OpID_Score[0][0]
                 score = OpID_Score[0][1]
-                print(OpID_Score)
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
