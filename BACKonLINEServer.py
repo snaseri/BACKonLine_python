@@ -84,7 +84,7 @@ def questions():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'question3Input','date')\
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
                     VALUES (?,?,?,?,?,?)",(patient_id,option_id,questnum-1,score,"",str(datetime.date.today())))
                     conn.commit()
                     print("Record successfully added")
@@ -95,7 +95,48 @@ def questions():
             if checkbox != "[]":
                 pass
             if textarea != "":
-                pass
+                # Get score and option ID.
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
+                    OpID_Score = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+                option_id = OpID_Score[0][0]
+                score = OpID_Score[0][1]
+                print(OpID_Score)
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                    duplicate_response = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+
+                if duplicate_response != []:
+                    print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                        conn.commit()
+                    except:
+                        print('There was an error', duplicate_response [0][0])
+                    conn.close()
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                    VALUES (?,?,?,?,?,?)",(patient_id,option_id,questnum-1,score,textarea,str(datetime.date.today())))
+                    conn.commit()
+                    print("Record successfully added")
+                except:
+                    conn.rollback()
+                    print("Error in insert operation")
+                conn.close()
        # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
