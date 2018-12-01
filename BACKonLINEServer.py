@@ -215,9 +215,9 @@ def questions():
                 section_text = "Section C: Back Pain and Lifestyle";
             elif (questnum >= 33) and (questnum < 40):
                 section_text = "Section D: Perception of Back Pain";
-            elif (questnum >= 40):
-                section_text = "Questionaire done";
-
+            elif questnum >= 40:
+                return render_template('finish.html')
+            
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
         except:
             print('There was an error')
