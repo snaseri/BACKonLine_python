@@ -1,13 +1,14 @@
 {% extends "navbar.html" %}
-{%block mainBlock%}
-{{ super() }}
+{% block mainBlock %}
+  {{ super() }}
+  <link href="../static/css/questions.css" rel="stylesheet">
+  <p class="finish-message">You have completed the survey and it has been sent to your physiotherapist!<p>
+  <svg height="200" width="200" viewBox="0 0 48 48">
+    <circle class="circle" fill="#5bb543" cx="24" cy="24" r="20"/>
+    <path class="tick" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M14 27l5.917 4.917L34 17">
+  </svg>
+  <p class="email-message">An email has been to {{ user_email }}</p>
+{% endblock %}
 
-<link href="../static/css/questions.css" rel="stylesheet">
-
-
-
-<p class="congrat">Congratulations! You completed the survey<p>
-  <img class="center" src="../static/img/ok-1976099__340.png" alt="green check">
-
-{%endblock%}
-<!-- reference of image: https://pixabay.com/en/photos/check%20mark/? -->
+<!-- References:
+https://codepen.io/InaCarine/pen/RJoepK -->

@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS `Questions` (
 CREATE TABLE IF NOT EXISTS `Response` (
     `ResponseID`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     `patientID` INTEGER NOT NULL,
-    `optionID`  INTEGER NOT NULL,
+    `optionID`  TEXT NOT NULL,
     `questionID`    INTEGER NOT NULL,
     `score` INTEGER,
-    `question3Input` TEXT,
+    `extraInput` TEXT,
     `date`  TEXT
 );
 

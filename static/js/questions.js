@@ -124,6 +124,7 @@ $(".options").click(function() {
   };
 });
 
+// Get the patient ID from local storage.
 function onLoad() {
   patient_id = localStorage.getItem("PatientID");
   document.getElementById("patient_id").value = patient_id;
@@ -136,17 +137,16 @@ function sendRadio(value) {
 
 function sendCheckbox(value) {
   if (value.checked == true) {
-    if ((document.getElementById("counter").innerHTML == 5 && value.id.substring(12) == 16 ) || (document.getElementById("counter").innerHTML == 12 && value.id.substring(12) == 11 ) || (document.getElementById("counter").innerHTML == 14 && (value.id.substring(12) == 7 || value.id.substring(12) == 8) ) || (document.getElementById("counter").innerHTML == 15 && value.id.substring(12) == 8 ) || (document.getElementById("counter").innerHTML == 17 && value.id.substring(12) == 5 )){
+    if ((document.getElementById("counter").innerHTML == 5 && value.id.substring(12) == 16 ) || (document.getElementById("counter").innerHTML == 12 && value.id.substring(12) == 11 ) || (document.getElementById("counter").innerHTML == 14 && (value.id.substring(12) == 7 || value.id.substring(12) == 8) ) || (document.getElementById("counter").innerHTML == 15 && value.id.substring(12) == 8 ) || (document.getElementById("counter").innerHTML == 17 && value.id.substring(12) == 5 )) {
       document.getElementById("checkbox").value = "[]"
       document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
-    }else{
+    } else {
       document.getElementById("checkbox").value = document.getElementById("checkbox").value.substring(0, document.getElementById("checkbox").value.length-1) + value.id.substring(12) + "," + document.getElementById("checkbox").value[document.getElementById("checkbox").value.length - 1];
-    }
-
+    };
   } else {
-    console.log("unchecked");
-    console.log(value.id.substring(12));
-    document.getElementById("checkbox").value = document.getElementById("checkbox").value.replace(value.id.substring(12) + ",", "");
+      console.log("unchecked");
+      console.log(value.id.substring(12));
+      document.getElementById("checkbox").value = document.getElementById("checkbox").value.replace(value.id.substring(12) + ",", "");
     };
 };
 
