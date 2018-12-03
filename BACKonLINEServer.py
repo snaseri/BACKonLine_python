@@ -55,7 +55,6 @@ def questions():
         skippedqs = int(request.form.get('skippedqs'))
         calc = questnum - 1 - skippedqs
         print(f"{questnum} - {skippedqs} =  {calc}")
-        #
         # Insert values.
         # if direction == "forward":
         #     if radio != "":
@@ -294,7 +293,7 @@ def questions():
         #             conn.rollback()
         #             print("Error in insert operation")
         #         conn.close()
-       # Load options.
+        # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -311,14 +310,9 @@ def questions():
             elif (questnum >= 29) and (questnum < 33):
                 section_text = "Section C: Back Pain and Lifestyle"
             elif (questnum >= 33) and (questnum < 40):
-
                 section_text = "Section D: Perception of Back Pain";
             elif (questnum >= 40):
                 section_text = "Questionaire done";
-
-
-                section_text = "Section D: Perception of Back Pain"
-            elif questnum >= 40:
                 # Get the email address of the logged in user via their patient ID which is stored in local storage.
                 email = cur.execute("SELECT email FROM Patient WHERE PatientID=?;", [patient_id])
                 user_email = cur.fetchall()
@@ -328,8 +322,12 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
+<<<<<<< HEAD
 
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
+=======
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
+>>>>>>> 71422ef4238b804f895b8f384d0e19f606ed1d77
         except:
             print('There was an error')
         finally:
@@ -426,6 +424,6 @@ def adminCredentials(email, password):
     return password == 'admin'
 
 if __name__ == "__main__":
+    app.run(debug=True)
     # Uncomment to use this --> get IPv4 address and go IPv4-address:8080/address-route
     # app.run(host='0.0.0.0', port=8080)
-    app.run(debug=True)

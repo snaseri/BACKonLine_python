@@ -135,13 +135,13 @@
 
       console.log("Back button");
       var direction = document.getElementById("direction").value;
-      document.getElementById("direction").value = "back"
+      document.getElementById("direction").value = "back";
       var calculation = document.getElementById("questnum").value;
       var counter = document.getElementById("counter").innerHTML;
       console.log(direction);
       if (counter == calculation && counter != 1 ) {
-        document.getElementById("questnum").value -= 1
-      }
+        document.getElementById("questnum").value -= 1;
+      };
       if (calculation-counter == 1) {
         document.getElementById("questnum").value = calculation - 2;
       }
@@ -268,6 +268,23 @@
        }
      }
 
+      // Section skipping.
+      if (counter == 4) {
+        if (document.getElementById("option-text-16").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
+
+      if (counter == 23) {
+        if (document.getElementById("option-text-135").checked == true) {
+          document.getElementById("qhide").value= "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+      var qhide = document.getElementById("qhide").value;
       console.log("Next button");
       var direction = document.getElementById("direction").value;
       document.getElementById("direction").value = "forward";
@@ -311,6 +328,15 @@
       if (qhide[6] == "t" && counter == 26) {
         document.getElementById("skippedqs").value = 2;
         document.getElementById("questnum").value = 29;
+      };
+      // Section skipping.
+      if (qhide == true && counter == 4) {
+        document.getElementById("skippedqs").value = 18
+        document.getElementById("questnum").value = 23
+      }
+      if (qhide == true && counter == 23) {
+        document.getElementById("skippedqs").value = 5
+        document.getElementById("questnum").value = 29
       }
 // Section skipping
 if (qhide[7] == "t" && counter == 4) {
@@ -324,7 +350,6 @@ if (qhide[8] == "t" && counter == 23) {
 
       console.log(direction);
     };
-
   </script>
 {% endblock %}
 
