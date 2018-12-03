@@ -324,7 +324,6 @@ def questions():
                 return render_template('finish.html', user_email=user_email)
 
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
         except:
             print('There was an error')
         finally:
