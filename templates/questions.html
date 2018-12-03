@@ -136,9 +136,9 @@
       if (counter == 3) {
         if () {
           document.getElementById("qhide").value = "true";
-        } else{
+        } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 5) {
@@ -146,7 +146,7 @@
           document.getElementById("qhide").value = "true";
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 11) {
@@ -154,7 +154,7 @@
           document.getElementById("qhide").value = "true"
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 16) {
@@ -162,7 +162,7 @@
           document.getElementById("qhide").value = "true"
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 18) {
@@ -170,7 +170,7 @@
            document.getElementById("qhide").value = "true";
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 21) {
@@ -178,7 +178,7 @@
           document.getElementById("qhide").value = "true";
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 26) {
@@ -192,9 +192,9 @@
       // Section skipping.
       if (counter == 4) {
         if (document.getElementById("option-text-16").checked == true) {
-          document.getElementById("qhide").value = "true"
+          document.getElementById("qhide").value = "true";
         } else {
-          document.getElementById("qhide").value = "false"
+            document.getElementById("qhide").value = "false";
         };
       };
 
@@ -214,14 +214,14 @@
 
     function forward() {
       var counter = document.getElementById("counter").innerHTML;
-//     var q2hide = false; var q6hide = false; var q12hide = false; var q17hide = false; var q19hide = false; var q22hide = false; var q27hide = false; secaskip = false
+      // var q2hide = false; var q6hide = false; var q12hide = false; var q17hide = false; var q19hide = false; var q22hide = false; var q27hide = false; secaskip = false
       // Question skipping.
       if (counter == 1) {
         if (document.getElementById("option-text-2").checked == true) {
           document.getElementById("qhide").value = "true";
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
 
       if (counter == 5) {
@@ -237,54 +237,58 @@
           document.getElementById("qhide").value = "true";
         } else {
             document.getElementById("qhide").value = "false";
-          };
+        };
       };
-      
+
       if (counter == 16) {
-      if (document.getElementById("option-text-101").checked == true){
-         document.getElementById("qhide").value = "true"
-       }else{
-         document.getElementById("qhide").value = "false";
-       }
-     }
+        if (document.getElementById("option-text-101").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
+
       if (counter == 18) {
-      if (document.getElementById("option-text-110").checked == true){
-         document.getElementById("qhide").value = "true"
-       }else{
-         document.getElementById("qhide").value = "false";
-       }
-     }
-      if (counter == 21){
-      if (document.getElementById("option-text-128").checked == true){
-         document.getElementById("qhide").value = "true"
-        }else{
+        if (document.getElementById("option-text-110").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
+
+      if (counter == 21) {
+        if (document.getElementById("option-text-128").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
           document.getElementById("qhide").value = "false";
-        }
-      }
-      if (counter == 26){
-      if (document.getElementById("option-text-145").checked == true){
-         document.getElementById("qhide").value = "true"
-       }else{
-        document.getElementById("qhide").value = "false";
-       }
-     }
+        };
+      };
+
+      if (counter == 26) {
+        if (document.getElementById("option-text-145").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
 
       // Section skipping.
-      if (counter == 4){
-      if (document.getElementById("option-text-16").checked == true){document.getElementById("qhide").value = "true" }
-    else    {
-      document.getElementById("qhide").value = "false"
-    }
-  }
-      if (counter == 23){
-      if (document.getElementById("option-text-135").checked == true){
-         document.getElementById("qhide").value= "true" }
-       else{
-         document.getElementById("qhide").value = "false"
-       }
-     }
-      var qhide = document.getElementById("qhide").value;
+      if (counter == 4) {
+        if (document.getElementById("option-text-16").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
 
+      if (counter == 23) {
+        if (document.getElementById("option-text-135").checked == true) {
+          document.getElementById("qhide").value= "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+      var qhide = document.getElementById("qhide").value;
       console.log("Next button");
       var direction = document.getElementById("direction").value;
       document.getElementById("direction").value = "forward";
@@ -300,48 +304,46 @@
       if (counter-calculation == 1) {
         document.getElementById("questnum").value = calculation + 2;
       };
-//   Question skipping
+      // Question skipping.
       if (document.getElementById("qhide").value == "true" && counter == 1) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 3;
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 5) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 7
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 11) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 13;
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 16) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 18;
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 18) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 20;
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 21) {
         document.getElementById("skippedqs").value = 1;
         document.getElementById("questnum").value = 23;
-      }
+      };
       if (document.getElementById("qhide").value == "true" && counter == 26) {
         document.getElementById("skippedqs").value = 2;
         document.getElementById("questnum").value = 29;
+      };
+      // Section skipping.
+      if (qhide == true && counter == 4) {
+        document.getElementById("skippedqs").value = 18
+        document.getElementById("questnum").value = 23
       }
-// Section skipping
-if (qhide == true && counter == 4) {
-  document.getElementById("skippedqs").value = 18
-  document.getElementById("questnum").value = 23
-}
-if (qhide == true && counter == 23) {
-  document.getElementById("skippedqs").value = 5
-  document.getElementById("questnum").value = 29
-}
-
+      if (qhide == true && counter == 23) {
+        document.getElementById("skippedqs").value = 5
+        document.getElementById("questnum").value = 29
+      }
       console.log(direction);
     };
-
   </script>
 {% endblock %}
 
