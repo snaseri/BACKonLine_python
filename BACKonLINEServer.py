@@ -309,12 +309,12 @@ def questions():
             elif (questnum >= 29) and (questnum < 33):
                 section_text = "Section C: Back Pain and Lifestyle"
             elif (questnum >= 33) and (questnum < 40):
-<<<<<<< HEAD
+
                 section_text = "Section D: Perception of Back Pain";
             elif (questnum >= 40):
                 section_text = "Questionaire done";
 
-=======
+
                 section_text = "Section D: Perception of Back Pain"
             elif questnum >= 40:
                 # Get the email address of the logged in user via their patient ID which is stored in local storage.
