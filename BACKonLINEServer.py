@@ -399,6 +399,17 @@ def login():
             username = escape(session['username'])
         return render_template('index.html', msg='', username=username, error="")
 
+@app.route("/Patients", methods = ['GET'])
+    if request.method == 'GET':
+        try:
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            cur.execute("SELECT * from Patient;")
+            cur.fetchall()
+            return render_template('Patients.html', error='')
+        except:
+            print('Something went wrong')
+
 # ------------------Methods------------------
 def checkCredentials(email, password):
     try:
