@@ -132,111 +132,122 @@
   <script type="text/javascript" src="../static/js/questions.js"></script>
   <script>
     function back() {
-      //    Question skipping
-            if (counter == 3) {
-            if (){
-            document.getElementById("qhide").value = "true";
-             }else{
+      // Question skipping.
+      if (counter == 3) {
+        if () {
+          document.getElementById("qhide").value = "true";
+        } else{
             document.getElementById("qhide").value = "false";
-             }
-            }
-            if (counter == 5){
-            if (document.getElementById("option-text-32").checked == true){
-                document.getElementById("qhide").value = "true";
-             }else{
-                document.getElementById("qhide").value = "false";
-             }
-           }
-            if (counter == 11){
-            if (document.getElementById("option-text-70").checked == true){
-              document.getElementById("qhide").value = "true"
-             }else{
-              document.getElementById("qhide").value = "false";
-             }
-           }
-            if (counter == 16){
-            if (document.getElementById("option-text-101").checked == true){
-               document.getElementById("qhide").value = "true"
-             }else{
-               document.getElementById("qhide").value = "false";
-             }
-           }
-            if (counter == 18){
-            if (document.getElementById("option-text-110").checked == true){
-               document.getElementById("qhide").value = "true"
-             }else{
-               document.getElementById("qhide").value = "false";
-             }
-           }
-            if (counter == 21){
-            if (document.getElementById("option-text-128").checked == true){
-               document.getElementById("qhide").value = "true"
-              }else{
-                document.getElementById("qhide").value = "false";
-              }
-            }
-            if (counter == 26){
-            if (document.getElementById("option-text-145").checked == true){
-               document.getElementById("qhide").value = "true"
-             }else{
-              document.getElementById("qhide").value = "false";
-             }
-           }
+          };
+      };
 
-            // Section skipping
-            if (counter == 4){
-            if (document.getElementById("option-text-16").checked == true){document.getElementById("qhide").value = "true" }
-          else    {
-            document.getElementById("qhide").value = "false"
-          }
-        }
+      if (counter == 5) {
+        if (document.getElementById("option-text-32").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 11) {
+        if (document.getElementById("option-text-70").checked == true) {
+          document.getElementById("qhide").value = "true"
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 16) {
+        if (document.getElementById("option-text-101").checked == true) {
+          document.getElementById("qhide").value = "true"
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 18) {
+        if (document.getElementById("option-text-110").checked == true) {
+           document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 21) {
+        if (document.getElementById("option-text-128").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 26) {
+        if (document.getElementById("option-text-145").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+          document.getElementById("qhide").value = "false";
+        };
+      };
+
+      // Section skipping.
+      if (counter == 4) {
+        if (document.getElementById("option-text-16").checked == true) {
+          document.getElementById("qhide").value = "true"
+        } else {
+          document.getElementById("qhide").value = "false"
+        };
+      };
+
       console.log("Back button");
       var direction = document.getElementById("direction").value;
-      document.getElementById("direction").value = "back"
+      document.getElementById("direction").value = "back";
       var calculation = document.getElementById("questnum").value;
       var counter = document.getElementById("counter").innerHTML;
       console.log(direction);
       if (counter == calculation && counter != 1 ) {
-        document.getElementById("questnum").value -= 1
-      }
+        document.getElementById("questnum").value -= 1;
+      };
       if (calculation-counter == 1) {
         document.getElementById("questnum").value = calculation - 2;
-      }
+      };
     };
 
     function forward() {
       var counter = document.getElementById("counter").innerHTML;
 //     var q2hide = false; var q6hide = false; var q12hide = false; var q17hide = false; var q19hide = false; var q22hide = false; var q27hide = false; secaskip = false
-//    Question skipping
+      // Question skipping.
       if (counter == 1) {
-      if (document.getElementById("option-text-2").checked == true){
-      document.getElementById("qhide").value = "true";
-       }else{
-      document.getElementById("qhide").value = "false";
-       }
-      }
-      if (counter == 5){
-      if (document.getElementById("option-text-32").checked == true){
+        if (document.getElementById("option-text-2").checked == true) {
           document.getElementById("qhide").value = "true";
-       }else{
-          document.getElementById("qhide").value = "false";
-       }
-     }
-      if (counter == 11){
-      if (document.getElementById("option-text-70").checked == true){
-        document.getElementById("qhide").value = "true"
-       }else{
-        document.getElementById("qhide").value = "false";
-       }
-     }
-      if (counter == 16){
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+
+      if (counter == 5) {
+        if (document.getElementById("option-text-32").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+        };
+      };
+
+      if (counter == 11) {
+        if (document.getElementById("option-text-70").checked == true) {
+          document.getElementById("qhide").value = "true";
+        } else {
+            document.getElementById("qhide").value = "false";
+          };
+      };
+      
+      if (counter == 16) {
       if (document.getElementById("option-text-101").checked == true){
          document.getElementById("qhide").value = "true"
        }else{
          document.getElementById("qhide").value = "false";
        }
      }
-      if (counter == 18){
+      if (counter == 18) {
       if (document.getElementById("option-text-110").checked == true){
          document.getElementById("qhide").value = "true"
        }else{
@@ -258,7 +269,7 @@
        }
      }
 
-      // Section skipping
+      // Section skipping.
       if (counter == 4){
       if (document.getElementById("option-text-16").checked == true){document.getElementById("qhide").value = "true" }
     else    {
