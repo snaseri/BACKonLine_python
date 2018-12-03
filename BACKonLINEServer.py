@@ -28,6 +28,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 @app.route("/Questions", methods = ['GET', 'POST'])
 def questions():
     if request.method == 'GET':
+        intial_qhide_value = "f,f,f,f,f,f,f,f,f"
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -41,7 +42,8 @@ def questions():
             question_text = str(question_text)[3:-4]
             section_text = "Section A: Pain Behaviour"
             conn.close()
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text,  question_number=1)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text,  question_number=1, question_skip=intial_qhide_value)
+
     elif request.method == 'POST':
         questnum = int(request.form['questnum'])
         direction = str(request.form['direction'])
@@ -327,7 +329,7 @@ def questions():
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
 
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
         except:
             print('There was an error')
         finally:
