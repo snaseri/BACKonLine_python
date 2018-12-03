@@ -10,16 +10,18 @@
       {% if row[1] == "Radiobox" %}
         <div class="options">
           <!--DO NOT FORMAT THIS DIFFERENTLY -->
-          <label for="option-text-{{loop.index}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
-          class="uk-radio" type="radio" id="option-text-{{loop.index}}" name="option-text[]">
+          <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
+          class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
+          <p>{{row[2]}}</p>
           </label>
           <div class="check"></div>
         </div>
       {% endif %}
       {% if row[1] == "Tickbox" %}
         <div class="options">
-          <label for="option-text-{{loop.index}}">{{ row[0] }}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{loop.index}}" name="option-text[]" onclick="sendCheckbox(this);">
+          <label for="option-text-{{row[2]}}">{{ row[0] }}</label>
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
+          <p>{{row[2]}}</p>
         </div>
       {% endif %}
       {% if row[1] == "Textbox" %}
@@ -111,6 +113,8 @@
         <area id="left-buttock" title="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425">
       </map>
     {% endif %}
+    <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
+    <input id="qhide" type="text" name="qhide" value="false"></input>
     <input id="direction" type="text" name="direction" value="true"></input>
     <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
     <input id="patient_id" name="patient_id" type="text"></input>
@@ -126,6 +130,208 @@
   </form>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
+  <script>
+    function back() {
+      //    Question skipping
+            if (counter == 3) {
+            if (){
+            document.getElementById("qhide").value = "true";
+             }else{
+            document.getElementById("qhide").value = "false";
+             }
+            }
+            if (counter == 5){
+            if (document.getElementById("option-text-32").checked == true){
+                document.getElementById("qhide").value = "true";
+             }else{
+                document.getElementById("qhide").value = "false";
+             }
+           }
+            if (counter == 11){
+            if (document.getElementById("option-text-70").checked == true){
+              document.getElementById("qhide").value = "true"
+             }else{
+              document.getElementById("qhide").value = "false";
+             }
+           }
+            if (counter == 16){
+            if (document.getElementById("option-text-101").checked == true){
+               document.getElementById("qhide").value = "true"
+             }else{
+               document.getElementById("qhide").value = "false";
+             }
+           }
+            if (counter == 18){
+            if (document.getElementById("option-text-110").checked == true){
+               document.getElementById("qhide").value = "true"
+             }else{
+               document.getElementById("qhide").value = "false";
+             }
+           }
+            if (counter == 21){
+            if (document.getElementById("option-text-128").checked == true){
+               document.getElementById("qhide").value = "true"
+              }else{
+                document.getElementById("qhide").value = "false";
+              }
+            }
+            if (counter == 26){
+            if (document.getElementById("option-text-145").checked == true){
+               document.getElementById("qhide").value = "true"
+             }else{
+              document.getElementById("qhide").value = "false";
+             }
+           }
+
+            // Section skipping
+            if (counter == 4){
+            if (document.getElementById("option-text-16").checked == true){document.getElementById("qhide").value = "true" }
+          else    {
+            document.getElementById("qhide").value = "false"
+          }
+        }
+      console.log("Back button");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "back"
+      var calculation = document.getElementById("questnum").value;
+      var counter = document.getElementById("counter").innerHTML;
+      console.log(direction);
+      if (counter == calculation && counter != 1 ) {
+        document.getElementById("questnum").value -= 1
+      }
+      if (calculation-counter == 1) {
+        document.getElementById("questnum").value = calculation - 2;
+      }
+    };
+
+    function forward() {
+      var counter = document.getElementById("counter").innerHTML;
+//     var q2hide = false; var q6hide = false; var q12hide = false; var q17hide = false; var q19hide = false; var q22hide = false; var q27hide = false; secaskip = false
+//    Question skipping
+      if (counter == 1) {
+      if (document.getElementById("option-text-2").checked == true){
+      document.getElementById("qhide").value = "true";
+       }else{
+      document.getElementById("qhide").value = "false";
+       }
+      }
+      if (counter == 5){
+      if (document.getElementById("option-text-32").checked == true){
+          document.getElementById("qhide").value = "true";
+       }else{
+          document.getElementById("qhide").value = "false";
+       }
+     }
+      if (counter == 11){
+      if (document.getElementById("option-text-70").checked == true){
+        document.getElementById("qhide").value = "true"
+       }else{
+        document.getElementById("qhide").value = "false";
+       }
+     }
+      if (counter == 16){
+      if (document.getElementById("option-text-101").checked == true){
+         document.getElementById("qhide").value = "true"
+       }else{
+         document.getElementById("qhide").value = "false";
+       }
+     }
+      if (counter == 18){
+      if (document.getElementById("option-text-110").checked == true){
+         document.getElementById("qhide").value = "true"
+       }else{
+         document.getElementById("qhide").value = "false";
+       }
+     }
+      if (counter == 21){
+      if (document.getElementById("option-text-128").checked == true){
+         document.getElementById("qhide").value = "true"
+        }else{
+          document.getElementById("qhide").value = "false";
+        }
+      }
+      if (counter == 26){
+      if (document.getElementById("option-text-145").checked == true){
+         document.getElementById("qhide").value = "true"
+       }else{
+        document.getElementById("qhide").value = "false";
+       }
+     }
+
+      // Section skipping
+      if (counter == 4){
+      if (document.getElementById("option-text-16").checked == true){document.getElementById("qhide").value = "true" }
+    else    {
+      document.getElementById("qhide").value = "false"
+    }
+  }
+      if (counter == 23){
+      if (document.getElementById("option-text-135").checked == true){
+         document.getElementById("qhide").value= "true" }
+       else{
+         document.getElementById("qhide").value = "false"
+       }
+     }
+      var qhide = document.getElementById("qhide").value;
+
+      console.log("Next button");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "forward";
+      var calculation = parseInt(document.getElementById("questnum").value);
+      console.log("Next button");
+      var direction = document.getElementById("direction").value;
+      document.getElementById("direction").value = "forward";
+      var calculation = parseInt(document.getElementById("questnum").value);
+      var counter = document.getElementById("counter").innerHTML;
+      if (counter == calculation) {
+        document.getElementById("questnum").value = calculation + 1;
+      };
+      if (counter-calculation == 1) {
+        document.getElementById("questnum").value = calculation + 2;
+      };
+//   Question skipping
+      if (document.getElementById("qhide").value == "true" && counter == 1) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 3;
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 5) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 7
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 11) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 13;
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 16) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 18;
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 18) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 20;
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 21) {
+        document.getElementById("skippedqs").value = 1;
+        document.getElementById("questnum").value = 23;
+      }
+      if (document.getElementById("qhide").value == "true" && counter == 26) {
+        document.getElementById("skippedqs").value = 2;
+        document.getElementById("questnum").value = 29;
+      }
+// Section skipping
+if (qhide == true && counter == 4) {
+  document.getElementById("skippedqs").value = 18
+  document.getElementById("questnum").value = 23
+}
+if (qhide == true && counter == 23) {
+  document.getElementById("skippedqs").value = 5
+  document.getElementById("questnum").value = 29
+}
+
+      console.log(direction);
+    };
+
+  </script>
 {% endblock %}
 
 <!-- References:

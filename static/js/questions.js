@@ -40,40 +40,40 @@ $('h1').each(function() {
 
 
 // Code for back and next button.
-function back() {
-  console.log("Back button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "back"
-  var calculation = document.getElementById("questnum").value;
-  var counter = document.getElementById("counter").innerHTML;
-  console.log(direction);
-  if (counter == calculation && counter != 1 ) {
-    document.getElementById("questnum").value -= 1
-  }
-  if (calculation-counter == 1) {
-    document.getElementById("questnum").value = calculation - 2;
-  }
-};
-
-function forward() {
-  console.log("Next button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "forward";
-  var calculation = parseInt(document.getElementById("questnum").value);
-  var counter = document.getElementById("counter").innerHTML;
-  console.log("Next button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "forward";
-  var calculation = parseInt(document.getElementById("questnum").value);
-  var counter = document.getElementById("counter").innerHTML;
-  if (counter == calculation) {
-    document.getElementById("questnum").value = calculation + 1;
-  };
-  if (counter-calculation == 1) {
-    document.getElementById("questnum").value = calculation + 2;
-  };
-  console.log(direction);
-};
+// function back() {
+//   console.log("Back button");
+//   var direction = document.getElementById("direction").value;
+//   document.getElementById("direction").value = "back"
+//   var calculation = document.getElementById("questnum").value;
+//   var counter = document.getElementById("counter").innerHTML;
+//   console.log(direction);
+//   if (counter == calculation && counter != 1 ) {
+//     document.getElementById("questnum").value -= 1
+//   }
+//   if (calculation-counter == 1) {
+//     document.getElementById("questnum").value = calculation - 2;
+//   }
+// };
+//
+// function forward() {
+//   console.log("Next button");
+//   var direction = document.getElementById("direction").value;
+//   document.getElementById("direction").value = "forward";
+//   var calculation = parseInt(document.getElementById("questnum").value);
+//   var counter = document.getElementById("counter").innerHTML;
+//   console.log("Next button");
+//   var direction = document.getElementById("direction").value;
+//   document.getElementById("direction").value = "forward";
+//   var calculation = parseInt(document.getElementById("questnum").value);
+//   var counter = document.getElementById("counter").innerHTML;
+//   if (counter == calculation) {
+//     document.getElementById("questnum").value = calculation + 1;
+//   };
+//   if (counter-calculation == 1) {
+//     document.getElementById("questnum").value = calculation + 2;
+//   };
+//   console.log(direction);
+// };
 
 // Make sure user has selected at least one option.
 function validate() {
