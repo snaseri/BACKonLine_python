@@ -1,0 +1,14 @@
+
+{% extends "navbar.html" %}
+{% block mainBlock %}
+{{super()}}
+<link href="../static/css/welcome.css" rel="stylesheet">
+
+<h2>Customers actions</h2>
+<ul>
+  <li><a href="\Me">Patients</a></li>
+  <li><a href="\Questions">Survey</a></li>
+  <li><a href="\Login">Logout</a></li>
+</ul>
+<p>Your persona data is: {{ msg }}</p>
+{% endblock %}

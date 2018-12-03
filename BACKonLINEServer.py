@@ -244,6 +244,16 @@ def login():
         login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
+            if adminCredentials(login_email, login_password):
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
+                    data = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                return render_template('Admin.html', data=data, username=login_email)
+
             if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
@@ -301,6 +311,10 @@ def checkCredentials(email, password):
             return 3
     except:
         return 2
+
+def adminCredentials(email, password):
+    return email == 'admin@admin.com'
+    return password == 'admin'
 
 if __name__ == "__main__":
     # Uncomment to use this --> get IPv4 address and go IPv4-address:8080/address-route
