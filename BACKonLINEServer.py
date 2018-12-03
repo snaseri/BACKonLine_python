@@ -217,7 +217,7 @@ def questions():
                 section_text = "Section D: Perception of Back Pain";
             elif questnum >= 40:
                 return render_template('finish.html')
-            
+
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
         except:
             print('There was an error')
@@ -267,6 +267,16 @@ def login():
         login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
+            if adminCredentials(login_email, login_password):
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
+                    data = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                return render_template('Admin.html', data=data, username=login_email)
+
             if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
@@ -325,6 +335,10 @@ def checkCredentials(email, password):
             return 3
     except:
         return 2
+
+def adminCredentials(email, password):
+    return email == 'admin@admin.com'
+    return password == 'admin'
 
 if __name__ == "__main__":
 	app.run(debug=True)
