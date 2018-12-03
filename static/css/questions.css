@@ -168,21 +168,65 @@ img {
   display: center;
 }
 
-.congrat {
-  text-align: center;
+.finish-message {
   display: center;
-  font-size: 22px;
+  text-align: center;
+  font-size: 35px;
   font-weight: 200;
   left: 15%;
   top: 20%;
   margin-top: 10%;
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /* width: 50%; */
+.email-message {
+  position: absolute;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 200;
+  margin-top: 15%;
+  right: 33%;
+}
+
+.tick {
+  stroke-dasharray: 29px;
+  stroke-dashoffset: 29px;
+  animation: draw .5s cubic-bezier(.25, .25, .25, 1) forwards;
+  animation-delay: .6s
+}
+
+.circle {
+  fill-opacity: 0;
+  stroke: #219a00;
+  stroke-width: 16px;
+  transform-origin: center;
+  transform: scale(0);
+  animation: grow 1s cubic-bezier(.25, .25, .25, 1.25) forwards;   
+}
+
+@keyframes grow {
+  60% {
+    transform: scale(.8);
+    stroke-width: 4px;
+    fill-opacity: 0;
+  }
+  
+  100% {
+    transform: scale(.9);
+    stroke-width: 8px;
+    fill-opacity: 1;
+    fill: #219a00;
+  }
+}
+
+@keyframes draw {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+svg {
+  position: absolute;
+  margin-left: 40%;
 }
 
 /* References:
