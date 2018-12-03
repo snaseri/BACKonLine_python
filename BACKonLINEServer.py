@@ -322,12 +322,9 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
-<<<<<<< HEAD
 
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
-=======
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum)
->>>>>>> 71422ef4238b804f895b8f384d0e19f606ed1d77
         except:
             print('There was an error')
         finally:
