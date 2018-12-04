@@ -52,14 +52,20 @@ def questions():
         checkbox = request.form.get('checkbox')
         textarea = request.form.get('textarea')
         qhide = request.form.get('qhide')
+        slider = request.form.get('slider')
         skippedqs = int(request.form.get('skippedqs'))
+        print(f"slider = {slider}")
         calc = questnum - 1 - skippedqs
         print(f"{questnum} - {skippedqs} =  {calc}")
         # Insert values.
         if direction == "forward":
             if radio != "":
                 # Get score and option ID.
-                if qhide == "false":
+                if qhide[0] == "t" or qhide[4] == "t" or qhide[6] == "t" or qhide[8] == "t" or qhide[10] == "t" or qhide[12] == "t" or qhide[14] == "t":
+                    skipped_question = True
+                else:
+                    skipped_question = False
+                if skipped_question == False:
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
@@ -89,7 +95,7 @@ def questions():
                         except:
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
-                elif qhide == "true":
+                elif skipped_question == True:
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
@@ -292,6 +298,7 @@ def questions():
                     conn.rollback()
                     print("Error in insert operation")
                 conn.close()
+
         # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
