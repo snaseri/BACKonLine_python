@@ -404,14 +404,10 @@ def patients():
     if request.method == 'GET':
         try:
             con = sqlite3.connect(DATABASE)
-            print('1')
             cur = con.cursor()
-            print('2')
             cur.execute("SELECT * FROM Patient;")
-            print('3')
             patients = cur.fetchall()
-            print('4')
-            print('6')
+            print('Showing patients')
             return render_template('Patients.html', error='', patients = patients)
         except:
             print('something went wrong')
