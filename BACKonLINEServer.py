@@ -66,7 +66,7 @@ def questions():
                         cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
                         OpID_Score = cur.fetchall()
                     except:
-                        print('There was an error', login_details)
+                        print('There was an error', OpID_Score)
                     conn.close()
                     option_id = OpID_Score[0][0]
                     score = OpID_Score[0][1]
@@ -76,7 +76,7 @@ def questions():
                         cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
                         duplicate_response = cur.fetchall()
                     except:
-                        print('There was an error', login_details)
+                        print('There was an error', duplicate_response)
                     conn.close()
 
                     if duplicate_response != []:
@@ -96,7 +96,7 @@ def questions():
                         cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [calc, radio])
                         OpID_Score = cur.fetchall()
                     except:
-                        print('There was an error', login_details)
+                        print('There was an error', OpID_Score)
                     conn.close()
                     option_id = OpID_Score[0][0]
                     score = OpID_Score[0][1]
@@ -106,7 +106,7 @@ def questions():
                         cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
                         duplicate_response = cur.fetchall()
                     except:
-                        print('There was an error', login_details)
+                        print('There was an error', duplicate_response)
                     conn.close()
 
                     if duplicate_response != []:
@@ -164,7 +164,7 @@ def questions():
                             cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [questnum-1, box])
                             Score = cur.fetchall()
                         except:
-                            print('There was an error', login_details)
+                            print('There was an error', Score)
                         conn.close()
                         Score = Score[0][0]
                     try:
@@ -258,7 +258,7 @@ def questions():
                     cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
                     OpID_Score = cur.fetchall()
                 except:
-                    print('There was an error', login_details)
+                    print('There was an error', OpID_Score)
                 conn.close()
                 option_id = OpID_Score[0][0]
                 score = OpID_Score[0][1]
@@ -268,7 +268,7 @@ def questions():
                     cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
                     duplicate_response = cur.fetchall()
                 except:
-                    print('There was an error', login_details)
+                    print('There was an error', duplicate_response)
                 conn.close()
 
                 if duplicate_response != []:
@@ -354,7 +354,7 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('Admin.html', data=data, username=login_email)
+                return render_template('Admin.html', data=data, username=login_email, msg='ADMIN')
 
             if checkCredentials(login_email, login_password) == 1:
                 try:
@@ -433,8 +433,12 @@ def checkCredentials(email, password):
         return 2
 
 def adminCredentials(email, password):
-    return email == 'admin@admin.com'
-    return password == 'admin'
+    if email == 'admin@admin.com' and password == 'admin':
+        print("admin login worked")
+        return True
+    else:
+        return False
+   
 
 if __name__ == "__main__":
     app.run(debug=True)

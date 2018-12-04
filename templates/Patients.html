@@ -1,7 +1,7 @@
 {% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
-  {% for item in patients %}
+  
 
   <style>
     thead {
@@ -41,6 +41,7 @@
       </tr>
     </thead>
     <tbody>
+      {% for item in patients %}
       <tr>
         <td>{{item[0]}}</td>
         <td>{{item[1]}}</td>
@@ -48,10 +49,11 @@
         <td>{{item[3]}}</td>
         <td>{{item[4]}}</td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 
 
   
-  {% endfor %}
+  
 {% endblock %}

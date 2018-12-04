@@ -4,11 +4,21 @@
 {{super()}}
 <link href="../static/css/welcome.css" rel="stylesheet">
 
+<style>
+p {
+  text-align: center;
+  margin: 0 auto;
+  color: brown;
+}
+</style>
+
+<p>You logged in as: {{ msg }}</p>
+
 <h2>Customers actions</h2>
 <ul>
   <li><a href="\Patients">Patients</a></li>
   <li><a href="\Questions">Survey</a></li>
   <li><a href="\Login">Logout</a></li>
 </ul>
-<p>Your persona data is: {{ msg }}</p>
+
 {% endblock %}
