@@ -56,243 +56,242 @@ def questions():
         calc = questnum - 1 - skippedqs
         print(f"{questnum} - {skippedqs} =  {calc}")
         # Insert values.
-        # if direction == "forward":
-        #     if radio != "":
-        #         # Get score and option ID.
-        #         if qhide == "false":
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
-        #                 OpID_Score = cur.fetchall()
-        #             except:
-        #                 print('There was an error', login_details)
-        #             conn.close()
-        #             option_id = OpID_Score[0][0]
-        #             score = OpID_Score[0][1]
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
-        #                 duplicate_response = cur.fetchall()
-        #             except:
-        #                 print('There was an error', login_details)
-        #             conn.close()
-        
-        #             if duplicate_response != []:
-        #                 print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
-        #                 try:
-        #                     conn = sqlite3.connect(DATABASE)
-        #                     cur = conn.cursor()
-        #                     cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
-        #                     conn.commit()
-        #                 except:
-        #                     print('There was an error', duplicate_response [0][0])
-        #                 conn.close()
-        #         elif qhide == "true":
-        #             calc = questnum - 1 - skippedqs
-        #             print(f"{questnum} - {skippedqs} =  {calc}")
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [calc, radio])
-        #                 OpID_Score = cur.fetchall()
-        #             except:
-        #                 print('There was an error', login_details)
-        #             conn.close()
-        #             option_id = OpID_Score[0][0]
-        #             score = OpID_Score[0][1]
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
-        #                 duplicate_response = cur.fetchall()
-        #             except:
-        #                 print('There was an error', login_details)
-        #             conn.close()
-        
-        #             if duplicate_response != []:
-        #                 print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
-        #                 try:
-        #                     conn = sqlite3.connect(DATABASE)
-        #                     cur = conn.cursor()
-        #                     cur.execute("DELETE FROM Response Where questionID=?;", [calc])
-        #                     conn.commit()
-        #                 except:
-        #                     print('There was an error', duplicate_response [0][0])
-        #                 conn.close()
-        
-        
-        #         #print(f"PatientID:{patient_id} direction:{direction} radio:{radio} checkbox:{checkbox} textarea:{textarea} optionID: {option_id} score:{score} questionID:{questnum-1}")
-        #         try:
-        #             conn = sqlite3.connect(DATABASE)
-        #             cur = conn.cursor()
-        #             cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-        #             VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,"",str(datetime.date.today())))
-        #             conn.commit()
-        #             print("Record successfully added")
-        #         except:
-        #             conn.rollback()
-        #             print("Error in insert operation")
-        #         conn.close()
-        #     if checkbox != "[]":
-        #         checkbox = checkbox[:-2] + checkbox[-1] #removes last ,
-        #         checkbox = checkbox[1:-1] #removes square brackets
-        #         checkbox_array = checkbox.split(",") #splits string into array via commas
-        
-        #         if qhide == "false":
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [questnum-2])
-        #                 Total_OpID= cur.fetchall()
-        #             except:
-        #                 print('There was an error', Total_OpID)
-        
-        #             print(Total_OpID[-1][0])
-        #             for index,box in enumerate(checkbox_array):
-        #                 box = int(box)
-        #                 box = box + Total_OpID[-1][0]
-        #                 checkbox_array[index] = box
-        
-        #             #Get score and option ID.
-        #             for box in checkbox_array:
-        #                 print(box)
-        #                 try:
-        #                     conn = sqlite3.connect(DATABASE)
-        #                     cur = conn.cursor()
-        #                     cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [questnum-1, box])
-        #                     Score = cur.fetchall()
-        #                 except:
-        #                     print('There was an error', login_details)
-        #                 conn.close()
-        #                 Score = Score[0][0]
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
-        #                 duplicate_response = cur.fetchall()
-        #             except:
-        #                 print('There was an error', duplicate_response)
-        #             conn.close()
-        
-        #             if duplicate_response != []:
-        #                 print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
-        #                 try:
-        #                     conn = sqlite3.connect(DATABASE)
-        #                     cur = conn.cursor()
-        #                     cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
-        #                     conn.commit()
-        #                 except:
-        #                     print('There was an error', duplicate_response [0][0])
-        #                 conn.close()
-        #             print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-        #         if qhide == "true":
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [calc])
-        #                 Total_OpID= cur.fetchall()
-        #             except:
-        #                 print('There was an error', Total_OpID)
-        
-        #             print(Total_OpID[-1][0])
-        #             for index,box in enumerate(checkbox_array):
-        #                 box = int(box)
-        #                 box = box + Total_OpID[-1][0]
-        #                 checkbox_array[index] = box
-        
-        #             #Get score and option ID.
-        #             for box in checkbox_array:
-        #                 print(box)
-        #                 try:
-        #                     conn = sqlite3.connect(DATABASE)
-        #                     cur = conn.cursor()
-        #                     cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [calc-1, box])
-        #                     Score = cur.fetchall()
-        #                 except:
-        #                     print('There was an error', login_details)
-        #                 conn.close()
-        #                 print(Score)git
-        #                 Score = Scorgit
-        #             try:
-        #                 conn = sqlitgit
-        #                 cur = conn.cgit
-        #                 cur.execute(git[calc])
-        #                 duplicate_regit
-        #             except:
-        #                 print('Theregit
-        #             conn.close()
-        
-        #             if duplicate_resgit
-        #                 print(f"Duplgit
-        #                 try:
-        #                     conn = sgit
-        #                     cur = cogit
-        #                     cur.execgit
-        #                     conn.comgit
-        #                 except:
-        #                     print('There was an error', duplicate_response [0][0])
-        #                 conn.close()
-        #             print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-        
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 print("test 1")
-        #                 cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-        #                 VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-        #                 print("test 2")
-        #                 conn.commit()
-        #                 print("Record successfully added")
-        #             except:
-        #                 conn.rollback()
-        #                 print("Error in insert operation")
-        #             conn.close()
-        
-        
-        #     if textarea != "":
-        #         # Get score and option ID.
-        #         try:
-        #             conn = sqlite3.connect(DATABASE)
-        #             cur = conn.cursor()
-        #             cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
-        #             OpID_Score = cur.fetchall()
-        #         except:
-        #             print('There was an error', login_details)
-        #         conn.close()
-        #         option_id = OpID_Score[0][0]
-        #         score = OpID_Score[0][1]
-        #         try:
-        #             conn = sqlite3.connect(DATABASE)
-        #             cur = conn.cursor()
-        #             cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
-        #             duplicate_response = cur.fetchall()
-        #         except:
-        #             print('There was an error', login_details)
-        #         conn.close()
-        
-        #         if duplicate_response != []:
-        #             print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
-        #             try:
-        #                 conn = sqlite3.connect(DATABASE)
-        #                 cur = conn.cursor()
-        #                 cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
-        #                 conn.commit()
-        #             except:
-        #                 print('There was an error', duplicate_response [0][0])
-        #             conn.close()
-        #         try:
-        #             conn = sqlite3.connect(DATABASE)
-        #             cur = conn.cursor()
-        #             cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-        #             VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,textarea,str(datetime.date.today())))
-        #             conn.commit()
-        #             print("Record successfully added")
-        #         except:
-        #             conn.rollback()
-        #             print("Error in insert operation")
-        #         conn.close()
+        if direction == "forward":
+            if radio != "":
+                # Get score and option ID.
+                if qhide == "false":
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
+                        OpID_Score = cur.fetchall()
+                    except:
+                        print('There was an error', login_details)
+                    conn.close()
+                    option_id = OpID_Score[0][0]
+                    score = OpID_Score[0][1]
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                        duplicate_response = cur.fetchall()
+                    except:
+                        print('There was an error', login_details)
+                    conn.close()
+
+                    if duplicate_response != []:
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                            conn.commit()
+                        except:
+                            print('There was an error', duplicate_response [0][0])
+                        conn.close()
+                elif qhide == "true":
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [calc, radio])
+                        OpID_Score = cur.fetchall()
+                    except:
+                        print('There was an error', login_details)
+                    conn.close()
+                    option_id = OpID_Score[0][0]
+                    score = OpID_Score[0][1]
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
+                        duplicate_response = cur.fetchall()
+                    except:
+                        print('There was an error', login_details)
+                    conn.close()
+
+                    if duplicate_response != []:
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Response Where questionID=?;", [calc])
+                            conn.commit()
+                        except:
+                            print('There was an error', duplicate_response [0][0])
+                        conn.close()
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                    VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,"",str(datetime.date.today())))
+                    conn.commit()
+                    print("Record successfully added")
+                except:
+                    conn.rollback()
+                    print("Error in insert operation")
+                conn.close()
+            if checkbox != "[]":
+                checkbox = checkbox[:-2] + checkbox[-1] #removes last ,
+                checkbox = checkbox[1:-1] #removes square brackets
+                checkbox_array = checkbox.split(",") #splits string into array via commas
+                print(qhide)
+                print(qhide[2])
+                if qhide[2] == "t":
+                    skipped_question = True
+                else:
+                    skipped_question = False
+
+                print(skipped_question)
+                if skipped_question == False:
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [questnum-2])
+                        Total_OpID= cur.fetchall()
+                    except:
+                        print('There was an error', Total_OpID)
+
+                    print(Total_OpID[-1][0])
+                    for index,box in enumerate(checkbox_array):
+                        box = int(box)
+                        checkbox_array[index] = box
+                    #Get score and option ID.
+                    for box in checkbox_array:
+                        print(box)
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [questnum-1, box])
+                            Score = cur.fetchall()
+                        except:
+                            print('There was an error', login_details)
+                        conn.close()
+                        Score = Score[0][0]
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                        duplicate_response = cur.fetchall()
+                    except:
+                        print('There was an error', duplicate_response)
+                    conn.close()
+
+                    if duplicate_response != []:
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                            conn.commit()
+                        except:
+                            print('There was an error', duplicate_response [0][0])
+                        conn.close()
+                    print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
+                if skipped_question == True:
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [calc])
+                        Total_OpID= cur.fetchall()
+                    except:
+                        print('There was an error', Total_OpID)
+
+
+                    for index,box in enumerate(checkbox_array):
+                        box = int(box)
+                        checkbox_array[index] = box
+                    print(f"checkbox_array = {checkbox_array}")
+                    #Get score and option ID.
+                    for box in checkbox_array:
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [calc, box])
+                            Score = cur.fetchall()
+                        except:
+                            print('There was an error', Score)
+                        conn.close()
+                        print(Score)
+                        Score = Score[0][0]
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
+                        duplicate_response = cur.fetchall()
+                    except:
+                        print('There was an error', duplicate_response)
+                    conn.close()
+
+                    if duplicate_response != []:
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Response Where questionID=?;", [calc])
+                            conn.commit()
+                        except:
+                            print('There was an error', duplicate_response [0][0])
+                        conn.close()
+                    print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
+
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    print("test 1")
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                    VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
+                    print("test 2")
+                    conn.commit()
+                    print("Record successfully added")
+                except:
+                    conn.rollback()
+                    print("Error in insert operation 250")
+                conn.close()
+
+
+
+            if textarea != "":
+                # Get score and option ID.
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
+                    OpID_Score = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+                option_id = OpID_Score[0][0]
+                score = OpID_Score[0][1]
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                    duplicate_response = cur.fetchall()
+                except:
+                    print('There was an error', login_details)
+                conn.close()
+
+                if duplicate_response != []:
+                    print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                        conn.commit()
+                    except:
+                        print('There was an error', duplicate_response [0][0])
+                    conn.close()
+                try:
+                    conn = sqlite3.connect(DATABASE)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                    VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,textarea,str(datetime.date.today())))
+                    conn.commit()
+                    print("Record successfully added")
+                except:
+                    conn.rollback()
+                    print("Error in insert operation")
+                conn.close()
         # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
