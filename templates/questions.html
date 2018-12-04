@@ -32,7 +32,7 @@
       {% if row[1] == "Slider" %}
         <div class="options">
           <div class="range-slider">
-            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name = "slider">
             <span class="range-slider-value">0</span>
           </div>
         </div>
@@ -196,7 +196,7 @@
       if (counter == 5){
       if (document.getElementById("option-text-32").checked == true){
         qhide[1] = "t";
-      
+
         document.getElementById("qhide").value = qhide
        }
       else{
