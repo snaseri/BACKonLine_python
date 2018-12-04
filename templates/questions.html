@@ -6,38 +6,40 @@
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
-    {% for row in option_data %}
-      {% if row[1] == "Radiobox" %}
-        <div class="options">
-          <!--DO NOT FORMAT THIS DIFFERENTLY -->
-          <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
-          class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
-          <p>{{row[2]}}</p>
-          </label>
-          <div class="check"></div>
-        </div>
-      {% endif %}
-      {% if row[1] == "Tickbox" %}
-        <div class="options">
-          <label for="option-text-{{row[2]}}">{{ row[0] }}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
-          <p>{{row[2]}}</p>
-        </div>
-      {% endif %}
-      {% if row[1] == "Textbox" %}
-        <div class="options">
-          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);" required></textarea>
-        </div>
-      {% endif %}
-      {% if row[1] == "Slider" %}
-        <div class="options">
-          <div class="range-slider">
-            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
-            <span class="range-slider-value">0</span>
+    <div class="options-container">
+      {% for row in option_data %}
+        {% if row[1] == "Radiobox" %}
+          <div class="options">
+            <!--DO NOT FORMAT THIS DIFFERENTLY -->
+            <label for="option-text-{{ row[2] }}" class="test" onclick="sendRadio(this);">{{ row[0] }}<input
+            class="uk-radio" type="radio" id="option-text-{{ row[2] }}" name="option-text[]">
+            <p>{{ row[2] }}</p>
+            </label>
+            <div class="check"></div>
           </div>
-        </div>
-      {% endif %}
-    {% endfor %}
+        {% endif %}
+        {% if row[1] == "Tickbox" %}
+          <div class="options">
+            <label for="option-text-{{ row[2] }}">{{ row[0] }}</label>
+            <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
+            <p>{{row[2]}}</p>
+          </div>
+        {% endif %}
+        {% if row[1] == "Textbox" %}
+          <div class="options">
+            <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);" required></textarea>
+          </div>
+        {% endif %}
+        {% if row[1] == "Slider" %}
+          <div class="options">
+            <div class="range-slider">
+              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+              <span class="range-slider-value">0</span>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
     {% if (question_number == 7) or (question_number == 19) %}
       <img id="human-body" src="../static/img/body-map.png" usemap="#body-map">
       <map name="body-map" id="body-map">
@@ -113,14 +115,16 @@
         <area id="left-buttock" title="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425">
       </map>
     {% endif %}
-    <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
-    <input id="qhide" type="text" name="qhide" value="false"></input>
-    <input id="direction" type="text" name="direction" value="true"></input>
-    <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
-    <input id="patient_id" name="patient_id" type="text"></input>
-    <input id="radio" name="radio" type="text"></input>
-    <input id="checkbox" name="checkbox" type="text" value="[]"></input>
-    <input id="textarea" name="textarea" type="text"></input>
+    <div class="developer-boxes">
+      <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
+      <input id="qhide" type="text" name="qhide" value="false"></input>
+      <input id="direction" type="text" name="direction" value="true"></input>
+      <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
+      <input id="patient_id" name="patient_id" type="text"></input>
+      <input id="radio" name="radio" type="text"></input>
+      <input id="checkbox" name="checkbox" type="text" value="[]"></input>
+      <input id="textarea" name="textarea" type="text"></input>
+    </div>
     <button type="submit" class="back-button uk-button uk-button-primary" onclick="back();">Back</button>
     {% if (question_number != 3) and (question_number != 20) %}
       <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward(); return validate()">Next</button>

@@ -418,5 +418,5 @@ def adminCredentials(email, password):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    # Uncomment to use this --> get IPv4 address and go IPv4-address:8080/address-route
+    # Uncomment to use this --> get IPv4 address and go IPv4-address:8080/address-route, and comment out above line.
     # app.run(host='0.0.0.0', port=8080)
