@@ -398,17 +398,20 @@ def login():
         return render_template('index.html', msg='', username=username, error="")
 
 
-@app.route("/Patients", methods=['GET','POST'])
+@app.route("/Patients", methods=['GET'])
 def patients():
     if request.method == 'GET':
         try:
-            conn = sqlite3.connect(DATABASE)
-            cur = conn.cursor()
-            cur.execute("SELECT * from Patient;")
-            cur.fetchall()
-            return render_template('Patients.html', error='')
+            con = sqlite3.connect(DATABASE)
+            cur = con.cursor()
+            cur.execute("SELECT * FROM Patient;")
+            patients = cur.fetchall()
+            print('Showing patients')
+            return render_template('Patients.html', error='', patients = patients)
         except:
-            print('Something went wrong')
+            print('something went wrong')
+        finally:
+            con.close()
 
 
 

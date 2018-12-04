@@ -1,7 +1,57 @@
 {% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
-  
+  {% for item in patients %}
 
-  <table>{{patients}}</table>
+  <style>
+    thead {
+      color: green;
+    }
+  
+    tbody {
+      color: blue;
+    }
+  
+    tfoot {
+      color: red;
+    }
+  
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    html, body {
+    width: 100%;
+    }
+    table {
+    margin: 0 auto;
+    }
+  </style>
+
+  <table>
+    <thead>
+      <tr>
+        <th>PatientID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  
+  {% endfor %}
 {% endblock %}
