@@ -11,35 +11,15 @@
         {% if row[1] == "Radiobox" %}
           <div class="options">
             <!--DO NOT FORMAT THIS DIFFERENTLY -->
-            <label for="option-text-{{ row[2] }}" class="test" onclick="sendRadio(this);">{{ row[0] }}<input
-            class="uk-radio" type="radio" id="option-text-{{ row[2] }}" name="option-text[]">
+            <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
+            class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
             <p>{{ row[2] }}</p>
             </label>
           </div>
-      {% endif %}
-      {% if row[1] == "Tickbox" %}
-        <div class="options">
-          <label for="option-text-{{row[2]}}">{{ row[0] }}</label>
-          <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
-          <p>{{row[2]}}</p>
-        </div>
-      {% endif %}
-      {% if row[1] == "Textbox" %}
-        <div class="options">
-          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);" required></textarea>
-        </div>
-      {% endif %}
-      {% if row[1] == "Slider" %}
-        <div class="options">
-          <div class="range-slider">
-            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name = "slider">
-            <span class="range-slider-value">0</span>
-          </div>
-        </div>
         {% endif %}
         {% if row[1] == "Tickbox" %}
           <div class="options">
-            <label for="option-text-{{ row[2] }}">{{ row[0] }}</label>
+            <label for="option-text-{{row[2]}}">{{row[0]}}</label>
             <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
             <p>{{row[2]}}</p>
           </div>
@@ -52,11 +32,11 @@
         {% if row[1] == "Slider" %}
           <div class="options">
             <div class="range-slider">
-              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1">
+              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name = "slider">
               <span class="range-slider-value">0</span>
             </div>
           </div>
-        {% endif %}
+          {% endif %}
       {% endfor %}
     </div>
     {% if (question_number == 7) or (question_number == 19) %}
@@ -136,7 +116,7 @@
     {% endif %}
     <div class="developer-boxes">
       <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
-      <input id="qhide" type="text" name="qhide" value="false"></input>
+      <input id="qhide" type="text" name="qhide" value="{{ question_skip }}"></input>
       <input id="direction" type="text" name="direction" value="true"></input>
       <input id="questnum" type="text" name="questnum" value="{{ question_number }}"></input>
       <input id="patient_id" name="patient_id" type="text"></input>
