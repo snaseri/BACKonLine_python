@@ -214,3 +214,7 @@ function displayPart(id) {
   // Set the value of the input `selected-body-part` to the body part and pain level.
   $('#selected-body-part').val(id + painLevel);
 };
+
+// References:
+// https://stackoverflow.com/questions/53499666/change-styling-of-a-certain-part-in-h1-tag-when-in-jinja-template
+// https://stackoverflow.com/questions/53622707/change-colour-of-map-area-on-click
