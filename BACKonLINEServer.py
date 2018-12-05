@@ -397,8 +397,8 @@ def login():
 def patients():
     if request.method == 'GET':
         try:
-            con = sqlite3.connect(DATABASE)
-            cur = con.cursor()
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
@@ -406,7 +406,7 @@ def patients():
         except:
             print('Something went wrong')
         finally:
-            con.close()
+            conn.close()
 # ------------------Methods------------------
 def checkCredentials(email, password):
     try:

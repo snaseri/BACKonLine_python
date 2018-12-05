@@ -2,7 +2,7 @@
 {% block mainBlock %}
   {{ super() }}
   <link href="../static/css/questions.css" rel="stylesheet">
-  <form id="survey" action="/Questions" method="post">
+  <form id="survey" action="/Questions" method="POST">
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
@@ -32,11 +32,11 @@
         {% if row[1] == "Slider" %}
           <div class="options">
             <div class="range-slider">
-              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name = "slider">
+              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name="slider">
               <span class="range-slider-value">0</span>
             </div>
           </div>
-          {% endif %}
+        {% endif %}
       {% endfor %}
     </div>
     {% if (question_number == 7) or (question_number == 19) %}

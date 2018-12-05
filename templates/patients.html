@@ -1,13 +1,11 @@
 {% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
-  
-
   <style>
     thead {
       color: green;
     }
-  
+
     tbody {
       color: blue;
     }
@@ -23,14 +21,15 @@
     }
 
     html, body {
-    width: 100%;
-    }
-    table {
-    margin: 0 auto;
+      width: 100%;
     }
 
-  span{
-    text-align: center;
+    table {
+      margin: 0 auto;
+    }
+
+    span {
+      text-align: center;
     }
   </style>
 
@@ -47,23 +46,20 @@
     <tbody>
       {% for item in patients %}
       <tr>
-        <td><span onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" onclick="data()">{{item[0]}}</span></td>
-        <td>{{item[1]}}</td>
-        <td>{{item[2]}}</td>
-        <td>{{item[3]}}</td>
-        <td>{{item[4]}}</td>
+        <td><span onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" onclick="data()">{{ item[0] }}</span></td>
+        <td>{{ item[1] }}</td>
+        <td>{{ item[2] }}</td>
+        <td>{{ item[3] }}</td>
+        <td>{{ item[4] }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  <span id="data"></span>
 
-    <span id="data"></span>
-
-<script>
-
- function data() {
-    document.getElementById('data').innerHTML = 'PATIENT DATA COMES HERE';
-  }
-
-</script>
+  <script>
+    function data() {
+      document.getElementById('data').innerHTML = 'PATIENT DATA COMES HERE';
+    };
+  </script>
 {% endblock %}
