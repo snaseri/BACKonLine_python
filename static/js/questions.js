@@ -156,3 +156,61 @@ function sendTextArea(value) {
 
 // Display body map.
 $('#human-body').maphilight();
+ 
+var currentColor = 'green';
+// Object with colour swatches.
+var fills = {
+  green: {fillColor: '00ff00', strokeColor:'000000'},
+  amber: {fillColor: 'ffbf00', strokeColor:'000000'},
+  red:   {fillColor: 'ff0000', strokeColor:'000000'}
+};
+
+$('map area').click(function(e) {
+  // Use swatch object to higlight.
+  $('#human-body').maphilight(fills[currentColor]);
+  // Switch out the colours.
+  if (currentColor == 'green') {
+    currentColor = 'amber';
+  } else if (currentColor == 'amber') {
+    currentColor = 'red';
+  } else {
+    currentColor ='green';
+  };
+});
+
+// Make the clicked area selected.
+$('map area').click(function(e) {
+  e.preventDefault();
+  // Remember clicked area.
+  var clickedArea = $(this);
+  // For each area...
+  $('map area').each(function() {
+    // get
+    hData = $(this).data('maphilight') || {};
+    // modify
+    hData.alwaysOn = $(this).is(clickedArea);
+    // set
+    $(this).data('maphilight', hData ).trigger('alwaysOn.maphilight');
+  });
+});
+
+function displayPart(id) {
+  // Convert the body part ID to sentence case.
+  id = id.toLowerCase().replace(/(^|\s)[a-z]/g, function(id) {
+    return id.toUpperCase();
+  });
+  // Replace the dashes with spaces.
+  id = id.replace(/-/g, ' ');
+  // Initialise pain level.
+  var painLevel = ''
+  // Set pain level depending on colour selected.
+  if (currentColor == 'green') {
+    painLevel = ' LOW PAIN';
+  } else if (currentColor == 'amber') {
+    painLevel = ' MEDIUM PAIN';
+  } else {
+    painLevel = ' HIGH PAIN';
+  };
+  // Set the value of the input `selected-body-part` to the body part and pain level.
+  $('#selected-body-part').val(id + painLevel);
+};

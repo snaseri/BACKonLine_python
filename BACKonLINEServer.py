@@ -308,6 +308,9 @@ def questions():
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
             question_text = str(question_text)[3:-4]
+            if questnum == 7:
+                selected_body_part = request.form.get('selected-body-part')
+                print(f"Body part: {selected_body_part}")
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
                 section_text = "Section A: Pain Behaviour"
