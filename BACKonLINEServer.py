@@ -43,7 +43,6 @@ def questions():
             section_text = "Section A: Pain Behaviour"
             conn.close()
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text,  question_number=1, question_skip=intial_qhide_value)
-
     elif request.method == 'POST':
         questnum = int(request.form['questnum'])
         direction = str(request.form['direction'])
@@ -84,7 +83,6 @@ def questions():
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
-
                     if duplicate_response != []:
                         print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
@@ -137,16 +135,18 @@ def questions():
                     print("Error in insert operation")
                 conn.close()
             if checkbox != "[]":
-                checkbox = checkbox[:-2] + checkbox[-1] #removes last ,
-                checkbox = checkbox[1:-1] #removes square brackets
-                checkbox_array = checkbox.split(",") #splits string into array via commas
+                # Removes last.
+                checkbox = checkbox[:-2] + checkbox[-1]
+                # Removes square brackets.
+                checkbox = checkbox[1:-1]
+                # Splits string into array via commas.
+                checkbox_array = checkbox.split(",")
                 print(qhide)
                 print(qhide[2])
                 if qhide[2] == "t":
                     skipped_question = True
                 else:
                     skipped_question = False
-
                 print(skipped_question)
                 if skipped_question == False:
                     try:
@@ -156,12 +156,11 @@ def questions():
                         Total_OpID= cur.fetchall()
                     except:
                         print('There was an error', Total_OpID)
-
                     print(Total_OpID[-1][0])
                     for index,box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
-                    #Get score and option ID.
+                    # Get score and option ID.
                     for box in checkbox_array:
                         print(box)
                         try:
@@ -181,7 +180,6 @@ def questions():
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
-
                     if duplicate_response != []:
                         print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
@@ -201,13 +199,11 @@ def questions():
                         Total_OpID= cur.fetchall()
                     except:
                         print('There was an error', Total_OpID)
-
-
                     for index,box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
                     print(f"checkbox_array = {checkbox_array}")
-                    #Get score and option ID.
+                    # Get score and option ID.
                     for box in checkbox_array:
                         try:
                             conn = sqlite3.connect(DATABASE)
@@ -227,7 +223,6 @@ def questions():
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
-
                     if duplicate_response != []:
                         print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
@@ -239,23 +234,17 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    print("test 1")
                     cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
                     VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-                    print("test 2")
                     conn.commit()
                     print("Record successfully added")
                 except:
                     conn.rollback()
                     print("Error in insert operation 250")
                 conn.close()
-
-
-
             if textarea != "":
                 # Get score and option ID.
                 try:
@@ -276,7 +265,6 @@ def questions():
                 except:
                     print('There was an error', duplicate_response)
                 conn.close()
-
                 if duplicate_response != []:
                     print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                     try:
@@ -298,7 +286,6 @@ def questions():
                     conn.rollback()
                     print("Error in insert operation")
                 conn.close()
-
         # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
@@ -331,7 +318,6 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
-
             return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
         except:
             print('There was an error')
@@ -364,7 +350,7 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('Admin.html', data=data, username=login_email, msg='ADMIN')
+                return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
 
             if checkCredentials(login_email, login_password) == 1:
                 try:
@@ -407,7 +393,6 @@ def login():
             username = escape(session['username'])
         return render_template('index.html', msg='', username=username, error="")
 
-
 @app.route("/Patients", methods=['GET'])
 def patients():
     if request.method == 'GET':
@@ -417,14 +402,11 @@ def patients():
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
-            return render_template('Patients.html', error='', patients = patients)
+            return render_template('patients.html', error='', patients=patients)
         except:
-            print('something went wrong')
+            print('Something went wrong')
         finally:
             con.close()
-
-
-
 # ------------------Methods------------------
 def checkCredentials(email, password):
     try:
