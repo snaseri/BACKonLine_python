@@ -295,9 +295,18 @@ def questions():
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
             question_text = str(question_text)[3:-4]
-            if questnum == 7:
+            # If the question number is 7 or 19...
+            if (questnum == 7) or (questnum == 19):
+                # ...get the selected body part from the body map.
                 selected_body_part = request.form.get('selected-body-part')
-                print(f"Body part: {selected_body_part}")
+                # If a body part has not been selected...
+                if selected_body_part == "":
+                    # ...print 'none selected'.
+                    print("Body part: None selected")
+                # Else...
+                else:
+                    # ...print the selected body part.
+                    print(f"Body part: {selected_body_part}")
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
                 section_text = "Section A: Pain Behaviour"

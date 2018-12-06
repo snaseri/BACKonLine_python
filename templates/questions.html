@@ -6,41 +6,39 @@
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
-    <div class="options-container">
-      {% for row in option_data %}
-        {% if row[1] == "Radiobox" %}
-          <div class="options">
-            <!--DO NOT FORMAT THIS DIFFERENTLY -->
-            <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
-            class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
-            <p>{{row[2]}}</p>
-            </label>
+    {% for row in option_data %}
+      {% if row[1] == "Radiobox" %}
+        <div class="options">
+          <!--DO NOT FORMAT THIS DIFFERENTLY -->
+          <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
+          class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
+          <p>{{row[2]}}</p>
+          </label>
+        </div>
+      {% endif %}
+      {% if row[1] == "Tickbox" %}
+        <div class="options">
+          <label for="option-text-{{row[2]}}">{{row[0]}}</label>
+          <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
+          <p>{{row[2]}}</p>
+        </div>
+      {% endif %}
+      {% if row[1] == "Textbox" %}
+        <div class="options">
+          <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);" required></textarea>
+        </div>
+      {% endif %}
+      {% if row[1] == "Slider" %}
+        <div class="options">
+          <div class="range-slider">
+            <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name="slider">
+            <span class="range-slider-value">0</span>
           </div>
-        {% endif %}
-        {% if row[1] == "Tickbox" %}
-          <div class="options">
-            <label for="option-text-{{row[2]}}">{{row[0]}}</label>
-            <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
-            <p>{{row[2]}}</p>
-          </div>
-        {% endif %}
-        {% if row[1] == "Textbox" %}
-          <div class="options">
-            <textarea id="question3-input" name="question3-input" rows="5" cols="55" placeholder="Type it here" oninput="sendTextArea(this);" required></textarea>
-          </div>
-        {% endif %}
-        {% if row[1] == "Slider" %}
-          <div class="options">
-            <div class="range-slider">
-              <input class="range-slider-range" type="range" value="&mdash;" min="0" max="10" step="1" name="slider">
-              <span class="range-slider-value">0</span>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+        </div>
+      {% endif %}
+    {% endfor %}
     {% if (question_number == 7) or (question_number == 19) %}
-      <img id="human-body" src="../static/img/body-map.png" usemap="#body-map">
+      <img id="human-body" src="../static/img/body-map.png" usemap="#body-map" width="700" height="700">
       <map name="body-map" id="body-map">
         <!-- Head -->
         <area id="head" shape="poly" coords="230,93,232,69,244,58,257,52,272,48,284,49,305,59,317,73,319,88,318,94,310,97,287,98,271,99,249,98,240,97" onclick="displayPart(this.id)">
@@ -132,6 +130,7 @@
       <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
     {% endif %}
   </form>
+  <script type="text/javascript" src="../static/js/imageMapResizer.min.js"></script>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
   <script>

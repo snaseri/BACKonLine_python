@@ -158,16 +158,14 @@ form {
 #counter,
 #direction,
 .options p,
-.developer-boxes input {
+.developer-boxes input,
+#selected-body-part {
   display: none;
 }
 
-#human-body {
-  position: absolute;
-}
-
-img {
-  display: center;
+#human-body,
+#body-map {
+  position: relative;
 }
 
 .finish-message {

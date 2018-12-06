@@ -154,9 +154,13 @@ function sendTextArea(value) {
   document.getElementById("textarea").value = value.value;
 };
 
+
 // Display body map.
 $('#human-body').maphilight();
- 
+
+// Make body map responsive.
+$('#body-map').imageMapResize();
+
 var currentColor = 'green';
 // Object with colour swatches.
 var fills = {
