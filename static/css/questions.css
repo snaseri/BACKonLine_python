@@ -200,7 +200,7 @@ form {
   stroke-width: 16px;
   transform-origin: center;
   transform: scale(0);
-  animation: grow 1s cubic-bezier(.25, .25, .25, 1.25) forwards;   
+  animation: grow 1s cubic-bezier(.25, .25, .25, 1.25) forwards;
 }
 
 @keyframes grow {
@@ -209,7 +209,7 @@ form {
     stroke-width: 4px;
     fill-opacity: 0;
   }
-  
+
   100% {
     transform: scale(.9);
     stroke-width: 8px;
