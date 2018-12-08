@@ -90,69 +90,72 @@ form {
 }
 
 .range-slider {
-  margin: 60px 0 0 0;
-  width: 100%;
-  margin-left: 1%;
+  display: flex;
   position: relative;
+  height: 55;
+  width: 100%;
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 
-.range-slider-range {
+input[type='range'] {
   -webkit-appearance: none;
-  width: 87%;
-  height: 10px;
+  -moz-appearance: none;
+  background: #d8e0f3;
+  width: calc(100% - 1px);
+  height: 5px;
   border-radius: 5px;
-  background: #d7dcdf;
-  outline: none;
-  padding: 0;
+  border: 0;
   margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 3;
 }
 
-.range-slider-range::-webkit-slider-thumb {
+input[type='range']:focus {
+  outline: 0;
+  border-color: lighten(#2294d6, 35%);
+}
+
+::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #2c3e50;
+  border: 13px solid #2294d6;
+  background-color: white;
+  border-radius: 25%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 0 0 2 white;
   cursor: pointer;
 }
 
-.range-slider-range::-webkit-slider-thumb:active {
-  background: #1abc9c;
+.range-slider-ticks {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 9px;
 }
 
-.range-slider-value {
-  display: inline-block;
+.range-slider-ticks-dots {
+  background: #d8e0f3;
+  display: inline-flex;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 25%;
   position: relative;
-  width: 60px;
-  color: #fff;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 3px;
-  background: #2c3e50;
-  padding: 5px 10px;
-  margin-left: 8px;
+  cursor: pointer;
+}
+  
+.range-slider-ticks-label {
+  font-size: 24px;
+  margin-top: 28px;
 }
 
-.range-slider-value::after {
-  position: absolute;
-  top: 8px;
-  left: -7px;
-  width: 0;
-  height: 0;
-  border-top: 7px solid transparent;
-  border-right: 7px solid #2c3e50;
-  border-bottom: 7px solid transparent;
-  content: '';
-}
-
-.dots {
-  position: absolute;
-  width: 0.4em;
-  height: 0.4em;
-  background-color: #95a5a6;
-  border-radius: 50%;
-  top: 17px;
-  margin-right: 10px;
+.range-slider-ticks .is-selected {
+  font-weight: 800;
 }
 
 #counter,
@@ -338,4 +341,4 @@ svg {
 }
 
 /* References:
-https://codepen.io/seanstopnik/pen/CeLqA */
+https://codepen.io/alaneicker/pen/jKEVya */

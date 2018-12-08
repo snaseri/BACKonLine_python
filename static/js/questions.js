@@ -1,28 +1,122 @@
 // Slider for Q20.
-var rangeSlider = function() {
-  var slider = $('.range-slider');
-  var range = $('.range-slider-range');
-  var value = $('.range-slider-value');
+const createUniqueId = prefix => {
+  return `${prefix}-${Math.round(Math.random() * 100000)}`;
+}
 
-  slider.each(function() {
-    value.each(function() {
-      var value = $(this).prev().attr('value');
-      $(this).html(value);
-    });
+class RangeSlider {
+  
+  constructor(el) {
+    this.input = document.querySelector(el);
 
-    range.on('input', function() {
-      $(this).next(value).html(this.value);
+    this.el = this.input.getAttribute('id');
+    this.minValue = this.input.getAttribute('min');
+    this.maxValue = this.input.getAttribute('max');
+    
+    this.numTicks = this.maxValue / this.minValue;
+    
+    this.input.addEventListener('change', (e) => this.handleInputChange(e));
+    
+    this.wrapInput().then(wrapperId => {
+      if (this.input.hasAttribute('values')) {
+        this.values = JSON.parse(this.input.getAttribute('values'));
+        this.createTicks(wrapperId);
+      }
     });
-  });
+  }
+  
+  handleInputChange(e) {
+    const value = e.target.value;
+    if (this.input.hasAttribute('values')) {
+      this.setSelectedLabel(this.values[value]); 
+    }
+  }
+  
+  handleLabelClick(label, value, e) {
+    this.input.focus();
+    this.input.value = value;
+    this.input.setAttribute('value', value); 
+    this.setSelectedLabel(label);
+  }
+  
+  setSelectedLabel(label) {
+    const selectedLabels = this.input.parentNode.querySelectorAll(`.range-slider-ticks-label`);
+    
+    [].forEach.call(selectedLabels, el => {
+      el.classList[el.innerText === label ? 'add' : 'remove']('is-selected'); 
+    });
+  }
+  
+  wrapInput() {
+    return new Promise(resolve => {
+      const wrapper = document.createElement('div');
+      const wrapperId = createUniqueId('range-slider');
+
+      wrapper.id = wrapperId;
+      wrapper.className = 'range-slider';
+      
+      this.input.parentNode.replaceChild(wrapper, this.input);
+
+      document.querySelector(`#${wrapperId}`).appendChild(this.input);
+      
+      resolve(wrapperId);
+    });
+  }
+  
+  createTicks(wrapperId) {
+    return new Promise(resolve => {
+      let index = 0;
+      let tickLabelText;
+      
+      const tickList = document.createElement('div');
+      const tickListId = createUniqueId('tick-list');
+      
+      const noLabels = this.input.hasAttribute('no-labels');
+      const firstAndLastLabelsOnly = this.input.hasAttribute('first-last-labels-only');
+
+      tickList.id = tickListId;
+      tickList.className = 'range-slider-ticks';
+
+      document.querySelector(`#${wrapperId}`).appendChild(tickList);
+      
+      for (const prop in this.values) {
+        if (this.values.hasOwnProperty(prop)) {
+          
+          const isFirstOrLastLabel = 
+            !!firstAndLastLabelsOnly 
+            && index > 0 
+            && index < Object.values(this.values).length - 1;
+          
+          const tick = document.createElement('div'); 
+          const tickLabel = document.createElement('span'); 
+
+          tickLabel.className = `
+            range-slider-ticks-label ${this.input.value === prop ? 'is-selected' : ''}
+          `;
+          
+          if (!noLabels) {
+            tickLabelText = document.createTextNode(
+              isFirstOrLastLabel ? '' : this.values[prop]
+            );
+            
+            tickLabel.appendChild(tickLabelText);
+          }
+
+          tick.className = 'range-slider-ticks-dots'; 
+          tick.addEventListener('click', (e) => this.handleLabelClick(this.values[prop], prop, e));
+          tick.appendChild(tickLabel);
+          document.querySelector(`#${tickListId}`).appendChild(tick);
+          index += 1;
+        }
+      }
+      resolve();
+    });
+  };
 };
 
-var n = 10;
-var percent = 100 / n;
-for (var x = 1; x < n; x++) {
-  $(".range-slider" ).append("<span class='dots' style='left:"+ x * percent * .87 + "%'></span>");
-};
-
-rangeSlider();
+[].forEach.call(document.querySelectorAll('input[type="range"]'), el => {
+  const id = `#${el.getAttribute('id')}`;
+  return new RangeSlider(id);
+});
 
 // Green text for 'tick all' type questions.
 $('h1').each(function() {
@@ -33,8 +127,8 @@ $('h1').each(function() {
   } else if (ques.indexOf('Please tick all body areas that apply') >= 0) {
     ques = ques.replace("Please tick all body areas that apply","<span style='color: #00b050;'>Please tick <strong>all</strong> body areas that apply</span>");
     $(this).html(ques);
-  }
-})
+  };
+});
 
 // For skipping questions if certain questions are answered.
 
