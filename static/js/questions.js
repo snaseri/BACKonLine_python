@@ -1,10 +1,28 @@
 // Slider for Q20.
+// Load values from input HTML and convert to object.
 var sliderJSON = $("#range-slider-input").attr("values"),
     sliderObject = JSON.parse(sliderJSON);
 
+// Cycle through object and create ticks.
 for (var propt in sliderObject) {
-  $("#ticklist").append("<div class='range-slider-ticks-dots'><span class='range-slider-ticks-label'>" + propt + "</span></div>");
-}
+  $("#ticklist").append("<div class='range-slider-ticks-dots'><span class='range-slider-ticks-label' slider-value='" + propt + "'>" + propt + "</span></div>");
+};
+
+// Get the initial value of the slider and mark the tick label as bold.
+$("span[slider-value='" + $("#range-slider-input").val() + "']").addClass("is-selected");
+
+// Detect any change of the slider and bold the relevant tick label.
+$("#range-slider-input").change(function() {
+  $("span.range-slider-ticks-label").removeClass("is-selected");
+  $("span[slider-value='" + $(this).val() + "']").addClass("is-selected");
+});
+
+// Add click event to labels and apply the `is-selected` styling.
+$(".range-slider-ticks-label").click(function() {
+  $("span.range-slider-ticks-label").removeClass("is-selected");
+  $(this).addClass("is-selected");
+  $("#range-slider-input").val(parseInt($(this).attr("slider-value")));
+});
 
 // Green text for 'tick all' type questions.
 $('h1').each(function() {
