@@ -100,7 +100,6 @@ form {
 
 input[type='range'] {
   -webkit-appearance: none;
-  -moz-appearance: none;
   background: #d8e0f3;
   width: calc(100% - 1px);
   height: 5px;
@@ -113,15 +112,14 @@ input[type='range'] {
 }
 
 input[type='range']:focus {
-  outline: 0;
-  border-color: lighten(#2294d6, 35%);
+  outline: none;
 }
 
 ::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 13px solid #2294d6;
   background-color: white;
-  border-radius: 25%;
+  border-radius: 50%;
   width: 36px;
   height: 36px;
   box-shadow: 0 0 0 2 white;
@@ -144,7 +142,7 @@ input[type='range']:focus {
   justify-content: center;
   width: 15px;
   height: 15px;
-  border-radius: 25%;
+  border-radius: 50%;
   position: relative;
   cursor: pointer;
 }
