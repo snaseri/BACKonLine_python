@@ -163,8 +163,7 @@ input[type='range']:focus {
 #counter,
 #direction,
 .options p,
-.developer-boxes input,
-#selected-body-part {
+.developer-boxes input {
   display: none;
 }
 
@@ -196,7 +195,7 @@ input[type='range']:focus {
   stroke-dasharray: 29px;
   stroke-dashoffset: 29px;
   animation: draw .5s cubic-bezier(.25, .25, .25, 1) forwards;
-  animation-delay: .6s
+  animation-delay: .6s;
 }
 
 .circle {
