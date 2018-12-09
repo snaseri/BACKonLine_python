@@ -318,13 +318,37 @@ $('#human-body').maphilight();
 
 function changeColour(painSliderValue) {
   if (painSliderValue == 0) {
-    $('#human-body').maphilight({fillColor: '00ff00', strokeColor:'000000'});
+    $('#human-body').maphilight({fillColor: '00ff00'});
+  };
+  if (painSliderValue == 1) {
+    $('#human-body').maphilight({fillColor: '33ff00'});
+  };
+  if (painSliderValue == 2) {
+    $('#human-body').maphilight({fillColor: '66ff00'});
+  };
+  if (painSliderValue == 3) {
+    $('#human-body').maphilight({fillColor: '99ff00'});
+  };
+  if (painSliderValue == 4) {
+    $('#human-body').maphilight({fillColor: 'ccff00'});
   };
   if (painSliderValue == 5) {
-    $('#human-body').maphilight({fillColor: 'ffbf00', strokeColor:'000000'});
+    $('#human-body').maphilight({fillColor: 'ffff00'});
+  };
+  if (painSliderValue == 6) {
+    $('#human-body').maphilight({fillColor: 'ffcc00'});
+  };
+  if (painSliderValue == 7) {
+    $('#human-body').maphilight({fillColor: 'ff9900'});
+  };
+  if (painSliderValue == 8) {
+    $('#human-body').maphilight({fillColor: 'ff6600'});
+  };
+  if (painSliderValue == 9) {
+    $('#human-body').maphilight({fillColor: 'ff3300'});
   };
   if (painSliderValue == 10) {
-    $('#human-body').maphilight({fillColor: 'ff0000', strokeColor:'000000'});
+    $('#human-body').maphilight({fillColor: 'ff0000'});
   };
 };
 
@@ -355,13 +379,13 @@ function displayPart(id, painSliderValue) {
   var painLevel = '';
   // Set pain level depending on pain slider value.
   if (painSliderValue == 0) {
-    painLevel = ' LOW PAIN';
+    painLevel = ' NO PAIN';
   };
   if (painSliderValue == 5) {
-    painLevel = ' MEDIUM PAIN';
+    painLevel = ' MODERATE PAIN';
   };
   if (painSliderValue == 10) {
-    painLevel = ' HIGH PAIN';
+    painLevel = ' UNBEARABLE PAIN';
   };
   // Set the value of the input `selected-body-part` to the body part and pain level.
   $('#selected-body-part').val(id + painLevel);

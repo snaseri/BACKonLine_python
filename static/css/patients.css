@@ -30,6 +30,10 @@ th, td:before {
   color: #a8c5fe;
 }
 
+th {
+  cursor: default;
+}
+
 tr {
   cursor: pointer;
 }

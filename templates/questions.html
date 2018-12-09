@@ -39,7 +39,6 @@
       {% endif %}
     {% endfor %}
     {% if (question_number == 7) or (question_number == 19) %}
-      <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
       <img id="human-body" src="../static/img/body-map.png" usemap="#body-map" width="700" height="700">
       <map name="body-map" id="body-map">
         <!-- Head -->
@@ -114,6 +113,7 @@
         <area id="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
       </map>
       <input id="selected-body-part" name="selected-body-part" type="text"></input>
+      <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
     {% endif %}
     <div class="developer-boxes">
       <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
