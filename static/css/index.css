@@ -40,6 +40,10 @@ h1 {
   padding-bottom: 2%;
 }
 
+p {
+  color: #fff
+}
+
 @media only screen and (min-width: 300px) and (max-width: 600px) {
   .logo a {
     display: none;

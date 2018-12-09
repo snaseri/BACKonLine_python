@@ -1,64 +1,31 @@
 {% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
-  <style>
-    thead {
-      color: green;
-    }
-
-    tbody {
-      color: blue;
-    }
-  
-    tfoot {
-      color: red;
-    }
-  
-    table,
-    th,
-    td {
-      border: 1px solid black;
-    }
-
-    html, body {
-      width: 100%;
-    }
-
-    table {
-      margin: 0 auto;
-    }
-
-    span {
-      text-align: center;
-    }
-  </style>
-
+  <link rel="stylesheet" type="text/css" href="../static/css/patients.css">
   <table>
-    <thead>
-      <tr>
-        <th>PatientID</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
+    <tr>
+      <th>Patient ID</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Email</th>
+    </tr>
+    <tr>
       {% for item in patients %}
-      <tr>
-        <td><span onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" onclick="data()">{{ item[0] }}</span></td>
-        <td>{{ item[1] }}</td>
-        <td>{{ item[2] }}</td>
-        <td>{{ item[3] }}</td>
-        <td>{{ item[4] }}</td>
+      <tr onclick="getPatientData()">
+        <td data-th="Patient ID">{{ item[0] }}</td>
+        <td data-th="Name">{{ item[1] }}</td>
+        <td data-th="Gender">{{ item[2] }}</td>
+        <td data-th="Age">{{ item[3] }}</td>
+        <td data-th="Email">{{ item[4] }}</td>
       </tr>
       {% endfor %}
-    </tbody>
+    </tr>
   </table>
   <span id="data"></span>
 
   <script>
-    function data() {
+    function getPatientData() {
       document.getElementById('data').innerHTML = 'PATIENT DATA COMES HERE';
     };
   </script>
