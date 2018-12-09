@@ -353,7 +353,6 @@ def login():
                 except:
                     print('There was an error')
                 return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
-
             if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
@@ -428,7 +427,7 @@ def checkCredentials(email, password):
 
 def adminCredentials(email, password):
     if email == 'admin@admin.com' and password == 'admin':
-        print("admin login worked")
+        print("Admin login worked")
         return True
     else:
         return False
