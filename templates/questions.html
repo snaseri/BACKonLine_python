@@ -39,78 +39,79 @@
       {% endif %}
     {% endfor %}
     {% if (question_number == 7) or (question_number == 19) %}
+      <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
       <img id="human-body" src="../static/img/body-map.png" usemap="#body-map" width="700" height="700">
       <map name="body-map" id="body-map">
         <!-- Head -->
-        <area id="head" shape="poly" coords="230,93,232,69,244,58,257,52,272,48,284,49,305,59,317,73,319,88,318,94,310,97,287,98,271,99,249,98,240,97" onclick="displayPart(this.id)">
+        <area id="head" shape="poly" coords="230,93,232,69,244,58,257,52,272,48,284,49,305,59,317,73,319,88,318,94,310,97,287,98,271,99,249,98,240,97" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Chest -->
-        <area id="chest" shape="poly" coords="253,196,267,199,275,200,285,198,299,193,305,205,311,215,326,229,357,253,351,296,345,334,344,355,345,371,336,370,323,365,316,362,308,348,299,330,293,321,284,318,277,319,271,325,263,334,259,343,255,356,244,364,232,370,218,374,216,373,219,341,217,326,213,294,210,253,223,243,236,229,246,217,250,210" onclick="displayPart(this.id)">
+        <area id="chest" shape="poly" coords="253,196,267,199,275,200,285,198,299,193,305,205,311,215,326,229,357,253,351,296,345,334,344,355,345,371,336,370,323,365,316,362,308,348,299,330,293,321,284,318,277,319,271,325,263,334,259,343,255,356,244,364,232,370,218,374,216,373,219,341,217,326,213,294,210,253,223,243,236,229,246,217,250,210" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Face -->
-        <area id="face" shape="poly" coords="231,95,230,105,223,109,226,130,237,140,246,152,250,163,270,172,280,173,295,168,307,160,313,150,314,139,326,131,329,110,320,103,318,95,276,100,247,100,302,99,310,98,243,98" onclick="displayPart(this.id)">
+        <area id="face" shape="poly" coords="231,95,230,105,223,109,226,130,237,140,246,152,250,163,270,172,280,173,295,168,307,160,313,150,314,139,326,131,329,110,320,103,318,95,276,100,247,100,302,99,310,98,243,98" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Neck -->
-        <area id="neck" shape="poly" coords="249,165,246,177,237,189,259,198,282,198,311,187,306,164,279,174" onclick="displayPart(this.id)">
+        <area id="neck" shape="poly" coords="249,165,246,177,237,189,259,198,282,198,311,187,306,164,279,174" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right shoulder -->
-        <area id="right-shoulder" shape="poly" coords="236,191,216,196,196,201,178,218,170,237,166,262,184,265,196,264,206,258,214,252,232,232,245,218,251,207,253,195" onclick="displayPart(this.id)">
+        <area id="right-shoulder" shape="poly" coords="236,191,216,196,196,201,178,218,170,237,166,262,184,265,196,264,206,258,214,252,232,232,245,218,251,207,253,195" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left shoulder -->
-        <area id="left-shoulder" shape="poly" coords="300,196,311,188,330,192,348,196,369,203,379,217,390,250,375,256,364,256,329,232,310,216" onclick="displayPart(this.id)">
+        <area id="left-shoulder" shape="poly" coords="300,196,311,188,330,192,348,196,369,203,379,217,390,250,375,256,364,256,329,232,310,216" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Upper right arm -->
-        <area id="upper-right-arm" shape="poly" coords="165,263,163,282,162,300,158,315,155,332,163,331,171,329,181,332,196,342,199,340,208,309,211,294,212,290,212,270,209,254,204,260,197,264,190,267" onclick="displayPart(this.id)">
+        <area id="upper-right-arm" shape="poly" coords="165,263,163,282,162,300,158,315,155,332,163,331,171,329,181,332,196,342,199,340,208,309,211,294,212,290,212,270,209,254,204,260,197,264,190,267" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Upper left arm -->
-        <area id="upper-left-arm" shape="poly" coords="356,253,350,297,351,305,359,317,363,336,370,329,377,322,388,320,405,319,392,251,385,253,381,256,371,257,363,257" onclick="displayPart(this.id)">
+        <area id="upper-left-arm" shape="poly" coords="356,253,350,297,351,305,359,317,363,336,370,329,377,322,388,320,405,319,392,251,385,253,381,256,371,257,363,257" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right elbow -->
-        <area id="right-elbow" shape="poly" coords="152,333,147,344,141,354,139,362,151,369,163,373,186,375,195,364,199,353,197,341,185,334,174,329,162,330" onclick="displayPart(this.id)">
+        <area id="right-elbow" shape="poly" coords="152,333,147,344,141,354,139,362,151,369,163,373,186,375,195,364,199,353,197,341,185,334,174,329,162,330" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left elbow -->
-        <area id="left-elbow" shape="poly" coords="364,335,363,353,370,365,376,368,381,366,394,362,406,357,415,341,406,331,405,319,395,319,381,319,371,327" onclick="displayPart(this.id)">
+        <area id="left-elbow" shape="poly" coords="364,335,363,353,370,365,376,368,381,366,394,362,406,357,415,341,406,331,405,319,395,319,381,319,371,327" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right forearm -->
-        <area id="right-forearm" shape="poly" coords="137,358,151,369,162,375,188,374,153,429,121,411,127,394,132,381,124,404,134,371" onclick="displayPart(this.id)">
+        <area id="right-forearm" shape="poly" coords="137,358,151,369,162,375,188,374,153,429,121,411,127,394,132,381,124,404,134,371" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left forearm -->
-        <area id="left-forearm" shape="poly" coords="413,424,444,404,414,344,402,356,378,368,380,381" onclick="displayPart(this.id)">
+        <area id="left-forearm" shape="poly" coords="413,424,444,404,414,344,402,356,378,368,380,381" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right wrist -->
-        <area id="right-wrist" shape="poly" coords="109,431,116,444,140,448,152,430,124,414" onclick="displayPart(this.id)">
+        <area id="right-wrist" shape="poly" coords="109,431,116,444,140,448,152,430,124,414" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left wrist -->
-        <area id="left-wrist" shape="poly" coords="413,426,445,405,456,422,461,428,458,433,452,440,443,444,433,445,428,446,426,442" onclick="displayPart(this.id)">
+        <area id="left-wrist" shape="poly" coords="413,426,445,405,456,422,461,428,458,433,452,440,443,444,433,445,428,446,426,442" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right hand -->
-        <area id="right-hand" shape="poly" coords="110,429,112,440,121,447,133,447,143,449,141,460,137,471,129,487,125,501,122,509,117,510,114,509,115,505,116,499,116,494,117,489,115,490,113,492,111,498,109,503,107,507,105,510,102,511,100,510,100,506,102,500,104,493,106,487,105,485,103,485,101,489,98,494,95,499,92,506,89,509,85,509,84,507,84,501,88,494,92,486,94,483,93,480,91,480,87,483,84,487,80,491,75,493,71,493,70,490,73,485,77,481,84,473,89,467,90,463,90,458,88,457,84,457,77,458,72,457,69,453,69,451,69,449,77,444,83,441,90,437,94,434,99,431" onclick="displayPart(this.id)">
+        <area id="right-hand" shape="poly" coords="110,429,112,440,121,447,133,447,143,449,141,460,137,471,129,487,125,501,122,509,117,510,114,509,115,505,116,499,116,494,117,489,115,490,113,492,111,498,109,503,107,507,105,510,102,511,100,510,100,506,102,500,104,493,106,487,105,485,103,485,101,489,98,494,95,499,92,506,89,509,85,509,84,507,84,501,88,494,92,486,94,483,93,480,91,480,87,483,84,487,80,491,75,493,71,493,70,490,73,485,77,481,84,473,89,467,90,463,90,458,88,457,84,457,77,458,72,457,69,453,69,451,69,449,77,444,83,441,90,437,94,434,99,431" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left hand -->
-        <area id="left-hand" shape="poly" coords="426,444,441,443,453,440,458,436,460,429,461,426,474,429,482,437,493,441,498,448,494,452,482,451,478,454,481,462,490,470,496,479,496,486,492,485,489,482,483,475,476,471,475,471,473,475,479,486,485,495,482,499,478,499,475,492,469,483,465,477,461,475,461,484,463,506,458,507,455,501,454,486,449,482,447,488,447,502,444,504,440,504,439,481,436,471,431,460" onclick="displayPart(this.id)">
+        <area id="left-hand" shape="poly" coords="426,444,441,443,453,440,458,436,460,429,461,426,474,429,482,437,493,441,498,448,494,452,482,451,478,454,481,462,490,470,496,479,496,486,492,485,489,482,483,475,476,471,475,471,473,475,479,486,485,495,482,499,478,499,475,492,469,483,465,477,461,475,461,484,463,506,458,507,455,501,454,486,449,482,447,488,447,502,444,504,440,504,439,481,436,471,431,460" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Abdomen -->
-        <area id="abdomen" shape="poly" coords="216,371,209,383,207,404,226,411,239,422,243,435,244,449,242,455,257,452,268,451,275,445,286,442,296,448,305,452,322,454,320,439,324,423,333,415,353,403,347,370,341,371,332,370,322,366,316,361,311,355,307,344,303,336,295,324,291,320,286,318,282,317,277,318,272,323,266,329,263,337,259,347,254,354,250,361,242,367,232,371" onclick="displayPart(this.id)">
+        <area id="abdomen" shape="poly" coords="216,371,209,383,207,404,226,411,239,422,243,435,244,449,242,455,257,452,268,451,275,445,286,442,296,448,305,452,322,454,320,439,324,423,333,415,353,403,347,370,341,371,332,370,322,366,316,361,311,355,307,344,303,336,295,324,291,320,286,318,282,317,277,318,272,323,266,329,263,337,259,347,254,354,250,361,242,367,232,371" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right hip -->
-        <area id="right-hip" shape="poly" coords="208,404,203,421,200,461,204,510,212,503,230,485,237,473,241,463,242,454,244,444,244,433,241,425,235,418,227,411,219,407" onclick="displayPart(this.id)">
+        <area id="right-hip" shape="poly" coords="208,404,203,421,200,461,204,510,212,503,230,485,237,473,241,463,242,454,244,444,244,433,241,425,235,418,227,411,219,407" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left hip -->
-        <area id="left-hip" shape="poly" coords="354,403,358,426,363,454,366,475,368,505,356,503,346,497,341,489,336,483,329,470,325,461,322,455,321,447,319,437,321,428,329,417,339,409" onclick="displayPart(this.id)">
+        <area id="left-hip" shape="poly" coords="354,403,358,426,363,454,366,475,368,505,356,503,346,497,341,489,336,483,329,470,325,461,322,455,321,447,319,437,321,428,329,417,339,409" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Groin -->
-        <area id="groin" shape="poly" coords="279,482,291,482,319,455,298,451,287,443,272,444,267,450,246,455" onclick="displayPart(this.id)">
+        <area id="groin" shape="poly" coords="279,482,291,482,319,455,298,451,287,443,272,444,267,450,246,455" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right thigh -->
-        <area id="right-thigh" shape="poly" coords="212,603,261,607,277,482,247,456,236,473,219,500,205,508" onclick="displayPart(this.id)">
+        <area id="right-thigh" shape="poly" coords="212,603,261,607,277,482,247,456,236,473,219,500,205,508" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left thigh -->
-        <area id="left-thigh" shape="poly" coords="310,605,324,596,363,596,364,505,336,487,320,456,295,480" onclick="displayPart(this.id)">
+        <area id="left-thigh" shape="poly" coords="310,605,324,596,363,596,364,505,336,487,320,456,295,480" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right knee -->
-        <area id="right-knee" shape="poly" coords="215,602,205,645,224,655,257,658,256,639,263,611,247,602" onclick="displayPart(this.id)">
+        <area id="right-knee" shape="poly" coords="215,602,205,645,224,655,257,658,256,639,263,611,247,602" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left knee -->
-        <area id="left-knee" shape="poly" coords="311,605,328,598,360,599,364,637,339,648,320,648,315,647" onclick="displayPart(this.id)">
+        <area id="left-knee" shape="poly" coords="311,605,328,598,360,599,364,637,339,648,320,648,315,647" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Lower right leg -->
-        <area id="lower-right-leg" shape="poly" coords="206,645,200,682,210,730,229,730,245,729,255,708,257,657,240,660" onclick="displayPart(this.id)">
+        <area id="lower-right-leg" shape="poly" coords="206,645,200,682,210,730,229,730,245,729,255,708,257,657,240,660" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Lower left leg -->
-        <area id="lower-left-leg" shape="poly" coords="326,732,345,732,364,732,372,671,364,638,340,646,330,651,316,648,313,668" onclick="displayPart(this.id)">
+        <area id="lower-left-leg" shape="poly" coords="326,732,345,732,364,732,372,671,364,638,340,646,330,651,316,648,313,668" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right ankle -->
-        <area id="right-ankle" shape="poly" coords="211,762,250,764,248,752,249,732,211,732" onclick="displayPart(this.id)">
+        <area id="right-ankle" shape="poly" coords="211,762,250,764,248,752,249,732,211,732" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left ankle -->
-        <area id="left-ankle" shape="poly" coords="324,760,362,762,363,733,328,730" onclick="displayPart(this.id)">
+        <area id="left-ankle" shape="poly" coords="324,760,362,762,363,733,328,730" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right foot -->
-        <area id="right-foot" shape="poly" coords="213,764,248,763,242,797,239,843,224,858,215,855,198,828" onclick="displayPart(this.id)">
+        <area id="right-foot" shape="poly" coords="213,764,248,763,242,797,239,843,224,858,215,855,198,828" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left foot -->
-        <area id="left-foot" shape="poly" coords="325,764,360,760,368,806,372,836,362,851,347,859,336,849,327,836" onclick="displayPart(this.id)">
+        <area id="left-foot" shape="poly" coords="325,764,360,760,368,806,372,836,362,851,347,859,336,849,327,836" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Upper back -->
-        <area id="upper-back" shape="poly" coords="669,255,709,231,729,212,733,193,756,187,770,210,787,231,823,258,793,269,756,269,723,269,694,266,681,263" onclick="displayPart(this.id)">
+        <area id="upper-back" shape="poly" coords="669,255,709,231,729,212,733,193,756,187,770,210,787,231,823,258,793,269,756,269,723,269,694,266,681,263" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Mid back -->
-        <area id="mid-back" shape="poly" coords="668,259,676,292,682,324,684,352,713,355,762,359,804,353,811,287,821,258,800,268,763,270,721,271,695,268" onclick="displayPart(this.id)">
+        <area id="mid-back" shape="poly" coords="668,259,676,292,682,324,684,352,713,355,762,359,804,353,811,287,821,258,800,268,763,270,721,271,695,268" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Lower back -->
-        <area id="lower-back" shape="poly" coords="686,353,681,378,688,384,697,393,700,402,732,406,746,406,785,404,796,388,812,376,801,354" onclick="displayPart(this.id)">
+        <area id="lower-back" shape="poly" coords="686,353,681,378,688,384,697,393,700,402,732,406,746,406,785,404,796,388,812,376,801,354" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Right buttock -->
-        <area id="right-buttock" shape="poly" coords="745,405,787,401,789,424,781,444,764,454,748,464,744,458" onclick="displayPart(this.id)">
+        <area id="right-buttock" shape="poly" coords="745,405,787,401,789,424,781,444,764,454,748,464,744,458" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
         <!-- Left buttock -->
-        <area id="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425" onclick="displayPart(this.id)">
+        <area id="left-buttock" shape="poly" coords="702,401,732,406,740,426,738,460,723,453,704,425" onclick="displayPart(this.id, document.getElementById('pain-slider').value)">
       </map>
       <input id="selected-body-part" name="selected-body-part" type="text"></input>
     {% endif %}
