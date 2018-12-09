@@ -151,7 +151,7 @@ def questions():
                 checkbox_array = checkbox.split(",")
                 print(qhide)
                 print(qhide[2])
-                if qhide[2] == "t":
+                if qhide[2] == "t" and calc == 5:
                     skipped_question = True
                 else:
                     skipped_question = False

@@ -6,6 +6,7 @@
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
+    <div class = "options-container">
     {% for row in option_data %}
       {% if row[1] == "Radiobox" %}
         <div class="options">
@@ -133,6 +134,7 @@
     {% else %}
       <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
     {% endif %}
+    </div>
   </form>
   <script type="text/javascript" src="../static/js/imageMapResizer.min.js"></script>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
