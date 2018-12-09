@@ -84,6 +84,15 @@ function back() {
   if (counter == 29 && qhide[8] == "t") {
     document.getElementById("questnum").value = 23;
   };
+  // GETTING ANSWERED QUESTIONS FROM THE html
+
+  var answerid = document.getElementById("answerid")
+  alert(answerid)
+  var step;
+  for (step = 0; step < 5; step++) {
+    // Runs 5 times, with values of step 0 through 4.
+    console.log('Walking east one step');
+  }
 };
 
 // Forward button.

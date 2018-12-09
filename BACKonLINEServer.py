@@ -302,8 +302,8 @@ def questions():
             question_text = cur.fetchall()
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
-            cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
-            answered_questions = cur.fetchall()
+            # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
+            # answered_questions = cur.fetchall()
             question_text = str(question_text)[3:-4]
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
@@ -325,7 +325,7 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide, ans_questions=answered_questions)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
         except:
             print('There was an error')
         finally:
