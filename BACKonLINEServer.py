@@ -65,7 +65,8 @@ def questions():
         if direction == "forward":
             if radio != "":
                 # Get score and option ID.
-                if qhide[0] == "t" or qhide[4] == "t" or qhide[6] == "t" or qhide[8] == "t" or qhide[10] == "t" or qhide[12] == "t" or qhide[14] == "t":
+                print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
+                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[6] == "t" and calc == 11)or (qhide[8] == "t" and calc == 16)or (qhide[10] == "t" and calc == 18)or (qhide[12] == "t" and calc == 21 )or (qhide[14] == "t"and calc == 23):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -107,6 +108,7 @@ def questions():
                     except:
                         print('There was an error', OpID_Score)
                     conn.close()
+                    print(OpID_Score)
                     option_id = OpID_Score[0][0]
                     score = OpID_Score[0][1]
                     try:
@@ -128,6 +130,7 @@ def questions():
                         except:
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
+
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
