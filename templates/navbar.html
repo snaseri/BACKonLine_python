@@ -13,7 +13,7 @@
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav uk-visible@s">
           <li><a id="patients-text" class="uk-text-large uk-button-text" href="/Patients">Patients</a></li>
-          <li><a id="me-text" class="uk-text-large uk-button-text" href="/Welcome">Me</a></li>
+          <li><a id="me-text" class="uk-text-large uk-button-text" href="javascript:test()">Me</a></li>
           <li><a id="survey-text" class="uk-text-large uk-button-text" href="/Questions">Survey</a></li>
           <li><a class="uk-text-large uk-button-text" href="/Login">Log out</a></li>
           {% if user == 'admin' %}
@@ -39,10 +39,29 @@
     <div class="uk-offcanvas-bar">
       <ul class="uk-nav" uk-navbar-toggle-icon uk-toggle="target: #sidenav">
         <li><a id="patients-text" class="uk-text-large uk-button-text" href="/Patients">Patients</a></li>
-        <li><a id="me-text" class="uk-text-large uk-button-text" href="/Welcome">Me</a></li>
-        <li><a id="survey-text" class="uk-text-large" href="/Questions">Survey</a></li>
-        <li><a class="uk-text-large" href="/Login">Log out</a></li>
+        <li><a id="me-text" class="uk-text-large uk-button-text" href="javascript:test()">Me</a></li>
+        <li><a id="survey-text" class="uk-text-large uk-button-text" href="/Questions">Survey</a></li>
+        <li><a class="uk-text-large uk-button-text" href="/Login">Log out</a></li>
       </ul>
     </div>
   </div>
+  
+  <script>
+    function test() {
+      patient_id = document.getElementById("patient_id").value;
+      test = "patient_id: " + patient_id
+      $.ajax({
+              url: '/Login',
+              type: 'POST',
+              data: test,
+              success: function(response) {
+                  console.log(response);
+                  document.write(response);
+              },
+              error: function(error) {
+                  console.log(error);
+              }
+          });
+    }
+  </script>
 {% endblock %}
