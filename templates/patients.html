@@ -1,4 +1,3 @@
-{% extends "navbar.html" %}
 {% block mainBlock %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="../static/css/patients.css">
@@ -6,11 +5,15 @@
   <table>
     <tr>
       <th>Patient ID</th>
+<<<<<<< HEAD
       <th>Name</th>
       <th>Gender</th>
       <th>Age</th>
       <th>Email</th>
     </tr>
+=======
+    <tr>
+>>>>>>> 171dbf741b06cd7dc569e0be3a1ad7d8cf48f69e
       {% for item in patients %}
         <tr>
           <td  data-th="Patient ID"><a href="/getPatientResponses/{{item[0]}}">{{ item[0] }}</a></td>

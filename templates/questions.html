@@ -2,7 +2,7 @@
 {% block mainBlock %}
   {{ super() }}
   <link href="../static/css/questions.css" rel="stylesheet">
-  <form id="survey" action="/Questions" method="POST">
+  <form id="survey" action="/Questions" method="POST" onload="pageLoad()">
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
@@ -117,8 +117,7 @@
         <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
       {% endif %}
       <div class="developer-boxes">
-        <input id="answerid" type="text" name="answerid" value="{{row0}}"></input>
-        <input id="answerc" type="text" name="answerc" value="{{row1}}"></input>
+        <input id="answerid" type="text" name="answerid" value="{{ans}}"></input>
         <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
         <input id="qhide" type="text" name="qhide" value="{{ question_skip }}"></input>
         <input id="direction" type="text" name="direction" value="true"></input>
@@ -140,6 +139,7 @@
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
 {% endblock %}
+
 <!-- References:
 https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input
 https://github.com/kemayo/maphilight
