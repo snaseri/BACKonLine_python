@@ -242,17 +242,30 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-                    conn.commit()
-                    print("Record successfully added")
-                except:
-                    conn.rollback()
-                    print("Error in insert operation 250")
-                conn.close()
+                if (questnum == 7) or (questnum == 19):
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,selected_body_part,str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation")
+                    conn.close()
+                else:
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation 250")
+                    conn.close()
             if textarea != "":
                 # Get score and option ID.
                 try:
