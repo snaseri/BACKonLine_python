@@ -38,6 +38,10 @@ $('h1').each(function() {
   };
 });
 
+// For skipping questions if certain questions are answered.
+// Back button.
+
+
 // Make sure user has selected at least one option.
 function validate() {
   var valid = document.getElementsByName("option-text[]");
@@ -203,7 +207,7 @@ function displayPart(id) {
   $('#selected-body-part').val(id + ' NO PAIN');
 };
 
-// Getting the already answered questions.
+// Getting the already answered question.
 function pageLoad() {
 var answerid = document.getElementById("answerid").value;
 answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
@@ -212,8 +216,8 @@ if (document.getElementById("questnum").value == 3) {
   document.getElementById("question3-input").value = answerid
 }
 else if (document.getElementById("questnum").value == 20) {
-  if (answerid == null || answerid == "") {answerid = "Type it here"}
-  document.getElementById("range-slider-input").value = answerid
+  if (answerid == 'None' || answerid == "") {console.log("No previously given answer")}
+  else {document.getElementById("question3-input").value = answerid};
   $("span[slider-value='" + 0 + "']").removeClass("is-selected");
   $("span[slider-value='" + answerid + "']").addClass("is-selected");
 }
@@ -223,8 +227,8 @@ else {
   for (var step = 0; step < leng; step++) {
     console.log(step)
     document.getElementById("option-text-"+ answerid[step]).checked = true
-}
-}
+  };
+};
 };
 
 function back() {

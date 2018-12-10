@@ -63,10 +63,54 @@ def questions():
         print(f"{questnum} - {skippedqs} =  {calc}")
         # Insert values.
         if direction == "forward":
+            print(questnum)
+            if slider != "":
+                    print("This is Q20") 
+                    # Get score and option ID.
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
+                        OpID_Score = cur.fetchall()
+                    except:
+                        print('There was an error', OpID_Score)
+                    conn.close()
+                    option_id = OpID_Score[0][0]
+                    score = OpID_Score[0][1]
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                        duplicate_response = cur.fetchall()
+                    except:
+                        print('There was an error', duplicate_response)
+                    conn.close()
+                    if duplicate_response != []:
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        try:
+                            conn = sqlite3.connect(DATABASE)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
+                            conn.commit()
+                        except:
+                            print('There was an error', duplicate_response [0][0])
+                        conn.close()
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,str(slider),str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation")
+                    conn.close()
+
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1) or (qhide[14] == "t" and calc == 4) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
+                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -242,7 +286,6 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-<<<<<<< HEAD
                 if (questnum-1 == 7) or (questnum-1 == 19):
                     try:
                         conn = sqlite3.connect(DATABASE)
@@ -267,19 +310,6 @@ def questions():
                         conn.rollback()
                         print("Error in insert operation 250")
                     conn.close()
-=======
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-                    conn.commit()
-                    print("Record successfully added")
-                except:
-                    conn.rollback()
-                    print("Error in insert operation 250")
-                conn.close()
->>>>>>> b001dae8be78174b5fdfb60069856379e33e12e1
             if textarea != "":
                 # Get score and option ID.
                 try:
@@ -321,48 +351,6 @@ def questions():
                     conn.rollback()
                     print("Error in insert operation")
                 conn.close()
-            if slider != "":
-                print("This is Q20") 
-                # Get score and option ID.
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
-                    OpID_Score = cur.fetchall()
-                except:
-                    print('There was an error', OpID_Score)
-                conn.close()
-                option_id = OpID_Score[0][0]
-                score = OpID_Score[0][1]
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
-                    duplicate_response = cur.fetchall()
-                except:
-                    print('There was an error', duplicate_response)
-                conn.close()
-                if duplicate_response != []:
-                    print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
-                    try:
-                        conn = sqlite3.connect(DATABASE)
-                        cur = conn.cursor()
-                        cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
-                        conn.commit()
-                    except:
-                        print('There was an error', duplicate_response [0][0])
-                    conn.close()
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,str(slider),str(datetime.date.today())))
-                    conn.commit()
-                    print("Record successfully added")
-                except:
-                    conn.rollback()
-                    print("Error in insert operation")
-                conn.close()
         # Load options.
         try:
             conn = sqlite3.connect(DATABASE)
@@ -371,17 +359,12 @@ def questions():
             question_text = cur.fetchall()
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
-<<<<<<< HEAD
             if (questnum == 3) or (questnum == 20):
                 cur.execute("SELECT extraInput FROM Response WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
                 answered_questions = cur.fetchall()
             else:
                 cur.execute("SELECT OptionID FROM Response WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
                 answered_questions = cur.fetchall()
-=======
-            # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
-            # answered_questions = cur.fetchall()
->>>>>>> b001dae8be78174b5fdfb60069856379e33e12e1
             question_text = str(question_text)[3:-4]
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
@@ -403,7 +386,7 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide, ans=answered_questions)
         except:
             print('There was an error')
         finally:
@@ -417,37 +400,14 @@ def welcome_page():
 @app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        test_value = False
-        patient_id = request.get_data().decode('utf8')
-        if patient_id[0] == "e":
-          patient_id = "No ID"
-          login_email = request.form.get('email-login', default="Error")
-          login_password = request.form.get('password', default="Error")
-        else:
-            try:
-                conn = sqlite3.connect(DATABASE)
-                cur = conn.cursor()
-                patient_id = patient_id[12:]
-                print(f"pat ID: {patient_id}")
-                cur.execute("SELECT email, password FROM Patient WHERE PatientID=?;", [patient_id])
-                data = cur.fetchall()
-            except:
-                print('There was an error')
-            print(data)
-            login_email = data[0][0]
-            login_password = data[0][1]
-            print(login_email)
-            print(login_password)
-            test_value = True
-
-        sign_name = request.form.get('name', default="")
+        sign_name = request.form.get('name', default="Error")
         sign_gender = request.form.get('gender', default="Error")
         sign_age = request.form.get('age', default="Error")
         sign_email = request.form.get('email-signup', default="Error")
-        sign_password = request.form.get('email-password', default="False")
-        if sign_password != "Error":
-            sign_password = generate_password_hash(sign_password)
-
+        sign_password = request.form.get('email-password', default="Error")
+        sign_password = generate_password_hash(sign_password)
+        login_email = request.form.get('email-login', default="Error")
+        login_password = request.form.get('password', default="Error")
         if sign_name == "":
             print("Logging in")
             if adminCredentials(login_email, login_password):
@@ -458,8 +418,8 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
-            if checkCredentials(login_email, login_password, test_value)== 1:
+                return render_template('admin.html', data=data, username=login_email, msg='ADMIN', user='admin')
+            if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -468,12 +428,11 @@ def login():
                 except:
                     print('There was an error')
                 resp = make_response(render_template('welcome.html', data=data, username=login_email))
-            elif checkCredentials(login_email, login_password, False) == 2:
+            elif checkCredentials(login_email, login_password) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
             else:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
         if sign_name != "":
-            print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
             print("Signing in")
             try:
                 conn = sqlite3.connect(DATABASE)
@@ -493,7 +452,7 @@ def login():
             except:
                 print('There was an error')
             resp = make_response(render_template('welcome.html', data=data, username=sign_email))
-        #print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
+        print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
         username = 'none'
@@ -510,13 +469,24 @@ def patients():
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
-            return render_template('patients.html', error='', patients=patients)
+            return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
-        finally:
+        if request.method == 'GET':
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
+                patients = cur.fetchall()
+                print('Showing responses')
+                return render_template('patients.html', error='', patients=patients)
+            except:
+                print('Something went wrong with responses')
+
             conn.close()
-# ------------------Methods------------------
-def checkCredentials(email, password, is_me):
+
+            # ------------------Methods------------------
+def checkCredentials(email, password):
     try:
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -524,31 +494,13 @@ def checkCredentials(email, password, is_me):
         login_details = cur.fetchall()
     except:
         print('There was an error', login_details)
-    print(f"email: {email} pass: {password}")
-
-
-    if is_me == False:
-        try:
-            if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
-                print("this is running 1")
-                return 1
-            else:
-                print("this is running 3")
-                return 3
-        except:
-            print("this is running 2")
-            return 2
-    else:
-        try:
-            if email == login_details[0][0] and login_details[0][1] == password:
-                print("this is running 1")
-                return 1
-            else:
-                print("this is running 3")
-                return 3
-        except:
-            print("this is running 2")
-            return 2
+    try:
+        if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+            return 1
+        else:
+            return 3
+    except:
+        return 2
 
 def adminCredentials(email, password):
     if email == 'admin@admin.com' and password == 'admin':
