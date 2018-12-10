@@ -25,19 +25,16 @@ mail = Mail(app)
 # Set of allowed file extensions.
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-
-@app.route("/Questions", methods=['GET', 'POST'])
+@app.route("/Questions", methods = ['GET', 'POST'])
 def questions():
     if request.method == 'GET':
         intial_qhide_value = "f,f,f,f,f,f,f,f,f"
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute(
-                "SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [1])
             question_text = cur.fetchall()
-            cur.execute(
-                "SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [1])
+            cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [1])
             option_data = cur.fetchall()
         except:
             print('There was an error', option_data)
@@ -57,20 +54,19 @@ def questions():
         slider = request.form.get('slider')
         skippedqs = int(request.form.get('skippedqs'))
         # Get the selected body part from the body map.
-        # selected_body_part = request.form.get('selected-body-part')
+        selected_body_part = request.form.get('selected-body-part')
         # Print the selected slider value.
         print(f"slider = {slider}")
         # Print the selected body part.
-        # print(f"Body part: {selected_body_part}")
+        print(f"Body part: {selected_body_part}")
         calc = questnum - 1 - skippedqs
         print(f"{questnum} - {skippedqs} =  {calc}")
         # Insert values.
         if direction == "forward":
             if radio != "":
                 # Get score and option ID.
-                print(
-                    f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
+                print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
+                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -78,8 +74,7 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [
-                                    questnum-1, radio])
+                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [questnum-1, radio])
                         OpID_Score = cur.fetchall()
                     except:
                         print('There was an error', OpID_Score)
@@ -89,31 +84,26 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
                         duplicate_response = cur.fetchall()
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
                     if duplicate_response != []:
-                        print(
-                            f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute(
-                                "DELETE FROM Response Where questionID=?;", [questnum-1])
+                            cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
                             conn.commit()
                         except:
-                            print('There was an error',
-                                  duplicate_response[0][0])
+                            print('There was an error', duplicate_response [0][0])
                         conn.close()
                 elif skipped_question == True:
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [
-                                    calc, radio])
+                        cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=? AND OptionText=?;", [calc, radio])
                         OpID_Score = cur.fetchall()
                     except:
                         print('There was an error', OpID_Score)
@@ -124,32 +114,28 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
                         duplicate_response = cur.fetchall()
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
 
                     if duplicate_response != []:
-                        print(
-                            f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute(
-                                "DELETE FROM Response Where questionID=?;", [calc])
+                            cur.execute("DELETE FROM Response Where questionID=?;", [calc])
                             conn.commit()
                         except:
-                            print('There was an error',
-                                  duplicate_response[0][0])
+                            print('There was an error', duplicate_response [0][0])
                         conn.close()
 
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
                     cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)", (patient_id, str(option_id), questnum-1, score, "", str(datetime.date.today())))
+                    VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,"",str(datetime.date.today())))
                     conn.commit()
                     print("Record successfully added")
                 except:
@@ -174,9 +160,8 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT OptionID FROM Options WHERE QuestionID=?;", [questnum-2])
-                        Total_OpID = cur.fetchall()
+                        cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [questnum-2])
+                        Total_OpID= cur.fetchall()
                     except:
                         print('There was an error', Total_OpID)
                     print(Total_OpID[-1][0])
@@ -189,8 +174,7 @@ def questions():
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [
-                                        questnum-1, box])
+                            cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [questnum-1, box])
                             Score = cur.fetchall()
                         except:
                             print('There was an error', Score)
@@ -199,37 +183,31 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
                         duplicate_response = cur.fetchall()
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
                     if duplicate_response != []:
-                        print(
-                            f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute(
-                                "DELETE FROM Response Where questionID=?;", [questnum-1])
+                            cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
                             conn.commit()
                         except:
-                            print('There was an error',
-                                  duplicate_response[0][0])
+                            print('There was an error', duplicate_response [0][0])
                         conn.close()
-                    print(patient_id, checkbox_array, questnum-1,
-                          Score, "", str(datetime.date.today()))
+                    print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
                 if skipped_question == True:
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT OptionID FROM Options WHERE QuestionID=?;", [calc])
-                        Total_OpID = cur.fetchall()
+                        cur.execute("SELECT OptionID FROM Options WHERE QuestionID=?;", [calc])
+                        Total_OpID= cur.fetchall()
                     except:
                         print('There was an error', Total_OpID)
-                    for index, box in enumerate(checkbox_array):
+                    for index,box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
                     print(f"checkbox_array = {checkbox_array}")
@@ -238,8 +216,7 @@ def questions():
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute(
-                                "SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [calc, box])
+                            cur.execute("SELECT Score FROM Options WHERE QuestionID=? AND OptionID=?;", [calc, box])
                             Score = cur.fetchall()
                         except:
                             print('There was an error', Score)
@@ -249,39 +226,30 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
+                        cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [calc])
                         duplicate_response = cur.fetchall()
                     except:
                         print('There was an error', duplicate_response)
                     conn.close()
                     if duplicate_response != []:
-                        print(
-                            f"Duplicate ResponseID: {duplicate_response [0][0]}")
+                        print(f"Duplicate ResponseID: {duplicate_response [0][0]}")
                         try:
                             conn = sqlite3.connect(DATABASE)
                             cur = conn.cursor()
-                            cur.execute(
-                                "DELETE FROM Response Where questionID=?;", [calc])
+                            cur.execute("DELETE FROM Response Where questionID=?;", [calc])
                             conn.commit()
                         except:
-                            print('There was an error',
-                                  duplicate_response[0][0])
+                            print('There was an error', duplicate_response [0][0])
                         conn.close()
-                    print(patient_id, checkbox_array, questnum-1,
-                          Score, "", str(datetime.date.today()))
+                    print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
                 if (questnum == 7) or (questnum == 19):
                     try:
-                        selected_body_part = request.form.get(
-                            'selected-body-part')
-                        print(selected_body_part)
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
                         cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                        VALUES (?,?,?,?,?,?)", (patient_id, str(option_id), questnum-1, score, selected_body_part, str(datetime.date.today())))
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,selected_body_part,str(datetime.date.today())))
                         conn.commit()
                         print("Record successfully added")
-                        print(selected_body_part)
                     except:
                         conn.rollback()
                         print("Error in insert operation")
@@ -291,7 +259,7 @@ def questions():
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
                         cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                        VALUES (?,?,?,?,?,?)", (patient_id, str(checkbox_array), questnum-1, Score, "", str(datetime.date.today())))
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
                         conn.commit()
                         print("Record successfully added")
                     except:
@@ -303,8 +271,7 @@ def questions():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute(
-                        "SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
+                    cur.execute("SELECT OptionID, Score FROM Options WHERE QuestionID=?;", [questnum-1])
                     OpID_Score = cur.fetchall()
                 except:
                     print('There was an error', OpID_Score)
@@ -314,8 +281,7 @@ def questions():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute(
-                        "SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
+                    cur.execute("SELECT ResponseID FROM Response WHERE questionID=?;", [questnum-1])
                     duplicate_response = cur.fetchall()
                 except:
                     print('There was an error', duplicate_response)
@@ -325,17 +291,16 @@ def questions():
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
-                        cur.execute(
-                            "DELETE FROM Response Where questionID=?;", [questnum-1])
+                        cur.execute("DELETE FROM Response Where questionID=?;", [questnum-1])
                         conn.commit()
                     except:
-                        print('There was an error', duplicate_response[0][0])
+                        print('There was an error', duplicate_response [0][0])
                     conn.close()
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
                     cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)", (patient_id, str(option_id), questnum-1, score, textarea, str(datetime.date.today())))
+                    VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,textarea,str(datetime.date.today())))
                     conn.commit()
                     print("Record successfully added")
                 except:
@@ -346,11 +311,9 @@ def questions():
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute(
-                "SELECT QuestionText FROM Questions WHERE QuestionID=?;", [questnum])
+            cur.execute("SELECT QuestionText FROM Questions WHERE QuestionID=?;", [questnum])
             question_text = cur.fetchall()
-            cur.execute(
-                "SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
+            cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
             # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
             # answered_questions = cur.fetchall()
@@ -367,8 +330,7 @@ def questions():
             elif (questnum >= 40):
                 section_text = "Questionaire done"
                 # Get the email address of the logged in user via their patient ID which is stored in local storage.
-                email = cur.execute(
-                    "SELECT email FROM Patient WHERE PatientID=?;", [patient_id])
+                email = cur.execute("SELECT email FROM Patient WHERE PatientID=?;", [patient_id])
                 user_email = cur.fetchall()
                 user_email = user_email[0][0]
                 # Send confirmation email to user.
@@ -382,14 +344,12 @@ def questions():
         finally:
             conn.close()
 
-
-@app.route("/Welcome", methods=['GET'])
+@app.route("/Welcome", methods = ['GET'])
 def welcome_page():
-    if request.method == 'GET':
+    if request.method =='GET':
         return render_template('welcome.html')
 
-
-@app.route("/Login", methods=['GET', 'POST'])
+@app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         sign_name = request.form.get('name', default="Error")
@@ -406,8 +366,7 @@ def login():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute(
-                        "SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
+                    cur.execute("SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
                     data = cur.fetchall()
                 except:
                     print('There was an error')
@@ -416,26 +375,22 @@ def login():
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
-                    cur.execute(
-                        "SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
+                    cur.execute("SELECT PatientID, name FROM Patient WHERE email=?;", [login_email])
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                resp = make_response(render_template(
-                    'welcome.html', data=data, username=login_email))
+                resp = make_response(render_template('welcome.html', data=data, username=login_email))
             elif checkCredentials(login_email, login_password) == 2:
-                resp = make_response(render_template(
-                    'index.html', msg='', login_email=login_email, error="Incorrect login"))
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
             else:
-                resp = make_response(render_template(
-                    'index.html', msg='', login_email=login_email, error="Incorrect login"))
+                resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
         if sign_name != "":
             print("Signing in")
             try:
                 conn = sqlite3.connect(DATABASE)
                 cur = conn.cursor()
                 cur.execute("INSERT INTO PATIENT ('name', 'gender', 'age', 'email', 'password')\
-                VALUES (?,?,?,?,?)", (sign_name, sign_gender, sign_age, sign_email, sign_password))
+                VALUES (?,?,?,?,?)",(sign_name, sign_gender, sign_age, sign_email, sign_password))
                 conn.commit()
                 print("Record successfully added")
             except:
@@ -444,22 +399,18 @@ def login():
             try:
                 conn = sqlite3.connect(DATABASE)
                 cur = conn.cursor()
-                cur.execute(
-                    "SELECT PatientID,name FROM Patient WHERE email=?;", [sign_email])
+                cur.execute("SELECT PatientID,name FROM Patient WHERE email=?;", [sign_email])
                 data = cur.fetchall()
             except:
                 print('There was an error')
-            resp = make_response(render_template(
-                'welcome.html', data=data, username=sign_email))
-        print(
-            f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
+            resp = make_response(render_template('welcome.html', data=data, username=sign_email))
+        print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
         return resp
     else:
         username = 'none'
         if 'username' in session:
             username = escape(session['username'])
         return render_template('index.html', msg='', username=username, error="")
-
 
 @app.route("/Patients", methods=['GET'])
 def patients():
@@ -477,25 +428,21 @@ def patients():
             try:
                 conn = sqlite3.connect(DATABASE)
                 cur = conn.cursor()
-                cur.execute(
-                    "SELECT score FROM Response WHERE patientID;" [patients])
+                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
                 patients = cur.fetchall()
                 print('Showing responses')
                 return render_template('patients.html', error='', patients=patients)
             except:
                 print('Something went wrong with responses')
-
+        
             conn.close()
-
+            
             # ------------------Methods------------------
-
-
 def checkCredentials(email, password):
     try:
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
-        cur.execute(
-            "SELECT email, password FROM Patient WHERE email=?;", [email])
+        cur.execute("SELECT email, password FROM Patient WHERE email=?;", [email])
         login_details = cur.fetchall()
     except:
         print('There was an error', login_details)
@@ -507,14 +454,12 @@ def checkCredentials(email, password):
     except:
         return 2
 
-
 def adminCredentials(email, password):
     if email == 'admin@admin.com' and password == 'admin':
         print("Admin login worked")
         return True
     else:
         return False
-
 
 if __name__ == "__main__":
     app.run(debug=True)
