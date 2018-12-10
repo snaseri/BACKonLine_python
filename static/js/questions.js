@@ -38,10 +38,6 @@ $('h1').each(function() {
   };
 });
 
-// For skipping questions if certain questions are answered.
-// Back button.
-
-
 // Make sure user has selected at least one option.
 function validate() {
   var valid = document.getElementsByName("option-text[]");
@@ -207,13 +203,19 @@ function displayPart(id) {
   $('#selected-body-part').val(id + ' NO PAIN');
 };
 
-// GETTING ANSWERED QUESTIONS FROM THE html
+// Getting the already answered questions.
 function pageLoad() {
 var answerid = document.getElementById("answerid").value;
 answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
 if (document.getElementById("questnum").value == 3) {
   if (answerid == null || answerid == "") {answerid = "Type it here"}
   document.getElementById("question3-input").value = answerid
+}
+else if (document.getElementById("questnum").value == 20) {
+  if (answerid == null || answerid == "") {answerid = "Type it here"}
+  document.getElementById("range-slider-input").value = answerid
+  $("span[slider-value='" + 0 + "']").removeClass("is-selected");
+  $("span[slider-value='" + answerid + "']").addClass("is-selected");
 }
 else {
   answerid = answerid.split(" ");
