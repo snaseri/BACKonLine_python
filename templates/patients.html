@@ -2,7 +2,8 @@
 {% block mainBlock %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="../static/css/patients.css">
-  <table name='FUTYI'>
+
+  <table>
     <tr>
       <th>Patient ID</th>
       <th>Name</th>
@@ -12,7 +13,7 @@
     </tr>
     <tr>
       {% for item in patients %}
-      <tr>
+      <tr onclick="getPatientData()">
         <td  data-th="Patient ID">{{ item[0] }}</td>
         <td data-th="Name">{{ item[1] }}</td>
         <td data-th="Gender">{{ item[2] }}</td>
@@ -20,20 +21,18 @@
         <td data-th="Email">{{ item[4] }}</td>
       </tr>
       {% endfor %}
+      <tr>
+        <td><span id="data"></span></td>
+      </tr>
     </tr>
   </table>
   <!-- {% for y in patient %} -->
 
-  <button onclick="getPatientData()"> Read History</button>
-  <p><span id="data"></span></p>
-
-<article><p>askjdnaskjdnaksjndaksjndjkn</p>
-</article>
   <!-- {%endfor%} -->
 
   <script>
     function getPatientData() {
-      document.getElementById('data').innerHTML = 'PAtient data comes here';
+      document.getElementById('data').innerHTML = 'Patient data comes here';
     };
   </script>
 
