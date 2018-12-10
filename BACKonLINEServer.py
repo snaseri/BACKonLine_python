@@ -66,7 +66,7 @@ def questions():
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[6] == "t" and calc == 11)or (qhide[8] == "t" and calc == 16)or (qhide[10] == "t" and calc == 18)or (qhide[12] == "t" and calc == 21 )or (qhide[14] == "t"and calc == 23):
+                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -151,7 +151,7 @@ def questions():
                 checkbox_array = checkbox.split(",")
                 print(qhide)
                 print(qhide[2])
-                if qhide[2] == "t":
+                if qhide[2] == "t" and calc == 5:
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -165,7 +165,7 @@ def questions():
                     except:
                         print('There was an error', Total_OpID)
                     print(Total_OpID[-1][0])
-                    for index,box in enumerate(checkbox_array):
+                    for index, box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
                     # Get score and option ID.
@@ -242,17 +242,30 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-                    conn.commit()
-                    print("Record successfully added")
-                except:
-                    conn.rollback()
-                    print("Error in insert operation 250")
-                conn.close()
+                if (questnum == 7) or (questnum == 19):
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,selected_body_part,str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation")
+                    conn.close()
+                else:
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation 250")
+                    conn.close()
             if textarea != "":
                 # Get score and option ID.
                 try:
@@ -361,7 +374,7 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
+                return render_template('admin.html', data=data, username=login_email, msg='ADMIN', user='admin')
             if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
@@ -412,12 +425,23 @@ def patients():
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
-            return render_template('patients.html', error='', patients=patients)
+            return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
-        finally:
+        if request.method == 'GET':
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
+                patients = cur.fetchall()
+                print('Showing responses')
+                return render_template('patients.html', error='', patients=patients)
+            except:
+                print('Something went wrong with responses')
+        
             conn.close()
-# ------------------Methods------------------
+            
+            # ------------------Methods------------------
 def checkCredentials(email, password):
     try:
         conn = sqlite3.connect(DATABASE)
