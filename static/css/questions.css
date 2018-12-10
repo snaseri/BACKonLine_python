@@ -162,7 +162,9 @@ input[type='range']:focus {
 
 #counter,
 #direction,
-.options p,
+#answerid,
+.options
+p,
 .developer-boxes input {
   display: none;
 }
