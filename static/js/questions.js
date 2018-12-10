@@ -212,12 +212,12 @@ function pageLoad() {
 var answerid = document.getElementById("answerid").value;
 answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
 if (document.getElementById("questnum").value == 3) {
-  if (answerid == null || answerid == "") {answerid = "Type it here"}
-  document.getElementById("question3-input").value = answerid
-}
-else if (document.getElementById("questnum").value == 20) {
   if (answerid == 'None' || answerid == "") {console.log("No previously given answer")}
   else {document.getElementById("question3-input").value = answerid};
+}
+else if (document.getElementById("questnum").value == 20) {
+  if (answerid == null || answerid == "") {answerid = "Type it here"}
+  document.getElementById("range-slider-input").value = answerid
   $("span[slider-value='" + 0 + "']").removeClass("is-selected");
   $("span[slider-value='" + answerid + "']").addClass("is-selected");
 }
@@ -425,7 +425,6 @@ if (qhide[8] == "t" && counter == 23) {
 };
 console.log(direction);
 };
-
 
 // References:
 // https://stackoverflow.com/questions/53499666/change-styling-of-a-certain-part-in-h1-tag-when-in-jinja-template
