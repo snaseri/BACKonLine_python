@@ -411,17 +411,18 @@ def patients():
             return render_template('patients.html', error='', patients=patients)
         except:
             print('Something went wrong')
-        if request.method == 'GET':
-            try:
-                conn = sqlite3.connect(DATABASE)
-                cur = conn.cursor()
-                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
-                patients = cur.fetchall()
-                print('Showing responses')
-                return render_template('patients.html', error='', patients=patients)
-            except:
-                print('Something went wrong with responses')
         
+        # if request.method == 'GET':
+        #     try:
+        #         conn = sqlite3.connect(DATABASE)
+        #         cur = conn.cursor()
+        #         cur.execute("SELECT * FROM Response WHERE patientID;" [patients])
+        #         patient = cur.fetchall()
+        #         print('Showing responses')
+        #         return render_template('patients.html', error='', patient=patient)
+        #     except:
+        #         print('Something went wrong with responses')
+        finally:
             conn.close()
             
             # ------------------Methods------------------

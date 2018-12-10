@@ -2,7 +2,7 @@
 {% block mainBlock %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="../static/css/patients.css">
-  <table id='FUTYI'>
+  <table name='FUTYI'>
     <tr>
       <th>Patient ID</th>
       <th>Name</th>
@@ -12,8 +12,8 @@
     </tr>
     <tr>
       {% for item in patients %}
-      <tr onclick="getPatientData()">
-        <td onclick="exportTableToExcel()" data-th="Patient ID">{{ item[0] }}</td>
+      <tr>
+        <td  data-th="Patient ID">{{ item[0] }}</td>
         <td data-th="Name">{{ item[1] }}</td>
         <td data-th="Gender">{{ item[2] }}</td>
         <td data-th="Age">{{ item[3] }}</td>
@@ -22,13 +22,25 @@
       {% endfor %}
     </tr>
   </table>
-  <span id="data"></span>
+  <!-- {% for y in patient %} -->
+
+  <button onclick="getPatientData()"> Read History</button>
+  <p><span id="data"></span></p>
+
+<article><p>askjdnaskjdnaksjndaksjndjkn</p>
+</article>
+
+  
+
+
+
+  <!-- {%endfor%} -->
 
   <script>
-  //   function getPatientData() {
-  //     document.getElementById('data').innerHTML = patients;
-  //   };
-  // </script>
+    function getPatientData() {
+      document.getElementById('data').innerHTML = 'PAtient data comes here';
+    };
+  </script>
 
   <script>
     function exportTableToExcel(FUTYI, filename = 'patients') {
@@ -51,4 +63,5 @@
       }
     }
   </script>
+
 {% endblock %}
