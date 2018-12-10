@@ -438,9 +438,9 @@ def patients():
                 return render_template('patients.html', error='', patients=patients)
             except:
                 print('Something went wrong with responses')
-        
+
             conn.close()
-            
+
             # ------------------Methods------------------
 def checkCredentials(email, password):
     try:
