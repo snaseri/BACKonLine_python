@@ -66,7 +66,7 @@ def questions():
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[6] == "t" and calc == 11)or (qhide[8] == "t" and calc == 16)or (qhide[10] == "t" and calc == 18)or (qhide[12] == "t" and calc == 21 )or (qhide[14] == "t"and calc == 23):
+                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[4] == "t" and calc == 11)or (qhide[6] == "t" and calc == 16)or (qhide[8] == "t" and calc == 18)or (qhide[10] == "t" and calc == 21 )or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
