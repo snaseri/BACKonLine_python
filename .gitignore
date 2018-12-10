@@ -84,7 +84,7 @@ modules.xml
 
 ### Database ###
 *.accdb
-# *.db
+*.db
 *.dbf
 *.mdb
 *.pdb
