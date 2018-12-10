@@ -242,12 +242,15 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-                if (questnum == 7) or (questnum == 19):
+
+                if (questnum-1 == 7) or (questnum-1 == 19):
+                    print(f"The question number is: {questnum}")
+                    print(patient_id,str(checkbox_array),questnum-1,Score,selected_body_part,str(datetime.date.today()))
                     try:
                         conn = sqlite3.connect(DATABASE)
                         cur = conn.cursor()
                         cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                        VALUES (?,?,?,?,?,?)",(patient_id,str(option_id),questnum-1,score,selected_body_part,str(datetime.date.today())))
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,str(selected_body_part),str(datetime.date.today())))
                         conn.commit()
                         print("Record successfully added")
                     except:
