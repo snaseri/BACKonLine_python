@@ -242,17 +242,31 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-                try:
-                    conn = sqlite3.connect(DATABASE)
-                    cur = conn.cursor()
-                    cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
-                    VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
-                    conn.commit()
-                    print("Record successfully added")
-                except:
-                    conn.rollback()
-                    print("Error in insert operation 250")
-                conn.close()
+                if (questnum-1 == 7) or (questnum-1 == 19):
+                    print(patient_id,str(checkbox_array),questnum-1,Score,selected_body_part,str(datetime.date.today()))
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,str(selected_body_part),str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation")
+                    conn.close()
+                else:
+                    try:
+                        conn = sqlite3.connect(DATABASE)
+                        cur = conn.cursor()
+                        cur.execute("INSERT INTO RESPONSE('patientID', 'optionID', 'questionID', 'score', 'extraInput','date')\
+                        VALUES (?,?,?,?,?,?)",(patient_id,str(checkbox_array),questnum-1,Score,"",str(datetime.date.today())))
+                        conn.commit()
+                        print("Record successfully added")
+                    except:
+                        conn.rollback()
+                        print("Error in insert operation 250")
+                    conn.close()
             if textarea != "":
                 # Get score and option ID.
                 try:
@@ -302,8 +316,12 @@ def questions():
             question_text = cur.fetchall()
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
-            # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
-            # answered_questions = cur.fetchall()
+            if questnum == 3:
+                cur.execute("SELECT extraInput FROM Response WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
+                answered_questions = cur.fetchall()
+            else:
+                cur.execute("SELECT OptionID FROM Response WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
+                answered_questions = cur.fetchall()
             question_text = str(question_text)[3:-4]
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
@@ -325,7 +343,7 @@ def questions():
                 msg.html = "<h3>Confirmation of form submission</h3>\n<p>This email is to confirm that your BACKonLINE&trade; form has been successfully submitted to your physiotherapist.</p>"
                 mail.send(msg)
                 return render_template('finish.html', user_email=user_email)
-            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide)
+            return render_template('questions.html', question_text=question_text, option_data=option_data, section_text=section_text, question_number=questnum, question_skip=qhide, ans=answered_questions)
         except:
             print('There was an error')
         finally:
@@ -377,8 +395,8 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
-            if checkCredentials(login_email, login_password == 1):
+                return render_template('admin.html', data=data, username=login_email, msg='ADMIN', user='admin')
+            if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -429,12 +447,23 @@ def patients():
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
-            return render_template('patients.html', error='', patients=patients)
+            return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
-        finally:
+        if request.method == 'GET':
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
+                patients = cur.fetchall()
+                print('Showing responses')
+                return render_template('patients.html', error='', patients=patients)
+            except:
+                print('Something went wrong with responses')
+
             conn.close()
-# ------------------Methods------------------
+
+            # ------------------Methods------------------
 def checkCredentials(email, password):
     print(f"email: {email} pass: {password}")
     try:

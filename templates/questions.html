@@ -2,7 +2,7 @@
 {% block mainBlock %}
   {{ super() }}
   <link href="../static/css/questions.css" rel="stylesheet">
-  <form id="survey" action="/Questions" method="POST">
+  <form id="survey" action="/Questions" method="POST" onload="pageLoad()">
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
@@ -13,7 +13,7 @@
             <!--DO NOT FORMAT THIS DIFFERENTLY -->
             <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
             class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
-            <p>{{row[2]}}</p>
+            <p>{{ row[2] }}</p>
             </label>
           </div>
         {% endif %}
@@ -21,7 +21,7 @@
           <div class="options">
             <label for="option-text-{{row[2]}}">{{row[0]}}</label>
             <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
-            <p>{{row[2]}}</p>
+            <p>{{ row[2] }}</p>
           </div>
         {% endif %}
         {% if row[1] == "Textbox" %}
@@ -117,8 +117,7 @@
         <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
       {% endif %}
       <div class="developer-boxes">
-        <input id="answerid" type="text" name="answerid" value="{{row0}}"></input>
-        <input id="answerc" type="text" name="answerc" value="{{row1}}"></input>
+        <input id="answerid" type="text" name="answerid" value="{{ans}}"></input>
         <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
         <input id="qhide" type="text" name="qhide" value="{{ question_skip }}"></input>
         <input id="direction" type="text" name="direction" value="true"></input>
@@ -139,7 +138,10 @@
   <script type="text/javascript" src="../static/js/imageMapResizer.min.js"></script>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
   <script type="text/javascript" src="../static/js/questions.js"></script>
+
 {% endblock %}
+
+
 <!-- References:
 https://stackoverflow.com/questions/53457840/make-label-clickable-for-each-input
 https://github.com/kemayo/maphilight

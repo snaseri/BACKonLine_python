@@ -2,6 +2,7 @@
 {% block mainBlock %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="../static/css/patients.css">
+
   <table>
     <tr>
       <th>Patient ID</th>
@@ -13,20 +14,48 @@
     <tr>
       {% for item in patients %}
       <tr onclick="getPatientData()">
-        <td data-th="Patient ID">{{ item[0] }}</td>
+        <td  data-th="Patient ID">{{ item[0] }}</td>
         <td data-th="Name">{{ item[1] }}</td>
         <td data-th="Gender">{{ item[2] }}</td>
         <td data-th="Age">{{ item[3] }}</td>
         <td data-th="Email">{{ item[4] }}</td>
       </tr>
       {% endfor %}
+      <tr>
+        <td><span id="data"></span></td>
+      </tr>
     </tr>
   </table>
-  <span id="data"></span>
+  <!-- {% for y in patient %} -->
+
+  <!-- {%endfor%} -->
 
   <script>
     function getPatientData() {
-      document.getElementById('data').innerHTML = 'PATIENT DATA COMES HERE';
+      document.getElementById('data').innerHTML = 'Patient data comes here';
     };
   </script>
+
+  <script>
+    function exportTableToExcel(FUTYI, filename = 'patients') {
+      var downloadLink;
+      var dataType = 'application/vnd.ms-excel';
+      var tableSelect = document.getElementById(FUTYI);
+      var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+      filename = filename ? filename + '.xls' : 'Rapport.xls';
+      downloadLink = document.createElement("a");
+      document.body.appendChild(downloadLink);
+      if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML, text], {
+          type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+      } else {
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        downloadLink.download = filename;
+        downloadLink.click();
+      }
+    }
+  </script>
+
 {% endblock %}

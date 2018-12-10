@@ -40,205 +40,7 @@ $('h1').each(function() {
 
 // For skipping questions if certain questions are answered.
 // Back button.
-function back() {
-  console.log("Back button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "back";
-  var calculation = document.getElementById("questnum").value;
-  var counter = document.getElementById("counter").innerHTML;
-  console.log(direction);
-  //  Normal back button function without any questions being skipped.
-  if (counter == calculation && counter != 1 ) {
-    document.getElementById("questnum").value -= 1;
-  };
-  if (calculation-counter == 1) {
-    document.getElementById("questnum").value = calculation - 2;
-  };
-  var allqhide = document.getElementById("qhide").value;
-  var qhide = allqhide.split(",");
-  // Question skipping.
-  if (counter == 3 && qhide[0] == "t") {
-    document.getElementById("questnum").value = 1;
-  };
-  if (counter == 7 && qhide[1] == "t") {
-    document.getElementById("questnum").value = 5;
-  };
-  if (counter == 13 && qhide[2] == "t") {
-    document.getElementById("questnum").value = 11;
-  };
-  if (counter == 18 && qhide[3] == "t") {
-    document.getElementById("questnum").value = 16;
-  };
-  if (counter == 20 && qhide[4] == "t") {
-    document.getElementById("questnum").value = 18;
-  };
-  if (counter == 23 && qhide[5] == "t") {
-    document.getElementById("questnum").value = 21;
-  };
-  if (counter == 29 && qhide[6] == "t") {
-    document.getElementById("questnum").value = 26;
-  };
-  if (counter == 23 && qhide[7] == "t") {
-    document.getElementById("questnum").value = 4;
-  };
-  if (counter == 29 && qhide[8] == "t") {
-    document.getElementById("questnum").value = 23;
-  };
-  // GETTING ANSWERED QUESTIONS FROM THE html
 
-  var answerid = document.getElementById("answerid")
-  alert(answerid)
-  var step;
-  for (step = 0; step < 5; step++) {
-    // Runs 5 times, with values of step 0 through 4.
-    console.log('Walking east one step');
-  }
-};
-
-// Forward button.
-function forward() {
-  var counter = document.getElementById("counter").innerHTML;
-  var allqhide = document.getElementById("qhide").value;
-  var qhide = allqhide.split(",");
-  // Question skipping.
-  if (counter == 1) {
-    if (document.getElementById("option-text-2").checked == true) {
-      qhide[0] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[0] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 5) {
-    if (document.getElementById("option-text-32").checked == true) {
-      qhide[1] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[1] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 11) {
-    if (document.getElementById("option-text-70").checked == true) {
-      qhide[2] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[2] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 16) {
-    if (document.getElementById("option-text-101").checked == true) {
-      qhide[3] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[3] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 18) {
-    if (document.getElementById("option-text-110").checked == true) {
-      qhide[4] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[4] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 21) {
-    if (document.getElementById("option-text-128").checked == true) {
-      qhide[5] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[5] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  if (counter == 26){
-    if (document.getElementById("option-text-145").checked == true) {
-      qhide[6] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[6] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  // Section skipping.
-  if (counter == 4) {
-    if (document.getElementById("option-text-16").checked == true) {
-      qhide[7] = "t";
-      document.getElementById("qhide").value = qhide}
-    else {
-      qhide[7] = "f";
-      document.getElementById("qhide").value = qhide;
-    }
-  };
-  // Section skipping.
-  if (counter == 23) {
-    if (document.getElementById("option-text-135").checked == true) {
-      qhide[8] = "t";
-      document.getElementById("qhide").value = qhide;
-    } else {
-      qhide[8] = "f";
-      document.getElementById("qhide").value = qhide;
-    };
-  };
-  console.log("Next button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "forward";
-  var calculation = parseInt(document.getElementById("questnum").value);
-  console.log("Next button");
-  var direction = document.getElementById("direction").value;
-  document.getElementById("direction").value = "forward";
-  var calculation = parseInt(document.getElementById("questnum").value);
-  var counter = document.getElementById("counter").innerHTML;
-  if (counter == calculation) {
-    document.getElementById("questnum").value = calculation + 1;
-  };
-  if (counter-calculation == 1) {
-    document.getElementById("questnum").value = calculation + 2;
-  };
-  // Question skipping.
-  if (qhide[0] == "t" && counter == 1) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 3;
-  };
-  if (qhide[1] == "t" && counter == 5) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 7
-  };
-  if (qhide[2] == "t" && counter == 11) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 13;
-  };
-  if (qhide[3] == "t" && counter == 16) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 18;
-  };
-  if (qhide[4] == "t" && counter == 18) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 20;
-  };
-  if (qhide[5] == "t" && counter == 21) {
-    document.getElementById("skippedqs").value = 1;
-    document.getElementById("questnum").value = 23;
-  };
-  if (qhide[6] == "t" && counter == 26) {
-    document.getElementById("skippedqs").value = 2;
-    document.getElementById("questnum").value = 29;
-  };
-  // Section skipping.
-  if (qhide[7] == "t" && counter == 4) {
-    document.getElementById("skippedqs").value = 18;
-    document.getElementById("questnum").value = 23;
-  };
-  if (qhide[8] == "t" && counter == 23) {
-    document.getElementById("skippedqs").value = 5;
-    document.getElementById("questnum").value = 29;
-  };
-  console.log(direction);
-};
 
 // Make sure user has selected at least one option.
 function validate() {
@@ -404,6 +206,220 @@ function displayPart(id) {
   // Set the value of the input `selected-body-part` to the selected body part.
   $('#selected-body-part').val(id + ' NO PAIN');
 };
+
+// GETTING ANSWERED QUESTIONS FROM THE html
+function pageLoad() {
+var answerid = document.getElementById("answerid").value;
+answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
+if (document.getElementById("questnum").value == 3) {
+  if (answerid == null || answerid == "") {answerid = "Type it here"}
+  document.getElementById("question3-input").value = answerid
+}
+else {
+  answerid = answerid.split(" ");
+  leng = answerid.length;
+  for (var step = 0; step < leng; step++) {
+    console.log(step)
+    document.getElementById("option-text-"+ answerid[step]).checked = true
+}
+}
+};
+
+function back() {
+console.log("Back button");
+var direction = document.getElementById("direction").value;
+document.getElementById("direction").value = "back";
+var calculation = document.getElementById("questnum").value;
+var counter = document.getElementById("counter").innerHTML;
+console.log(direction);
+//  Normal back button function without any questions being skipped.
+if (counter == calculation && counter != 1 ) {
+  document.getElementById("questnum").value -= 1;
+};
+if (calculation-counter == 1) {
+  document.getElementById("questnum").value = calculation - 2;
+};
+var allqhide = document.getElementById("qhide").value;
+var qhide = allqhide.split(",");
+// Question skipping.
+if (counter == 3 && qhide[0] == "t") {
+  document.getElementById("questnum").value = 1;
+};
+if (counter == 7 && qhide[1] == "t") {
+  document.getElementById("questnum").value = 5;
+};
+if (counter == 13 && qhide[2] == "t") {
+  document.getElementById("questnum").value = 11;
+};
+if (counter == 18 && qhide[3] == "t") {
+  document.getElementById("questnum").value = 16;
+};
+if (counter == 20 && qhide[4] == "t") {
+  document.getElementById("questnum").value = 18;
+};
+if (counter == 23 && qhide[5] == "t") {
+  document.getElementById("questnum").value = 21;
+};
+if (counter == 29 && qhide[6] == "t") {
+  document.getElementById("questnum").value = 26;
+};
+if (counter == 23 && qhide[7] == "t") {
+  document.getElementById("questnum").value = 4;
+};
+if (counter == 29 && qhide[8] == "t") {
+  document.getElementById("questnum").value = 23;
+};
+
+};
+
+window.onload=pageLoad;
+
+// Forward button.
+function forward() {
+var counter = document.getElementById("counter").innerHTML;
+var allqhide = document.getElementById("qhide").value;
+var qhide = allqhide.split(",");
+// Question skipping.
+if (counter == 1) {
+  if (document.getElementById("option-text-2").checked == true) {
+    qhide[0] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[0] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 5) {
+  if (document.getElementById("option-text-32").checked == true) {
+    qhide[1] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[1] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 11) {
+  if (document.getElementById("option-text-70").checked == true) {
+    qhide[2] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[2] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 16) {
+  if (document.getElementById("option-text-101").checked == true) {
+    qhide[3] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[3] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 18) {
+  if (document.getElementById("option-text-110").checked == true) {
+    qhide[4] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[4] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 21) {
+  if (document.getElementById("option-text-128").checked == true) {
+    qhide[5] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[5] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+if (counter == 26){
+  if (document.getElementById("option-text-145").checked == true) {
+    qhide[6] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[6] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+// Section skipping.
+if (counter == 4) {
+  if (document.getElementById("option-text-16").checked == true) {
+    qhide[7] = "t";
+    document.getElementById("qhide").value = qhide}
+  else {
+    qhide[7] = "f";
+    document.getElementById("qhide").value = qhide;
+  }
+};
+// Section skipping.
+if (counter == 23) {
+  if (document.getElementById("option-text-135").checked == true) {
+    qhide[8] = "t";
+    document.getElementById("qhide").value = qhide;
+  } else {
+    qhide[8] = "f";
+    document.getElementById("qhide").value = qhide;
+  };
+};
+
+console.log("Next button");
+var direction = document.getElementById("direction").value;
+document.getElementById("direction").value = "forward";
+var calculation = parseInt(document.getElementById("questnum").value);
+console.log("Next button");
+var direction = document.getElementById("direction").value;
+document.getElementById("direction").value = "forward";
+var calculation = parseInt(document.getElementById("questnum").value);
+var counter = document.getElementById("counter").innerHTML;
+if (counter == calculation) {
+  document.getElementById("questnum").value = calculation + 1;
+};
+if (counter-calculation == 1) {
+  document.getElementById("questnum").value = calculation + 2;
+};
+// Question skipping.
+if (qhide[0] == "t" && counter == 1) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 3;
+};
+if (qhide[1] == "t" && counter == 5) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 7
+};
+if (qhide[2] == "t" && counter == 11) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 13;
+};
+if (qhide[3] == "t" && counter == 16) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 18;
+};
+if (qhide[4] == "t" && counter == 18) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 20;
+};
+if (qhide[5] == "t" && counter == 21) {
+  document.getElementById("skippedqs").value = 1;
+  document.getElementById("questnum").value = 23;
+};
+if (qhide[6] == "t" && counter == 26) {
+  document.getElementById("skippedqs").value = 2;
+  document.getElementById("questnum").value = 29;
+};
+// Section skipping.
+if (qhide[7] == "t" && counter == 4) {
+  document.getElementById("skippedqs").value = 18;
+  document.getElementById("questnum").value = 23;
+};
+if (qhide[8] == "t" && counter == 23) {
+  document.getElementById("skippedqs").value = 5;
+  document.getElementById("questnum").value = 29;
+};
+console.log(direction);
+};
+
 
 // References:
 // https://stackoverflow.com/questions/53499666/change-styling-of-a-certain-part-in-h1-tag-when-in-jinja-template
