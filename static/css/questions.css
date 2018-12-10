@@ -50,7 +50,7 @@ h2 {
   font-size: 22px;
   font-weight: 200;
   left: 15%;
-  top: 15%;
+  top: 70px;
 }
 
 .options {
@@ -150,7 +150,7 @@ input[type='range']:focus {
   position: relative;
   cursor: pointer;
 }
-  
+
 .range-slider-ticks-label {
   font-size: 24px;
   margin-top: 28px;
@@ -237,7 +237,6 @@ svg {
   h2 {
     font-size: 100%;
     left: 5%;
-    top: 23%;
   }
 
   h1 {
@@ -248,10 +247,9 @@ svg {
   }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 600px) {
+@media only screen and (min-width: 300px) and (max-width: 550px) {
   h2 {
     left: 5%;
-    top: 10%;
   }
 
   h1 {
@@ -262,24 +260,25 @@ svg {
 
   .options-container {
     position: absolute;
-    margin-top: 50%;
-    left: 5%;
-    width: 90%;
+    margin-top: 200px;
+    left: 0%;
+    width: 100%;
   }
 
-  .back-button {
+  /* .back-button {
     position: absolute;
     margin-top: 100%;
+
   }
 
   .next-button {
     position: relative;
     margin-top: 200%;
     left: 20%;
-  }
+  } */
 }
 
-@media only screen and (min-width: 650px) and (max-width: 1000px) {
+/* @media only screen and (min-width: 650px) and (max-width: 1000px) {
   h2 {
     left: 5%;
     top: 10%;
@@ -308,9 +307,9 @@ svg {
     margin-top: 90%;
     left: 20%;
   }
-}
+} */
 
-@media only screen and (min-width: 1024px) and (max-width: 1500px) {
+/* @media only screen and (min-width: 1024px) and (max-width: 1500px) {
   h2 {
     left: 5%;
     top: 7%;
@@ -339,7 +338,8 @@ svg {
     margin-top: 60%;
     left: 20%;
   }
-}
+} */
+
 
 /* References:
 https://codepen.io/alaneicker/pen/jKEVya */

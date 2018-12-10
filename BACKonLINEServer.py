@@ -65,7 +65,8 @@ def questions():
         if direction == "forward":
             if radio != "":
                 # Get score and option ID.
-                if qhide[0] == "t" or qhide[4] == "t" or qhide[6] == "t" or qhide[8] == "t" or qhide[10] == "t" or qhide[12] == "t" or qhide[14] == "t":
+                print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
+                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[4] == "t" and calc == 11)or (qhide[6] == "t" and calc == 16)or (qhide[8] == "t" and calc == 18)or (qhide[10] == "t" and calc == 21 )or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -107,6 +108,7 @@ def questions():
                     except:
                         print('There was an error', OpID_Score)
                     conn.close()
+                    print(OpID_Score)
                     option_id = OpID_Score[0][0]
                     score = OpID_Score[0][1]
                     try:
@@ -128,6 +130,7 @@ def questions():
                         except:
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
+
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -148,7 +151,7 @@ def questions():
                 checkbox_array = checkbox.split(",")
                 print(qhide)
                 print(qhide[2])
-                if qhide[2] == "t":
+                if qhide[2] == "t" and calc == 5:
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -299,6 +302,8 @@ def questions():
             question_text = cur.fetchall()
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
+            # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
+            # answered_questions = cur.fetchall()
             question_text = str(question_text)[3:-4]
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
@@ -308,9 +313,9 @@ def questions():
             elif (questnum >= 29) and (questnum < 33):
                 section_text = "Section C: Back Pain and Lifestyle"
             elif (questnum >= 33) and (questnum < 40):
-                section_text = "Section D: Perception of Back Pain";
+                section_text = "Section D: Perception of Back Pain"
             elif (questnum >= 40):
-                section_text = "Questionaire done";
+                section_text = "Questionaire done"
                 # Get the email address of the logged in user via their patient ID which is stored in local storage.
                 email = cur.execute("SELECT email FROM Patient WHERE PatientID=?;", [patient_id])
                 user_email = cur.fetchall()

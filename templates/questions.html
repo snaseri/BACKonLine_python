@@ -6,6 +6,7 @@
     <h2>{{ section_text }}</h2>
     <h1>Question {{ question_number }}: {{ question_text }}</h1>
     <p id="counter">{{ question_number }}</p>
+    <div class = "options-container">
     {% for row in option_data %}
       {% if row[1] == "Radiobox" %}
         <div class="options">
@@ -116,6 +117,8 @@
       <input id="pain-slider" name="pain-slider" type="range" min="0" max="10" value="0" onchange="changeColour(this.value)">
     {% endif %}
     <div class="developer-boxes">
+      <input id="answerid" type="text" name="answerid" value="{{row0}}"></input>
+      <input id="answerc" type="text" name="answerc" value="{{row1}}"></input>
       <input id="skippedqs" type="text" name="skippedqs" value="1"></input>
       <input id="qhide" type="text" name="qhide" value="{{ question_skip }}"></input>
       <input id="direction" type="text" name="direction" value="true"></input>
@@ -131,6 +134,7 @@
     {% else %}
       <button type="submit" class="next-button uk-button uk-button-primary" onclick="forward()">Next</button>
     {% endif %}
+    </div>
   </form>
   <script type="text/javascript" src="../static/js/imageMapResizer.min.js"></script>
   <script type="text/javascript" src="../static/js/jquery.maphilight.min.js"></script>
