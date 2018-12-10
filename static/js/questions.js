@@ -350,6 +350,29 @@ function changeColour(painSliderValue) {
   if (painSliderValue == 10) {
     $('#human-body').maphilight({fillColor: 'ff0000'});
   };
+
+  // Initialise the pain level with an empty string.
+  var painLevel = '';
+
+  // Set pain level depending on pain slider value.
+  if (painSliderValue >= 0 && painSliderValue <= 4) {
+    painLevel = ' NO PAIN';
+  };
+  if (painSliderValue >= 5 && painSliderValue <= 9) {
+    painLevel = ' MODERATE PAIN';
+  };
+  if (painSliderValue == 10) {
+    painLevel = ' UNBEARABLE PAIN';
+  };
+
+  // The current value will be the selected body part.
+  var currentValue = $('#selected-body-part').val();
+
+  // Remove any uppercase letter(s) from `currentValue`.
+  // This is to make sure the pain level does not duplicate.
+  currentValue = currentValue.replace(/[^a-z-]+/g, '');
+  // Append the pain level to `selected-body-part`.
+  $('#selected-body-part').val(currentValue + painLevel);
 };
 
 // Make the clicked area selected.
@@ -368,27 +391,9 @@ $('map area').click(function(e) {
   });
 });
 
-function displayPart(id, painSliderValue) {
-  // Convert the body part ID to sentence case.
-  id = id.toLowerCase().replace(/(^|\s)[a-z]/g, function(id) {
-    return id.toUpperCase();
-  });
-  // Replace the dashes with spaces.
-  id = id.replace(/-/g, ' ');
-  // Initialise the pain level with an empty string.
-  var painLevel = '';
-  // Set pain level depending on pain slider value.
-  if (painSliderValue == 0) {
-    painLevel = ' NO PAIN';
-  };
-  if (painSliderValue == 5) {
-    painLevel = ' MODERATE PAIN';
-  };
-  if (painSliderValue == 10) {
-    painLevel = ' UNBEARABLE PAIN';
-  };
-  // Set the value of the input `selected-body-part` to the body part and pain level.
-  $('#selected-body-part').val(id + painLevel);
+function displayPart(id) {
+  // Set the value of the input `selected-body-part` to the selected body part.
+  $('#selected-body-part').val(id + ' NO PAIN');
 };
 
 // References:

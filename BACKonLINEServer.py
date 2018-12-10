@@ -162,7 +162,7 @@ def questions():
                     except:
                         print('There was an error', Total_OpID)
                     print(Total_OpID[-1][0])
-                    for index,box in enumerate(checkbox_array):
+                    for index, box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
                     # Get score and option ID.
