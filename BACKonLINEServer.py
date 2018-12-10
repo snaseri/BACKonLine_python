@@ -66,7 +66,7 @@ def questions():
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
+                if (qhide[0] == "t" and calc == 1) or (qhide[14] == "t" and calc == 4) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -339,14 +339,34 @@ def welcome_page():
 @app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        sign_name = request.form.get('name', default="Error")
+        patient_id = request.get_data().decode('utf8')
+        if patient_id[0] == "e":
+          patient_id = "No ID"
+          login_email = request.form.get('email-login', default="Error")
+          login_password = request.form.get('password', default="Error")
+        else:
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                patient_id = patient_id[12:]
+                cur.execute("SELECT email, password FROM Patient WHERE PatientID=?;", [patient_id])
+                data = cur.fetchall()
+            except:
+                print('There was an error')
+            print(data)
+            login_email = data[0][0]
+            login_password = data[0][1]
+            print(login_email)
+            print(login_password)
+
+        sign_name = request.form.get('name', default="")
         sign_gender = request.form.get('gender', default="Error")
         sign_age = request.form.get('age', default="Error")
         sign_email = request.form.get('email-signup', default="Error")
         sign_password = request.form.get('email-password', default="Error")
-        sign_password = generate_password_hash(sign_password)
-        login_email = request.form.get('email-login', default="Error")
-        login_password = request.form.get('password', default="Error")
+        if sign_password != "Error":
+            sign_password = generate_password_hash(sign_password)
+
         if sign_name == "":
             print("Logging in")
             if adminCredentials(login_email, login_password):
@@ -358,7 +378,7 @@ def login():
                 except:
                     print('There was an error')
                 return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
-            if checkCredentials(login_email, login_password) == 1:
+            if checkCredentials(login_email, login_password == 1):
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -372,6 +392,7 @@ def login():
             else:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
         if sign_name != "":
+            print(f"name: {sign_name}, gender: {sign_gender}, age: {sign_age}, username: {sign_email}, password: {sign_password}")
             print("Signing in")
             try:
                 conn = sqlite3.connect(DATABASE)
@@ -415,6 +436,7 @@ def patients():
             conn.close()
 # ------------------Methods------------------
 def checkCredentials(email, password):
+    print(f"email: {email} pass: {password}")
     try:
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -422,12 +444,16 @@ def checkCredentials(email, password):
         login_details = cur.fetchall()
     except:
         print('There was an error', login_details)
+    print(f"email: {login_details[0][0]} password: {login_details[0][1]}")
     try:
         if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+            print("this is running 1")
             return 1
         else:
+            print("this is running 3")
             return 3
     except:
+        print("this is running 2")
         return 2
 
 def adminCredentials(email, password):
