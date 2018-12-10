@@ -50,7 +50,7 @@ h2 {
   font-size: 22px;
   font-weight: 200;
   left: 15%;
-  top: 15%;
+  top: 70px;
 }
 
 .options {
@@ -237,7 +237,6 @@ svg {
   h2 {
     font-size: 100%;
     left: 5%;
-    top: 23%;
   }
 
   h1 {
@@ -248,10 +247,9 @@ svg {
   }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 500px) {
+@media only screen and (min-width: 300px) and (max-width: 550px) {
   h2 {
     left: 5%;
-    top: 10%;
   }
 
   h1 {
@@ -262,7 +260,7 @@ svg {
 
   .options-container {
     position: absolute;
-    margin-top: 60%;
+    margin-top: 200px;
     left: 0%;
     width: 100%;
   }
