@@ -221,8 +221,8 @@ else {
   for (var step = 0; step < leng; step++) {
     console.log(step)
     document.getElementById("option-text-"+ answerid[step]).checked = true
-}
-}
+    }
+  }
 };
 
 function back() {
