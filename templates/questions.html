@@ -13,7 +13,7 @@
             <!--DO NOT FORMAT THIS DIFFERENTLY -->
             <label for="option-text-{{row[2]}}" class="test" onclick="sendRadio(this);">{{row[0]}}<input
             class="uk-radio" type="radio" id="option-text-{{row[2]}}" name="option-text[]">
-            <p>{{row[2]}}</p>
+            <p>{{ row[2] }}</p>
             </label>
           </div>
         {% endif %}
@@ -21,7 +21,7 @@
           <div class="options">
             <label for="option-text-{{row[2]}}">{{row[0]}}</label>
             <input class="uk-checkbox" type="checkbox" id="option-text-{{row[2]}}" name="option-text[]" onclick="sendCheckbox(this);">
-            <p>{{row[2]}}</p>
+            <p>{{ row[2] }}</p>
           </div>
         {% endif %}
         {% if row[1] == "Textbox" %}

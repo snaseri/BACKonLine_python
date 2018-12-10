@@ -357,7 +357,7 @@ def login():
                     data = cur.fetchall()
                 except:
                     print('There was an error')
-                return render_template('admin.html', data=data, username=login_email, msg='ADMIN')
+                return render_template('admin.html', data=data, username=login_email, msg='ADMIN', user='admin')
             if checkCredentials(login_email, login_password) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
@@ -408,7 +408,7 @@ def patients():
             cur.execute("SELECT * FROM Patient;")
             patients = cur.fetchall()
             print('Showing patients')
-            return render_template('patients.html', error='', patients=patients)
+            return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
         
