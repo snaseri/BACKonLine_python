@@ -208,22 +208,6 @@ function displayPart(id) {
 };
 
 // GETTING ANSWERED QUESTIONS FROM THE html
-function pageLoad() {
-var answerid = document.getElementById("answerid").value;
-answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
-if (document.getElementById("questnum").value == 3) {
-  if (answerid == null || answerid == "") {answerid = "Type it here"}
-  document.getElementById("question3-input").value = answerid
-}
-else {
-  answerid = answerid.split(" ");
-  leng = answerid.length;
-  for (var step = 0; step < leng; step++) {
-    console.log(step)
-    document.getElementById("option-text-"+ answerid[step]).checked = true
-    }
-  }
-};
 
 function back() {
 console.log("Back button");
@@ -271,8 +255,6 @@ if (counter == 29 && qhide[8] == "t") {
 };
 
 };
-
-window.onload=pageLoad;
 
 // Forward button.
 function forward() {
@@ -420,7 +402,25 @@ if (qhide[8] == "t" && counter == 23) {
 console.log(direction);
 };
 
+function pageLoad() {
+var answerid = document.getElementById("answerid").value;
+answerid = answerid.replace(/[\[\]/(\)'/,]+/g, '');
+if (document.getElementById("questnum").value == 3) {
+  if (answerid == null || answerid == "") {console.log("No previously given answer")}
+  else{  document.getElementById("question3-input").value = answerid}
 
+}
+else {
+  answerid = answerid.split(" ");
+  leng = answerid.length;
+  for (var step = 0; step < leng; step++) {
+    console.log(step)
+    document.getElementById("option-text-"+ answerid[step]).checked = true
+    }
+  }
+};
+
+window.onload=pageLoad;
 // References:
 // https://stackoverflow.com/questions/53499666/change-styling-of-a-certain-part-in-h1-tag-when-in-jinja-template
 // https://stackoverflow.com/questions/53622707/change-colour-of-map-area-on-click
