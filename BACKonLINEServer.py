@@ -66,7 +66,7 @@ def questions():
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1)or (qhide[4] == "t" and calc == 5)or (qhide[6] == "t" and calc == 11)or (qhide[8] == "t" and calc == 16)or (qhide[10] == "t" and calc == 18)or (qhide[12] == "t" and calc == 21 )or (qhide[14] == "t"and calc == 23):
+                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -151,7 +151,7 @@ def questions():
                 checkbox_array = checkbox.split(",")
                 print(qhide)
                 print(qhide[2])
-                if qhide[2] == "t":
+                if qhide[2] == "t" and calc == 5:
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -165,7 +165,7 @@ def questions():
                     except:
                         print('There was an error', Total_OpID)
                     print(Total_OpID[-1][0])
-                    for index,box in enumerate(checkbox_array):
+                    for index, box in enumerate(checkbox_array):
                         box = int(box)
                         checkbox_array[index] = box
                     # Get score and option ID.
@@ -302,6 +302,8 @@ def questions():
             question_text = cur.fetchall()
             cur.execute("SELECT OptionText, QuestionType, OptionID FROM Options WHERE QuestionID=?;", [questnum])
             option_data = cur.fetchall()
+            # cur.execute("SELECT OptionID, count(OptionID) FROM Options WHERE QuestionID=? AND PatientID=? AND date=?", [questnum, patient_id, str(datetime.date.today())])
+            # answered_questions = cur.fetchall()
             question_text = str(question_text)[3:-4]
             # Display section name depending on question number.
             if (questnum < 23) and (questnum > 0):
