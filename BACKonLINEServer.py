@@ -242,9 +242,7 @@ def questions():
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
                     print(patient_id,checkbox_array,questnum-1,Score,"",str(datetime.date.today()))
-
                 if (questnum-1 == 7) or (questnum-1 == 19):
-                    print(f"The question number is: {questnum}")
                     print(patient_id,str(checkbox_array),questnum-1,Score,selected_body_part,str(datetime.date.today()))
                     try:
                         conn = sqlite3.connect(DATABASE)
