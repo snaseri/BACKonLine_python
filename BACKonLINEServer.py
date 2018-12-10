@@ -409,9 +409,20 @@ def patients():
             return render_template('patients.html', error='', patients=patients)
         except:
             print('Something went wrong')
-        finally:
+        if request.method == 'GET':
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
+                patients = cur.fetchall()
+                print('Showing responses')
+                return render_template('patients.html', error='', patients=patients)
+            except:
+                print('Something went wrong with responses')
+        
             conn.close()
-# ------------------Methods------------------
+            
+            # ------------------Methods------------------
 def checkCredentials(email, password):
     try:
         conn = sqlite3.connect(DATABASE)
