@@ -472,7 +472,6 @@ def patients():
             return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
-<<<<<<< HEAD
         finally:
             conn.close()
 
@@ -546,21 +545,6 @@ def patientResponses(patientID):
             print('Something went wrong with printing responses')
         finally:
             conn.close()
-=======
-        if request.method == 'GET':
-            try:
-                conn = sqlite3.connect(DATABASE)
-                cur = conn.cursor()
-                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
-                patients = cur.fetchall()
-                print('Showing responses')
-                return render_template('patients.html', error='', patients=patients)
-            except:
-                print('Something went wrong with responses')
-
-            conn.close()
-
->>>>>>> 171dbf741b06cd7dc569e0be3a1ad7d8cf48f69e
             # ------------------Methods------------------
 
 
