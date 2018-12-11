@@ -106,7 +106,6 @@ def questions():
                         conn.rollback()
                         print("Error in insert operation")
                     conn.close()
-
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
@@ -174,7 +173,6 @@ def questions():
                         except:
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
-
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -475,70 +473,43 @@ def patients():
         finally:
             conn.close()
 
-
 @app.route("/getPatientResponses/<patientID>", methods=['GET'])
 def patientResponses(patientID):
     print('Loading patient ' + patientID)
-
     if request.method == 'GET':
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute("SELECT Questions.QuestionText, Questions.QuestionID, Response.date, Response.extraInput, Response.score, Response.optionID\
-                        FROM Response INNER JOIN Questions ON Response.questionID=Questions.QuestionID  WHERE Response.PatientID=?;", [patientID])
+            cur.execute("SELECT Questions.QuestionText, Questions.QuestionID, Response.date, Response.extraInput, Response.score, Response.optionID FROM Response INNER JOIN Questions ON Response.questionID=Questions.QuestionID  WHERE Response.PatientID=?;", [patientID])
             response = cur.fetchall()
             print(response)
             optionTextSplit = []
             optionTexts = []
             for i in response:
-                # print("xxxxxx ", type(i[5]))
-                # optionTexts.append(i[5])
                 for x in i:
-                    
-                    # print(f"---->>> {x}, type {type(x)}")
                     if isinstance(x, str):
-                        # print(f" ==== {x}")
                         if ("[" in x) and ("]" in x):
-                            # print(x)
                             optionText = x.replace('[','')
                             optionText = optionText.replace(']','')
                             optionText = optionText.replace(' ', '')
-                            # print(optionText)
                             optionTextSplit = optionText.split(',')
                             for m in optionTextSplit:
                                 optionTexts.append(m)
-                            # print(optionTextSplit)
-                            # print(int(optionTextSplit))
                         else:
                             if len(x) < 3 and len(x) > 0:
-
                                 print("xxxxx ",x)
                                 optionTexts.append(x)
-                            
-
             print(optionTexts)   
-            # for h in optionTextSplit:
-            #     # print(type(int(h)))
-            #     o=int(h)
-            #     cur.execute("SELECT Options.OptionText FROM Options WHERE Options.OptionID=?;",[o])
-            #     response2 = cur.fetchall()
-            #     print(response2)
-
-
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT OptionID, OptionText FROM Options;")
             option_data = cur.fetchall()
-            # print(option_data)
-
             optionTrueData = {}
-            for  i in option_data:
-                # for x in i:
-                    # print(i[0])
-                    for t in optionTexts:
-                        if (int(t) == i[0]):
-                            optionTrueData[t]=i[1]
-                            print(optionTrueData)
+            for i in option_data:
+                for t in optionTexts:
+                    if (int(t) == i[0]):
+                        optionTrueData[t]=i[1]
+                        print(optionTrueData)
             print(optionTrueData)
             return render_template('patientresponses.html', error='', response=response, user='admin', optionTrueData=optionTrueData)
         except:
