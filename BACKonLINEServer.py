@@ -106,7 +106,6 @@ def questions():
                         conn.rollback()
                         print("Error in insert operation")
                     conn.close()
-
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
@@ -174,7 +173,6 @@ def questions():
                         except:
                             print('There was an error', duplicate_response [0][0])
                         conn.close()
-
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -472,20 +470,53 @@ def patients():
             return render_template('patients.html', error='', patients=patients, user='admin')
         except:
             print('Something went wrong')
-        if request.method == 'GET':
-            try:
-                conn = sqlite3.connect(DATABASE)
-                cur = conn.cursor()
-                cur.execute("SELECT score FROM Response WHERE patientID;" [patients])
-                patients = cur.fetchall()
-                print('Showing responses')
-                return render_template('patients.html', error='', patients=patients)
-            except:
-                print('Something went wrong with responses')
-
+        finally:
             conn.close()
 
-            # ------------------Methods------------------
+@app.route("/getPatientResponses/<patientID>", methods=['GET'])
+def patientResponses(patientID):
+    print('Loading patient ' + patientID)
+    if request.method == 'GET':
+        try:
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            cur.execute("SELECT Questions.QuestionText, Questions.QuestionID, Response.date, Response.extraInput, Response.score, Response.optionID FROM Response INNER JOIN Questions ON Response.questionID=Questions.QuestionID  WHERE Response.PatientID=?;", [patientID])
+            response = cur.fetchall()
+            print(response)
+            optionTextSplit = []
+            optionTexts = []
+            for i in response:
+                for x in i:
+                    if isinstance(x, str):
+                        if ("[" in x) and ("]" in x):
+                            optionText = x.replace('[','')
+                            optionText = optionText.replace(']','')
+                            optionText = optionText.replace(' ', '')
+                            optionTextSplit = optionText.split(',')
+                            for m in optionTextSplit:
+                                optionTexts.append(m)
+                        else:
+                            if len(x) < 3 and len(x) > 0:
+                                print("xxxxx ",x)
+                                optionTexts.append(x)
+            print(optionTexts)   
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            cur.execute("SELECT OptionID, OptionText FROM Options;")
+            option_data = cur.fetchall()
+            optionTrueData = {}
+            for i in option_data:
+                for t in optionTexts:
+                    if (int(t) == i[0]):
+                        optionTrueData[t]=i[1]
+                        print(optionTrueData)
+            print(optionTrueData)
+            return render_template('patientresponses.html', error='', response=response, user='admin', optionTrueData=optionTrueData)
+        except:
+            print('Something went wrong with printing responses')
+        finally:
+            conn.close()
+# ------------------Methods------------------
 def checkCredentials(email, password):
     try:
         conn = sqlite3.connect(DATABASE)
