@@ -60,12 +60,12 @@ def questions():
         # Print the selected body part.
         print(f"Body part: {selected_body_part}")
         calc = questnum - 1 - skippedqs
-        print(f"{questnum} - {skippedqs} =  {calc}")
+        print(f"{questnum} - 1 - {skippedqs} =  {calc}")
         # Insert values.
         if direction == "forward":
             print(questnum)
             if slider != "":
-                    print("This is Q20") 
+                    print("This is Q20")
                     # Get score and option ID.
                     try:
                         conn = sqlite3.connect(DATABASE)
@@ -109,7 +109,9 @@ def questions():
             if radio != "":
                 # Get score and option ID.
                 print(f"qhide = {qhide[0]} questnum = {questnum} calc = {calc}")
-                if (qhide[0] == "t" and calc == 1) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
+                print(len(qhide))
+                print(f"QHIDE 13 IS {qhide[13]}")
+                if (qhide[0] == "t" and calc == 1) or (qhide[14] == "t" and calc == 4) or (qhide[4] == "t" and calc == 5) or (qhide[4] == "t" and calc == 11) or (qhide[6] == "t" and calc == 16) or (qhide[8] == "t" and calc == 18) or (qhide[10] == "t" and calc == 21 ) or (qhide[16] == "t"and calc == 23) or (qhide[12] == "t"and calc == 26):
                     skipped_question = True
                 else:
                     skipped_question = False
@@ -499,7 +501,7 @@ def patientResponses(patientID):
                             if len(x) < 3 and len(x) > 0:
                                 print("xxxxx ",x)
                                 optionTexts.append(x)
-            print(optionTexts)   
+            print(optionTexts)
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute("SELECT OptionID, OptionText FROM Options;")

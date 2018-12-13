@@ -279,6 +279,7 @@ if (counter == 29 && qhide[8] == "t") {
 };
 
 window.onload=pageLoad;
+window.onload=onLoad;
 
 // Forward button.
 function forward() {
