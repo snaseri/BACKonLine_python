@@ -5,25 +5,51 @@
   <table>
     <tr>
       <th>Questions</th>
-      <th>Option ID</th>
+      <th>Option Text</th>
       <th>Date</th>
       <th>ExtraInput</th>
       <th>score</th>
       <th>Question ID</th>
     </tr>
     {% for x in response %}
+    {% for y in test_array %}
+    {%if x[5] == y %}
+      <tr>
+
+        {% for key, value in optionTrueData.items() %}
+        {%if x[5] == key %}
+        <td data-th="Patient ID">{{ x[0] }}</td>
+        <td data-th="Email">{{ value }}</td>
+        <td data-th="Age">{{ x[2] }}</td>
+        <td data-th="Email">{{ x[3] }}</td>
+        <td data-th="Email">{{ x[4] }}</td>
+        <td data-th="Gender">{{ x[1] }}</td>
+        {%endif%}
+        {% endfor %}
+      </tr>
+      {%elif y[0] ==  x[5][1:3] and y is string() == false%}
+      {% for f in y %}
+
       <tr>
         <td data-th="Patient ID">{{ x[0] }}</td>
-        <td data-th="Email">{{ x[5] }}</td>
+        {% for key2, value2 in optionTrueData.items() %}
+        {%if key2 == f%}
+        <td data-th="Email">{{value2}}</td>
+        {%endif%}
+        {% endfor %}
         <td data-th="Age">{{ x[2] }}</td>
         <td data-th="Email">{{ x[3] }}</td>
         <td data-th="Email">{{ x[4] }}</td>
         <td data-th="Gender">{{ x[1] }}</td>
       </tr>
+
+      {% endfor %}
+      {%endif%}
+      {% endfor %}
     {% endfor %}
   </table>
   <br><br><br>
-  <table>
+  <!-- <table>
       <tr>
         <th>KeyID</th>
         <th>Key Text</th>
@@ -34,5 +60,5 @@
           <td>{{ value }}</td>
         </tr>
       {% endfor %}
-  </table>
+  </table> -->
 {% endblock %}

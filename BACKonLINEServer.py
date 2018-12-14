@@ -400,14 +400,37 @@ def welcome_page():
 @app.route("/Login", methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        sign_name = request.form.get('name', default="Error")
+        test_value = False
+        patient_id = request.get_data().decode('utf8')
+        if patient_id[0] == "e":
+          patient_id = "No ID"
+          login_email = request.form.get('email-login', default="Error")
+          login_password = request.form.get('password', default="Error")
+        else:
+            try:
+                conn = sqlite3.connect(DATABASE)
+                cur = conn.cursor()
+                patient_id = patient_id[12:]
+                print(f"pat ID: {patient_id}")
+                cur.execute("SELECT email, password FROM Patient WHERE PatientID=?;", [patient_id])
+                data = cur.fetchall()
+            except:
+                print('There was an error')
+            print(data)
+            login_email = data[0][0]
+            login_password = data[0][1]
+            print(login_email)
+            print(login_password)
+            test_value = True
+
+        sign_name = request.form.get('name', default="")
         sign_gender = request.form.get('gender', default="Error")
         sign_age = request.form.get('age', default="Error")
         sign_email = request.form.get('email-signup', default="Error")
         sign_password = request.form.get('email-password', default="Error")
-        sign_password = generate_password_hash(sign_password)
-        login_email = request.form.get('email-login', default="Error")
-        login_password = request.form.get('password', default="Error")
+        if sign_password != "Error":
+            sign_password = generate_password_hash(sign_password)
+
         if sign_name == "":
             print("Logging in")
             if adminCredentials(login_email, login_password):
@@ -419,7 +442,7 @@ def login():
                 except:
                     print('There was an error')
                 return render_template('admin.html', data=data, username=login_email, msg='ADMIN', user='admin')
-            if checkCredentials(login_email, login_password) == 1:
+            if checkCredentials(login_email, login_password, test_value) == 1:
                 try:
                     conn = sqlite3.connect(DATABASE)
                     cur = conn.cursor()
@@ -428,7 +451,7 @@ def login():
                 except:
                     print('There was an error')
                 resp = make_response(render_template('welcome.html', data=data, username=login_email))
-            elif checkCredentials(login_email, login_password) == 2:
+            elif checkCredentials(login_email, login_password, False) == 2:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
             else:
                 resp = make_response(render_template('index.html', msg='', login_email=login_email, error="Incorrect login"))
@@ -506,22 +529,41 @@ def patientResponses(patientID):
             cur = conn.cursor()
             cur.execute("SELECT OptionID, OptionText FROM Options;")
             option_data = cur.fetchall()
+
+
+            # optionTrueData = {}
+            # for i in option_data:
+            #     optionTrueData[i[0]] = i[1]
+
             optionTrueData = {}
             for i in option_data:
                 for t in optionTexts:
                     if (int(t) == i[0]):
                         optionTrueData[t]=i[1]
                         print(optionTrueData)
+
             print(optionTrueData)
-            return render_template('patientresponses.html', error='', response=response, user='admin', optionTrueData=optionTrueData)
-        except:
+            test_array = []
+            test_array2 = []
+            for idx, i in enumerate(response):
+                test_array2.append(response[idx][5])
+                if response[idx][5][0] == "[":
+                    test = response[idx][5][1:-1]
+                    test = test.split(', ')
+                    test_array.append(test)
+                else:
+                    test_array.append(response[idx][5])
+
+            return render_template('patientresponses.html', error='', response=response, user='admin', optionTrueData=optionTrueData, test_array = test_array,test_array2=test_array2)
+        except Exception as e:
+            print(e)
             print('Something went wrong with printing responses')
         finally:
             conn.close()
             # ------------------Methods------------------
 
 
-def checkCredentials(email, password):
+def checkCredentials(email, password, is_me):
     try:
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -529,13 +571,25 @@ def checkCredentials(email, password):
         login_details = cur.fetchall()
     except:
         print('There was an error', login_details)
-    try:
-        if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
-            return 1
-        else:
-            return 3
-    except:
-        return 2
+    print(f"email: {email} pass: {password}")
+
+
+    if is_me == False:
+        try:
+            if email == login_details[0][0] and check_password_hash(login_details[0][1], password):
+                return 1
+            else:
+                return 3
+        except:
+            return 2
+    else:
+        try:
+            if email == login_details[0][0] and login_details[0][1] == password:
+                return 1
+            else:
+                return 3
+        except:
+            return 2
 
 def adminCredentials(email, password):
     if email == 'admin@admin.com' and password == 'admin':
